@@ -118,8 +118,8 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <PropertyGroup>
-    <OutDir>$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\external\</OutDir>
-    <IntDir>$(SolutionDir)obj\lib\$(Configuration)$(PlatformShortName)\SDL_ttf\external\freetype\</IntDir>
+    <OutDir>$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\</OutDir>
+    <IntDir>$(SolutionDir)Build\$(Configuration)\Obj\lib\SDL_ttf\External\Freetype\</IntDir>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules />
     <CodeAnalysisRuleAssemblies />

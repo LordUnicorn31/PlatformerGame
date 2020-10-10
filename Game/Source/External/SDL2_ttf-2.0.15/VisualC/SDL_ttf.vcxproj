@@ -63,12 +63,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)obj\lib\$(Configuration)$(PlatformShortName)\SDL_ttf\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)Build\$(Configuration)\Obj\lib\SDL_tff\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)obj\lib\$(Configuration)$(PlatformShortName)\SDL_ttf\</IntDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)obj\lib\$(Configuration)$(PlatformShortName)\SDL_ttf\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)Build\$(Configuration)\Obj\lib\SDL_tff\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL_ttf\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)obj\lib\$(Configuration)$(PlatformShortName)\SDL_ttf\</IntDir>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
@@ -96,7 +96,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>external\include;$(SolutionDir)Source\Deps\SDL2-2.0.10\include;C:\Users\jordibb18\Documents\GitHub\Kujo-Studios\Source\Deps\SDL2_ttf-2.0.15\external\freetype-2.9.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>external\include;$(SolutionDir)Game\Source\External\SDL2-2.0.10\include;C:\Users\jordibb18\Documents\GitHub\Kujo-Studios\Source\Deps\SDL2_ttf-2.0.15\external\freetype-2.9.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions);FT2_DLLIMPORT</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
@@ -161,7 +161,7 @@
       </HeaderFileName>
     </Midl>
     <ClCompile>
-      <AdditionalIncludeDirectories>external\include;$(SolutionDir)Source\Deps\SDL2-2.0.10\include;C:\Users\jordibb18\Documents\GitHub\Kujo-Studios\Source\Deps\SDL2_ttf-2.0.15\external\freetype-2.9.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>external\include;$(SolutionDir)Game\Source\External\SDL2-2.0.10\include;C:\Users\jordibb18\Documents\GitHub\Kujo-Studios\Source\Deps\SDL2_ttf-2.0.15\external\freetype-2.9.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions);FT2_DLLIMPORT</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>

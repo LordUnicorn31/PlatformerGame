@@ -59,15 +59,15 @@
     <_ProjectFileVersion>16.0.29511.113</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Release|Win32'">
-    <OutDir>$(SolutionDir)bin\libs\Release\$(PlatformShortName)\SDL_Image\external\Zlib\</OutDir>
+    <OutDir>$(SolutionDir)Build\Release\Bin\lib\SDL_Image\External\Zlib</OutDir>
     <IntDir>.\Release\ZLib\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <TargetName>$(ProjectName)1</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">
-    <OutDir>$(SolutionDir)bin\libs\Debug\$(PlatformShortName)\SDL_Image\external\Zlib\</OutDir>
+    <OutDir>$(SolutionDir)Build\Debug\Bin\lib\SDL_Image\External\Zlib\</OutDir>
     <IntDir>.\Debug\ZLib\</IntDir>
-    <TargetName>$(ProjectName)1d</TargetName>
+    <TargetName>$(ProjectName)1</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LIB Release|Win32'">
     <OutDir>.\Win32_LIB_Release\ZLib\</OutDir>

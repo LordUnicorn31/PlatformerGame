@@ -5,7 +5,7 @@
 #include "Defs.h"
 #include "Log.h"
 
-#include "SDL/include/SDL.h"
+#include "SDL2-2.0.10/include/SDL.h"
 
 #define MAX_KEYS 300
 

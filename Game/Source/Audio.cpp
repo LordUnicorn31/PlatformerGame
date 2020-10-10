@@ -6,8 +6,8 @@
 
 // NOTE: Recommended using: Additional Include Directories,
 // instead of 'hardcoding' library location path in code logic
-#include "SDL/include/SDL.h"
-#include "SDL_mixer/include/SDL_mixer.h"
+#include "SDL2-2.0.10/include/SDL.h"
+#include "SDL2_mixer-2.0.4/SDL_mixer.h"
 
 // NOTE: Library linkage is configured in Linker Options
 //#pragma comment(lib, "../Game/Source/External/SDL_mixer/libx86/SDL2_mixer.lib")

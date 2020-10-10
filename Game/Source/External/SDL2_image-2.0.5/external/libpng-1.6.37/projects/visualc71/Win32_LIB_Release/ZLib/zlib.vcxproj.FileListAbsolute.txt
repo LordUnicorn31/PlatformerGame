@@ -1,0 +1,1 @@
+C:\Users\User\Desktop\PlatformerGame\Game\Source\External\SDL2_image-2.0.5\external\libpng-1.6.37\projects\visualc71\Win32_LIB_Release\ZLib\zlib.lib

@@ -5,7 +5,7 @@
 
 #include "Point.h"
 
-#include "SDL/include/SDL.h"
+#include "SDL2-2.0.10/include/SDL.h"
 
 class Render : public Module
 {

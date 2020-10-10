@@ -63,12 +63,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)obj\lib\$(Configuration)$(PlatformShortName)\SDL2\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)Build\$(Configuration)\Obj\lib\SDL\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)obj\lib\$(Configuration)$(PlatformShortName)\SDL2\</IntDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)obj\lib\$(Configuration)$(PlatformShortName)\SDL2\</IntDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)Build\$(Configuration)\Obj\lib\SDL\</IntDir>
     <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)bin\libs\$(Configuration)\$(PlatformShortName)\SDL\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)obj\lib\$(Configuration)$(PlatformShortName)\SDL2\</IntDir>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
@@ -99,7 +99,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Game\Source\External\SDL2-2.0.10\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -120,8 +120,16 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\SDL2_image.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Png\libpng16.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Zlib\zlib1.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\SDL2_mixer.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libogg\libogg.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbis\libvorbis.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbisfile\libvorbisfile-3.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\SDL2_ttf.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\freetype.dll $(SolutionDir)Output /s /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -172,7 +180,7 @@
       <TypeLibraryName>.\Release/SDL.tlb</TypeLibraryName>
     </Midl>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)/../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Game\Source\External\SDL2-2.0.10\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalUsingDirectories>%(AdditionalUsingDirectories)</AdditionalUsingDirectories>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -195,8 +203,16 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
     <PostBuildEvent>
-      <Command>
-      </Command>
+      <Command>Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\SDL2_image.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Png\libpng16.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Zlib\zlib1.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\SDL2_mixer.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libogg\libogg.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbis\libvorbis.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbisfile\libvorbisfile-3.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\SDL2_ttf.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\freetype.dll $(SolutionDir)Output /s /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

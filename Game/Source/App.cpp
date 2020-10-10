@@ -228,12 +228,12 @@ bool App::CleanUp()
 {
 	bool ret = true;
 	ListItem<Module*>* item;
-	item = modules.end;
+	item = modules.start;
 
 	while(item != NULL && ret == true)
 	{
 		ret = item->data->CleanUp();
-		item = item->prev;
+		item = item->next;
 	}
 
 	return ret;
