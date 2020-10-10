@@ -226,6 +226,7 @@ bool App::PostUpdate()
 // Called before quitting
 bool App::CleanUp()
 {
+	//PREGUNTA: PK ENS FAN FER EL CLEAN UP DELS MODULS AL REVES??? DONA EL ASSERT AL DESTRUIR EL RENDERER ABANS D'AVERR DESTRUIT LES TEXTURES!!?? PK NO SIMPLEMENT ITEREM LA LLISTA DE MODULS EN ORDRE?
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
