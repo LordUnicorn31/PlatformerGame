@@ -1,0 +1,15 @@
+personatges:
+Jugador:
+- Knight (Tile 1): The standard player. he punches enemies. Jump and fight. average stats
+- Goblin (Tile 2): Punch and fight. opens chests without keys. move start. he can walk through poison. fast and low health.
+- Infernal knight (Tile3): punch and fight. can walk through lava. Slow and tanky.
+- Ghost (Tile 6): Walks through deadly colliders (i.e spikes). Can jump & stay.
+
+Enemies:
+- Zombie (tile 4):
+- Skeletons (tile 5):
+
+loot:
+- cofres: hadoukens, botiquin, monedes,
+
+100 monedes 1 vida
