@@ -12,10 +12,6 @@
 *.pch
 
 # Compiled Dynamic libraries
-*.dll
-!Output\libmikmod-2.dll
-!Output\libmodplug-1.dll
-!Output\smpeg2.dll
 *.so
 *.dylib
 
