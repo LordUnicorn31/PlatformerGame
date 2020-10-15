@@ -67,7 +67,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">
     <OutDir>$(SolutionDir)Build\Debug\Bin\lib\SDL_Image\External\Zlib\</OutDir>
     <IntDir>.\Debug\ZLib\</IntDir>
-    <TargetName>$(ProjectName)1</TargetName>
+    <TargetName>$(ProjectName)1d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='LIB Release|Win32'">
     <OutDir>.\Win32_LIB_Release\ZLib\</OutDir>

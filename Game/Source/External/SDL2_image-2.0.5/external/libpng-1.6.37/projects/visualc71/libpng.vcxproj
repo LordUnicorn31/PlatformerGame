@@ -79,7 +79,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL Debug|Win32'">
     <OutDir>$(SolutionDir)Build\Debug\Bin\lib\SDL_Image\External\Png\</OutDir>
     <IntDir>.\Debug\</IntDir>
-    <TargetName>$(ProjectName)16</TargetName>
+    <TargetName>$(ProjectName)16d</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DLL VB|Win32'">
     <OutDir>.\Win32_DLL_VB\</OutDir>
