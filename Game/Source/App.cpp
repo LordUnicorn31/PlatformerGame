@@ -14,7 +14,7 @@
 #include <sstream>
 
 // Constructor
-App::App(int argc, char* args[]) : argc(argc), args(args), saveGame("../../Output/save.xml"), loadGame("../../Output/save.xml")
+App::App(int argc, char* args[]) : argc(argc), args(args), SaveDocumentName("savegame.xml")
 {
 	wantToSave = wantToLoad = false;
 	frames = 0;
@@ -158,6 +158,11 @@ void App::PrepareUpdate()
 void App::FinishUpdate()
 {
 	// This is a good place to call Load / Save functions
+	if (wantToSave == true)
+		SavegameNow();
+
+	if (wantToLoad == true)
+		LoadGameNow();
 }
 
 // Call modules before each loop iteration
@@ -232,15 +237,16 @@ bool App::LoadGameNow()
 	pugi::xml_document data;
 	pugi::xml_node root;
 
-	pugi::xml_parse_result result = data.load_file(loadGame.GetString());
+	pugi::xml_parse_result result = data.load_file(SaveDocumentName.GetString());
 
 	if (result != NULL)
 	{
-		LOG("Loading new Game State from %s...", loadGame.GetString());
+		LOG("Loading new Game State from %s...", SaveDocumentName.GetString());
 
 		root = data.child("game_state");
 
-		for (auto it = modules.start; it != modules.end && ret == true; ++it) {
+		ListItem<Module*>* it = modules.start;
+		for (it; it != NULL && ret == true; it = it->next) {
 			pugi::xml_node ModuleNode = root.child( it->data->name.GetString());
 			ret = it->data->Load(ModuleNode);
 		}
@@ -248,19 +254,45 @@ bool App::LoadGameNow()
 		data.reset();
 		if (ret == true)
 			LOG("...finished loading");
-		//else
-			//LOG("...loading process interrupted with error on module %s", (it->data != NULL) ? it->data->name.GetString() : "unknown");
+		else
+			LOG("...loading process interrupted with error on module %s", (it != NULL) ? it->data->name.GetString() : "unknown");
 	}
 	else
-		LOG("Could not parse game state xml file %s. pugi error: %s", loadGame.GetString(), result.description());
+		LOG("Could not parse game state xml file %s. pugi error: %s", SaveDocumentName.GetString(), result.description());
 
 	wantToLoad = false;
-	return false;
+	return ret;
 }
 
 bool App::SavegameNow() const
 {
-	return false;
+	bool ret = true;
+
+	LOG("Saving Game State to %s...", SaveDocumentName.GetString());
+
+	// xml object were we will store all data
+	pugi::xml_document data;
+	pugi::xml_node root;
+
+	root = data.append_child("game_state");
+
+	ListItem<Module*>* it = modules.start;
+	for (it; it != NULL && ret == true; it = it->next) {
+		pugi::xml_node ModuleNode = root.append_child(it->data->name.GetString());
+		ret = it->data->Save(ModuleNode);
+	}
+
+	if (ret == true)
+	{
+		data.save_file(SaveDocumentName.GetString());
+		LOG("... finished saving", );
+	}
+	else
+		LOG("Save process halted from an error in module %s", (it != NULL) ? it->data->name.GetString() : "unknown");
+
+	data.reset();
+	wantToSave = false;
+	return ret;
 }
 
 void App::LoadGame()

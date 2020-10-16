@@ -96,8 +96,7 @@ private:
 
 	mutable bool wantToSave;
 	bool wantToLoad;
-	SString loadGame;
-	SString	saveGame;
+	SString	SaveDocumentName;
 
 	// TODO 2: Create two new variables from pugui namespace:
 	// a xml_document to store the config file and
