@@ -8,13 +8,15 @@
 
 #include "Defs.h"
 #include "Log.h"
+#include "SString.h"
 
 #include <iostream>
 #include <sstream>
 
 // Constructor
-App::App(int argc, char* args[]) : argc(argc), args(args)
+App::App(int argc, char* args[]) : argc(argc), args(args), saveGame("../../Output/save.xml"), loadGame("../../Output/save.xml")
 {
+	wantToSave = wantToLoad = false;
 	frames = 0;
 
 	input = new Input();
@@ -222,6 +224,60 @@ bool App::PostUpdate()
 
 	return ret;
 }
+
+bool App::LoadGameNow()
+{
+	bool ret = true;
+
+	pugi::xml_document data;
+	pugi::xml_node root;
+
+	pugi::xml_parse_result result = data.load_file(loadGame.GetString());
+
+	if (result != NULL)
+	{
+		LOG("Loading new Game State from %s...", loadGame.GetString());
+
+		root = data.child("game_state");
+
+		for (auto it = modules.start; it != modules.end && ret == true; ++it) {
+			pugi::xml_node ModuleNode = root.child( it->data->name.GetString());
+			ret = it->data->Load(ModuleNode);
+		}
+
+		data.reset();
+		if (ret == true)
+			LOG("...finished loading");
+		//else
+			//LOG("...loading process interrupted with error on module %s", (it->data != NULL) ? it->data->name.GetString() : "unknown");
+	}
+	else
+		LOG("Could not parse game state xml file %s. pugi error: %s", loadGame.GetString(), result.description());
+
+	wantToLoad = false;
+	return false;
+}
+
+bool App::SavegameNow() const
+{
+	return false;
+}
+
+void App::LoadGame()
+{
+	wantToLoad = true;
+}
+
+void App::SaveGame() const
+{
+	wantToSave = true;
+}
+
+/*
+void App::GetSaveGames(List<SString>& list_to_fill) const
+{
+}
+*/
 
 // Called before quitting
 bool App::CleanUp()

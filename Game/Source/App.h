@@ -14,6 +14,8 @@ class Textures;
 class Audio;
 class Scene;
 
+class SString;
+
 class App
 {
 public:
@@ -45,6 +47,10 @@ public:
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
 
+	void LoadGame();
+	void SaveGame() const;
+	//void GetSaveGames(List<SString> &list_to_fill) const;
+
 private:
 
 	// Load config file
@@ -65,6 +71,10 @@ private:
 	// Call modules after each loop iteration
 	bool PostUpdate();
 
+	// Load / Save
+	bool LoadGameNow();
+	bool SavegameNow() const;
+
 public:
 
 	// Modules
@@ -83,6 +93,11 @@ private:
 	SString organization;
 
 	List<Module *> modules;
+
+	mutable bool wantToSave;
+	bool wantToLoad;
+	SString loadGame;
+	SString	saveGame;
 
 	// TODO 2: Create two new variables from pugui namespace:
 	// a xml_document to store the config file and
