@@ -5,6 +5,7 @@
 #include "Render.h"
 #include "Window.h"
 #include "Scene.h"
+#include "Map.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -19,10 +20,11 @@ Scene::~Scene()
 {}
 
 // Called before render is available
-bool Scene::Awake()
+bool Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
+	map_name.create(config.child("map_name").attribute("name").as_string());
 
 	return ret;
 }
@@ -32,6 +34,7 @@ bool Scene::Start()
 {
 	img = app->tex->Load("Assets/textures/test.png");
 	app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
+	app->map->Load(map_name.GetString());
 	return true;
 }
 
@@ -61,7 +64,8 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
 		app->SaveGame();
 
-	app->render->DrawTexture(img, 380, 100);
+	app->map->Draw();
+	//app->render->DrawTexture(img, 380, 100);
 
 	return true;
 }

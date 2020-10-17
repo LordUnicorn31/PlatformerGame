@@ -15,7 +15,7 @@ public:
 	virtual ~Scene();
 
 	// Called before render is available
-	bool Awake();
+	bool Awake(pugi::xml_node&);
 
 	// Called before the first frame
 	bool Start();
@@ -34,6 +34,7 @@ public:
 
 private:
 	SDL_Texture* img;
+	SString map_name;
 };
 
 #endif // __SCENE_H__
