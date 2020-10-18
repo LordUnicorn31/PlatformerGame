@@ -32,7 +32,7 @@ void Map::Draw()
 		return;
 
 	iPoint cam_size(WorldToMap(-app->render->camera.x + app->render->camera.w, -app->render->camera.y + app->render->camera.h));
-	iPoint cam_pos = WorldToMap(-app->render->camera.x + 200, -app->render->camera.y);//el mes 200 es pk hi ha el panel k fa 200 i no volem dibuixar mapa per sota del panel
+	iPoint cam_pos = WorldToMap(-app->render->camera.x, -app->render->camera.y);//el mes 200 es pk hi ha el panel k fa 200 i no volem dibuixar mapa per sota del panel
 	ListItem<MapLayer*>* item;
 	for (item = data.layers.start; item != NULL; item = item->next)
 	{
