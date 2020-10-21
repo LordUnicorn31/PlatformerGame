@@ -194,7 +194,7 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	rect.w = tileWidth;
 	rect.h = tileHeight;
 	rect.x = margin + ((rect.w + spacing) * (relative_id % numTilesWidth));
-	rect.y = margin + ((rect.h + spacing) * (relative_id / numTilesHeight));
+	rect.y = margin + ((rect.h + spacing) * (relative_id / numTilesWidth));
 	return rect;
 }
 
