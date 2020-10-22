@@ -15,7 +15,7 @@
 #include <sstream>
 
 // Constructor
-App::App(int argc, char* args[]) : argc(argc), args(args), SaveDocumentName("savegame.xml")
+App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("savegame.xml")
 {
 	wantToSave = wantToLoad = false;
 	frames = 0;
@@ -162,7 +162,7 @@ void App::FinishUpdate()
 {
 	// This is a good place to call Load / Save functions
 	if (wantToSave == true)
-		SavegameNow();
+		SaveGameNow();
 
 	if (wantToLoad == true)
 		LoadGameNow();
@@ -240,11 +240,11 @@ bool App::LoadGameNow()
 	pugi::xml_document data;
 	pugi::xml_node root;
 
-	pugi::xml_parse_result result = data.load_file(SaveDocumentName.GetString());
+	pugi::xml_parse_result result = data.load_file(saveDocumentName.GetString());
 
 	if (result != NULL)
 	{
-		LOG("Loading new Game State from %s...", SaveDocumentName.GetString());
+		LOG("Loading new Game State from %s...", saveDocumentName.GetString());
 
 		root = data.child("game_state");
 
@@ -261,17 +261,17 @@ bool App::LoadGameNow()
 			LOG("...loading process interrupted with error on module %s", (it != NULL) ? it->data->name.GetString() : "unknown");
 	}
 	else
-		LOG("Could not parse game state xml file %s. pugi error: %s", SaveDocumentName.GetString(), result.description());
+		LOG("Could not parse game state xml file %s. pugi error: %s", saveDocumentName.GetString(), result.description());
 
 	wantToLoad = false;
 	return ret;
 }
 
-bool App::SavegameNow() const
+bool App::SaveGameNow() const
 {
 	bool ret = true;
 
-	LOG("Saving Game State to %s...", SaveDocumentName.GetString());
+	LOG("Saving Game State to %s...", saveDocumentName.GetString());
 
 	// xml object were we will store all data
 	pugi::xml_document data;
@@ -287,7 +287,7 @@ bool App::SavegameNow() const
 
 	if (ret == true)
 	{
-		data.save_file(SaveDocumentName.GetString());
+		data.save_file(saveDocumentName.GetString());
 		LOG("... finished saving", );
 	}
 	else

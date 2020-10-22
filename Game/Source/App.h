@@ -74,7 +74,7 @@ private:
 
 	// Load / Save
 	bool LoadGameNow();
-	bool SavegameNow() const;
+	bool SaveGameNow() const;
 
 public:
 
@@ -98,7 +98,7 @@ private:
 
 	mutable bool wantToSave;
 	bool wantToLoad;
-	SString	SaveDocumentName;
+	SString	saveDocumentName;
 
 	// TODO 2: Create two new variables from pugui namespace:
 	// a xml_document to store the config file and
