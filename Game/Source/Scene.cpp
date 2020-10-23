@@ -59,6 +59,10 @@ bool Scene::Update(float dt)
 	if(app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x += 1;
 
+	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		app->win->FullScreen();
+
+
 	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		app->LoadGame();
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
