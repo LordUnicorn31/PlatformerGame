@@ -33,7 +33,7 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {
 	img = app->tex->Load("Assets/textures/test.png");
-	app->audio->PlayMusic("Assets/audio/music/music_spy.ogg");
+	app->audio->PlayMusic("Assets/audio/music/Forest.ogg");
 	app->map->Load(map_name.GetString());
 	return true;
 }
