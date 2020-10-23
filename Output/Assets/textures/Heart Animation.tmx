@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="4" height="1" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" name="tileset1" tilewidth="16" tileheight="16" tilecount="4000" columns="50">
+  <image source="../maps/Tiles Bosc3.png" width="800" height="1280"/>
+  <tile id="2777">
+   <animation>
+    <frame tileid="2777" duration="400"/>
+    <frame tileid="2776" duration="400"/>
+   </animation>
+  </tile>
+  <tile id="2778">
+   <animation>
+    <frame tileid="2777" duration="400"/>
+    <frame tileid="2778" duration="400"/>
+   </animation>
+  </tile>
+  <tile id="2779">
+   <animation>
+    <frame tileid="2778" duration="400"/>
+    <frame tileid="2779" duration="400"/>
+   </animation>
+  </tile>
+  <tile id="2780">
+   <animation>
+    <frame tileid="2779" duration="400"/>
+    <frame tileid="2780" duration="400"/>
+   </animation>
+  </tile>
+ </tileset>
+ <layer id="1" name="Black Heart" width="4" height="1">
+  <data>
+   <tile gid="2777"/>
+   <tile gid="2777"/>
+   <tile gid="2777"/>
+   <tile gid="2777"/>
+  </data>
+ </layer>
+ <layer id="2" name="Animations" width="4" height="1">
+  <data>
+   <tile gid="2778"/>
+   <tile gid="2779"/>
+   <tile gid="2780"/>
+   <tile gid="2781"/>
+  </data>
+ </layer>
+</map>

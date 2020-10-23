@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="6" height="1" tilewidth="16" tileheight="16" nextobjectid="1">
+ <tileset firstgid="1" name="tileset1" tilewidth="16" tileheight="16" tilecount="4000" columns="50">
+  <image source="../maps/Tiles Bosc3.png" width="800" height="1280"/>
+  <tile id="76">
+   <animation>
+    <frame tileid="76" duration="100"/>
+   </animation>
+  </tile>
+  <tile id="77">
+   <animation>
+    <frame tileid="76" duration="200"/>
+    <frame tileid="77" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="78">
+   <animation>
+    <frame tileid="78" duration="200"/>
+    <frame tileid="79" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="79">
+   <animation>
+    <frame tileid="76" duration="200"/>
+    <frame tileid="77" duration="200"/>
+    <frame tileid="79" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="80">
+   <animation>
+    <frame tileid="76" duration="200"/>
+    <frame tileid="80" duration="200"/>
+   </animation>
+  </tile>
+  <tile id="81">
+   <animation>
+    <frame tileid="76" duration="900"/>
+    <frame tileid="81" duration="900"/>
+   </animation>
+  </tile>
+ </tileset>
+ <layer name="Capa de Patrones 1" width="6" height="1">
+  <data>
+   <tile gid="77"/>
+   <tile gid="78"/>
+   <tile gid="79"/>
+   <tile gid="82"/>
+   <tile gid="81"/>
+   <tile gid="80"/>
+  </data>
+ </layer>
+</map>
