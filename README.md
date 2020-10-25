@@ -1,8 +1,9 @@
-# {Project Name}
+# Castle Night
 
 ## Description
 
-{project description}
+Castle night is a 2D platformer with a very classic style.
+You are Elyes, a skin-changer and your goal is to defeat the evil force ruling in the Alain Castle.
 
 ## Key Features
 
@@ -17,8 +18,8 @@
 
 ## Developers
 
- - {Dev01} - {Role(s)}
- - {Dev02} - {Role(s)}
+ - Jordi Bach - Design/Coding
+ - Jordi Espriu - Design/Coding
  - {Dev03} - {Role(s)}
  - {Dev04} - {Role(s)}
  - {Dev05} - {Role(s)}
