@@ -32,13 +32,13 @@ void Map::Draw()
 		return;
 
 	iPoint cam_size(WorldToMap(-app->render->camera.x + app->render->camera.w, -app->render->camera.y + app->render->camera.h));
-	iPoint cam_pos = WorldToMap(-app->render->camera.x, -app->render->camera.y);//el mes 200 es pk hi ha el panel k fa 200 i no volem dibuixar mapa per sota del panel
+	iPoint cam_pos = WorldToMap(-app->render->camera.x, -app->render->camera.y);
 	ListItem<MapLayer*>* item;
 	for (item = data.layers.start; item != NULL; item = item->next)
 	{
 		MapLayer* layer = item->data;
-		if (layer->properties.Get("Navigation", 0) == 1)
-			continue;
+		/*if (layer->properties.Get("Navigation", 0) == 1)
+			continue;*/
 
 		for (int y = cam_pos.y; y <= cam_size.y; ++y)
 		{
@@ -63,6 +63,7 @@ void Map::Draw()
 	}
 }
 
+/*
 int Properties::Get(const char* value, int default_value) const
 {
 	ListItem<Property*>* item = list.start;
@@ -76,6 +77,7 @@ int Properties::Get(const char* value, int default_value) const
 
 	return default_value;
 }
+*/
 
 void Map::DrawGrid()
 {
@@ -198,6 +200,32 @@ SDL_Rect TileSet::GetTileRect(int id) const
 	return rect;
 }
 
+bool Map::GetTileProperty(uint id, SString propertyname) {
+	//Provisioonal function (we have to improve performance with something like an unordered container using a hash function)
+	/*//convertir l'id en el index correcte
+	id = id % numpropertytiles;
+	//solucio a les collisions
+	if (id >= numpropertytiles)
+		return false;
+	for (int i = 0; i < Propertytiels[id].numproperties; ++i) {
+		if (Propertytiels[id].properties[i].name == propertyname) {
+			return Propertytiels[id].properties[i].value;
+		}
+	}*/
+	TileSet* tileset = GetTilesetFromTileId(id);
+	uint relativeid = id - tileset->firstgid;
+	for (int i = 0; i < tileset->numPropertyTiles; ++i) {
+		if (relativeid == tileset->PropertyTiles[i].id) {
+			for (int j = 0; j < tileset->PropertyTiles[i].numproperties; ++j) {
+				if (tileset->PropertyTiles[i].properties[j].name == propertyname) {
+					return tileset->PropertyTiles[i].properties[j].value;
+				}
+			}
+		}
+	}
+	return false;
+}
+
 // Called before quitting
 bool Map::CleanUp()
 {
@@ -224,9 +252,6 @@ bool Map::CleanUp()
 	}
 	data.layers.clear();
 
-	// Clean up the pugui tree
-	mapFile.reset();
-
 	return true;
 }
 
@@ -238,6 +263,7 @@ bool Map::Load(const char* file_name)
 	tmp = folder.GetString();
 	tmp += file_name;
 
+	pugi::xml_document mapFile;
 	pugi::xml_parse_result result = mapFile.load_file(tmp.GetString());
 
 	if (result == NULL)
@@ -249,7 +275,7 @@ bool Map::Load(const char* file_name)
 	// Load general info ----------------------------------------------
 	if (ret == true)
 	{
-		ret = LoadMap();
+		ret = LoadMap(mapFile);
 	}
 
 	// Load all tilesets info ----------------------------------------------
@@ -266,6 +292,11 @@ bool Map::Load(const char* file_name)
 		if (ret == true)
 		{
 			ret = LoadTilesetImage(tileset, set);
+		}
+
+		if (ret == true)
+		{
+			LoadTileProperties(tileset, set);
 		}
 
 		data.tilesets.add(set);
@@ -314,12 +345,14 @@ bool Map::Load(const char* file_name)
 	}
 
 	mapLoaded = ret;
+	// Clean up the pugui tree
+	mapFile.reset();
 
 	return ret;
 }
 
 // Load map general properties
-bool Map::LoadMap()
+bool Map::LoadMap(pugi::xml_document& mapFile)
 {
 	bool ret = true;
 	pugi::xml_node map = mapFile.child("map");
@@ -410,6 +443,33 @@ bool Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 	return ret;
 }
 
+bool Map::LoadTileProperties(pugi::xml_node& tileset_node, TileSet* set) {
+	pugi::xml_node firstnode = tileset_node.child("tile");
+	set->numPropertyTiles = 0;
+	for (pugi::xml_node CountingTile = firstnode; CountingTile; CountingTile = CountingTile.next_sibling("tile"))
+	{
+		set->numPropertyTiles ++;
+	}
+	set->PropertyTiles = new Tile[set->numPropertyTiles];
+
+	int i = 0;
+	for (pugi::xml_node tile = firstnode; tile; tile = tile.next_sibling("tile"), ++i)
+	{
+		set->PropertyTiles[i].id = tile.attribute("id").as_uint(0);
+		set->PropertyTiles[i].numproperties = 0;
+		pugi::xml_node Propertiesfirstnode = tile.child("properties").child("property");
+		for (pugi::xml_node CountnodeProperties = Propertiesfirstnode; CountnodeProperties; CountnodeProperties = CountnodeProperties.next_sibling("property")) {
+			set->PropertyTiles[i].numproperties++;
+		}
+		set->PropertyTiles[i].properties = new Tile::Property[set->PropertyTiles[i].numproperties];
+		for (pugi::xml_node nodeProperties = Propertiesfirstnode; nodeProperties; nodeProperties = nodeProperties.next_sibling("property")) {
+			set->PropertyTiles[i].properties->name = nodeProperties.attribute("name").as_string(0);
+			set->PropertyTiles[i].properties->value = nodeProperties.attribute("value").as_bool(0);
+		}
+	}
+	return true;
+}
+
 bool Map::LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set)
 {
 	bool ret = true;
@@ -453,7 +513,7 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	layer->name = node.attribute("name").as_string();
 	layer->width = node.attribute("width").as_int();
 	layer->height = node.attribute("height").as_int();
-	LoadProperties(node, layer->properties);
+	//LoadProperties(node, layer->properties);
 	pugi::xml_node layer_data = node.child("data");
 
 	if (layer_data == NULL)
@@ -477,6 +537,7 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 	return ret;
 }
 
+/*
 // Load a group of properties from a node and fill a list with it
 bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 {
@@ -500,8 +561,9 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 	}
 
 	return ret;
-}
+}*/
 
+/*
 bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 {
 	bool ret = false;
@@ -544,3 +606,4 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 
 	return ret;
 }
+*/

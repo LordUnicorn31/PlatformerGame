@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objecttypes>
+ <objecttype name="Ground" color="#aa0000">
+  <property name="Blocked" type="bool" default="true"/>
+  <property name="Walkable" type="bool" default="false"/>
+ </objecttype>
+</objecttypes>

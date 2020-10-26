@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="5" height="2" tilewidth="16" tileheight="16" infinite="0" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" name="tilestsdefinitius" tilewidth="16" tileheight="16" tilecount="3520" columns="44">
+  <image source="tilestsdefinitius.png" width="704" height="1280"/>
+  <tile id="0">
+   <properties>
+    <property name="ELBOOLEANO" type="bool" value="true"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="3521" name="Tiles Bosc" tilewidth="16" tileheight="16" tilecount="4000" columns="50">
+  <image source="Tiles Bosc.png" width="800" height="1280"/>
+  <tile id="0" type="Ground"/>
+  <tile id="1">
+   <properties>
+    <property name="deu" type="int" value="0"/>
+    <property name="ola" type="int" value="1"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer id="1" name="Tile Layer 1" width="5" height="2">
+  <data>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+   <tile gid="1"/>
+  </data>
+ </layer>
+ <layer id="2" name="Tile Layer 2" width="5" height="2">
+  <data>
+   <tile gid="1"/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+   <tile/>
+  </data>
+ </layer>
+</map>
