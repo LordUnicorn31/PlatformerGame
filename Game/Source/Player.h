@@ -10,9 +10,11 @@ class Player { //public Entity ??
 	void UpdateLogic();
 
 	iPoint position; //unsigned int?
+	uint width;
+	uint height;
 	fPoint speed;
-	fPoint targetSpeed;
-	float a;
+	fPoint targetSpeed; //Si volem posar aceleracio
+	float a; //Si volem posar acceleracio
 	//float a;
 	//flaot maxspeed
 	//float
