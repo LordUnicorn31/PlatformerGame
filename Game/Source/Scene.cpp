@@ -6,6 +6,7 @@
 #include "Window.h"
 #include "Scene.h"
 #include "Map.h"
+#include "Player.h"
 
 
 #include "Defs.h"
@@ -48,7 +49,7 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	if(/*app->render->camera.y >= -2700 && */app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+	/*if(app->render->camera.y >= -2700 && app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		app->render->camera.y -= 1;
 
 	if(app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
@@ -58,7 +59,7 @@ bool Scene::Update(float dt)
 		app->render->camera.x -= 1;
 
 	if(app->render->camera.x <= 0 && app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x += 1;
+		app->render->camera.x += 1;*/
 
 	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		app->win->FullScreen();
@@ -70,6 +71,7 @@ bool Scene::Update(float dt)
 		app->SaveGame();
 
 	app->map->Draw();
+	CameraMovement();
 	//app->render->DrawTexture(img, 380, 100);
 
 	return true;
@@ -94,19 +96,19 @@ bool Scene::CleanUp()
 	return true;
 }
 
-//void Scene::CameraMovement()
-//{
-//	app->render->camera.x = player.x - app->render->camera.x;
-//	
-//	if (app->render->camera.x > 0)
-//	{
-//		app->render->camera.x = 0;
-//	}
-//
-//	app->render->camera.y = player.y - app->render->camera.y;
-//	
-//	if (app->render->camera.y > 0)
-//	{
-//		app->render->camera.y = 0;
-//	}
-//}
+void Scene::CameraMovement()
+{
+	app->render->camera.x = -(app->player->position.x - app->render->camera.w/2);
+	
+	if (app->render->camera.x > 0)
+	{
+		app->render->camera.x = 0;
+	}
+
+	app->render->camera.y = -(app->player->position.y - app->render->camera.h/2);
+	
+	if (app->render->camera.y > 0)
+	{
+		app->render->camera.y = 0;
+	}
+}
