@@ -1,8 +1,8 @@
 #include "Defs.h"
 #include "Log.h"
-#include "App.h"
 #include "Render.h"
 #include "Textures.h"
+#include "App.h"
 #include "Map.h"
 #include <math.h>
 
@@ -117,6 +117,9 @@ void Map::DrawGrid()
 
 TileSet* Map::GetTilesetFromTileId(int id) const
 {
+	if (id == 0) //PROBLEM: when checking the row/column id's from the player move function some don't have a tile
+		return nullptr;
+
 	ListItem<TileSet*>* item = data.tilesets.start;
 	TileSet* set = item->data;
 
@@ -213,11 +216,18 @@ bool Map::GetTileProperty(uint id, SString propertyname) {
 		}
 	}*/
 	TileSet* tileset = GetTilesetFromTileId(id);
+	if (tileset == nullptr)
+		return false;
+	
 	uint relativeid = id - tileset->firstgid;
-	for (int i = 0; i < tileset->numPropertyTiles; ++i) {
-		if (relativeid == tileset->PropertyTiles[i].id) {
-			for (int j = 0; j < tileset->PropertyTiles[i].numproperties; ++j) {
-				if (tileset->PropertyTiles[i].properties[j].name == propertyname) {
+	for (int i = 0; i < tileset->numPropertyTiles; ++i) 
+	{
+		if (relativeid == tileset->PropertyTiles[i].id) 
+		{
+			for (int j = 0; j < tileset->PropertyTiles[i].numproperties; ++j) 
+			{
+				if (tileset->PropertyTiles[i].properties[j].name == propertyname) 
+				{
 					return tileset->PropertyTiles[i].properties[j].value;
 				}
 			}

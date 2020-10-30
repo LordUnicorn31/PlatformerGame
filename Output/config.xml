@@ -17,6 +17,10 @@
     <resizable value="false"/>
     <fullscreen_window value="false"/>
   </window>
+  <player>
+    <texture>Assets/maps/Tiles Bosc3.png</texture>
+    <textureRect x="417" y="16" w="16" h="16"/>
+  </player>
   <scene>
     <map_name name="Forest1.tmx"/>
   </scene>

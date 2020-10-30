@@ -2,9 +2,9 @@
 #include "Point.h"
 #include "Module.h"
 #include "List.h"
-#include "SDL_pixels.h"
-// class SDL_Color; PROBLEMA NO PUC FER FORWARD DECLARATION DEL SDL_COLOR I PER AIXO HAIG DE INCLOURE EL HEADER DE PIXELS K NO VOLDRIA INCLOURE
+//#include "SDL_pixels.h"
 
+class SDL_Color;
 class SDL_Rect;
 class SDL_Texture;
 

@@ -1,11 +1,13 @@
 <?xml version="1.0"?>
-<save>
+<game_state>
 	<input />
 	<window />
 	<textures />
 	<audio />
+	<map />
 	<scene />
+	<player />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="0" y="-2700" />
 	</renderer>
-</save>
+</game_state>

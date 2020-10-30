@@ -6,9 +6,11 @@
 #include "Audio.h"
 #include "Scene.h"
 #include "Map.h"
+#include "Player.h"
 
 #include "Defs.h"
 #include "Log.h"
+#include "Timer.h"
 #include "SString.h"
 
 #include <iostream>
@@ -18,7 +20,6 @@
 App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("savegame.xml")
 {
 	wantToSave = wantToLoad = false;
-	frames = 0;
 
 	input = new Input();
 	win = new Window();
@@ -27,6 +28,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	audio = new Audio();
 	scene = new Scene();
 	map = new Map();
+	player = new Player();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -36,6 +38,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
+	AddModule(player);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -155,6 +158,8 @@ bool App::LoadConfig()
 // ---------------------------------------------
 void App::PrepareUpdate()
 {
+	dt = frameTime.ReadSec();
+	frameTime.Start();
 }
 
 // ---------------------------------------------

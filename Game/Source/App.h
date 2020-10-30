@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "List.h"
+#include "Timer.h" //Vull fowarddeclarar aixo amb class Timer pero no em deixa
 
 #include "PugiXml/src/pugixml.hpp"
 
@@ -14,6 +15,7 @@ class Textures;
 class Audio;
 class Scene;
 class Map;
+class Player;
 
 class SString;
 
@@ -86,6 +88,7 @@ public:
 	Audio* audio;
 	Scene* scene;
 	Map* map;
+	Player* player;
 
 private:
 
@@ -107,7 +110,7 @@ private:
 	pugi::xml_node config;
 	pugi::xml_node configApp;
 
-	uint frames;
+	Timer frameTime;
 	float dt;
 };
 
