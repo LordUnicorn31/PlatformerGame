@@ -26,7 +26,7 @@ bool Player::Awake(pugi::xml_node& playerNode)
 bool Player::Start()
 {
 	texture = app->tex->Load(texturePath.GetString());
-	position = { 200, 6300};
+	position = { 16, 2716};
 	return true;
 }
 
@@ -49,8 +49,8 @@ void Player::Draw() {
 }
 
 void Player::Move() {
-	speed.x = 0;
-	speed.y = -1;
+	speed.x = -1;
+	speed.y = 1;
 	if (speed.x != 0) 
 	{
 		if (position.y % app->map->data.tileHeight != 0) 
