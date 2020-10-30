@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "Map.h"
 
+
 #include "Defs.h"
 #include "Log.h"
 
@@ -92,3 +93,20 @@ bool Scene::CleanUp()
 
 	return true;
 }
+
+//void Scene::CameraMovement()
+//{
+//	app->render->camera.x = player.x - app->render->camera.x;
+//	
+//	if (app->render->camera.x > 0)
+//	{
+//		app->render->camera.x = 0;
+//	}
+//
+//	app->render->camera.y = player.y - app->render->camera.y;
+//	
+//	if (app->render->camera.y > 0)
+//	{
+//		app->render->camera.y = 0;
+//	}
+//}

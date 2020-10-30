@@ -32,6 +32,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Camera movement
+	void CameraMovement();
+
 private:
 	SDL_Texture* img;
 	SString map_name;
