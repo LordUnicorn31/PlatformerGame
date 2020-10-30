@@ -4,12 +4,21 @@
 #include "Map.h"
 #include "List.h"
 #include "Player.h"
+#include "Input.h"
 
 Player::Player() : Module() {
 	name.create("player");
-	speed = { 0,0 };
+	speed = { 0.0f,0.0f };
+	maxSpeed = 5.0f;
+	terminalSpeed = 5.0f;
 	width = 16;
-	height =16;
+	height = 16;
+	a = 0.5f;
+	threshold = 1.0f;
+	doLogic = false;
+	acumulatedMs = 0.0f;
+	updateMsCycle = 16.66666666f; //A 60 fps
+	targetSpeed = {0,0};
 }
 
 Player::~Player() {
@@ -32,14 +41,75 @@ bool Player::Start()
 
 bool Player::Update(float dt) {
 	//Get the input and update the movement variables accordingly
-	Move();
-	//Get the tiles under the player and check for some possible interactions (Ns si aixo s'auria de posar en el update logic)
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+		targetSpeed.x = maxSpeed;
+	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		targetSpeed.x = -maxSpeed;
+	else
+		targetSpeed.x = 0;
+
+	if (OnPlatform())
+		targetSpeed.y = 0;
+	else
+		targetSpeed.y = terminalSpeed;
+
+	acumulatedMs += dt * 1000.0f;
+	if (acumulatedMs >= updateMsCycle)
+		doLogic = true;
+	if (doLogic) 
+	{
+		speed.x = a * targetSpeed.x + (1 - a) * speed.x;
+		speed.y = a * targetSpeed.y + (1 - a) * speed.y;
+		if (fabs(speed.x) < threshold) speed.x = 0;
+		if (fabs(speed.y) < threshold) speed.y = 0;
+		Move();
+
+		acumulatedMs = 0.0f;
+		doLogic = false;
+	}
 	Draw();
 	return true;
 }
 
-void Player::UpdateLogic() {
-	Move();
+iPoint Player::GetPosition() const
+{
+	return position;
+}
+
+bool Player::OnPlatform()
+{
+	if (position.x % app->map->data.width != 0)
+	{
+		iPoint left = app->map->WorldToMap(position.x, position.y + height + 1);
+		uint leftIndex = left.y * app->map->data.height + left.x;
+		ListItem<MapLayer*>* item = app->map->data.layers.start;
+		for (item; item; item = item->next) //Problem: Maybe the function GetTileProperty should be the one iterating the layers
+		{
+			if (app->map->GetTileProperty(item->data->data[leftIndex], "Blocked"))
+				return true;
+		}
+		iPoint right = app->map->WorldToMap(position.x + width, position.y + height + 1);
+		uint rightIndex = right.y * app->map->data.height + right.x;
+		item = app->map->data.layers.start;
+		for (item; item; item = item->next)
+		{
+			if (app->map->GetTileProperty(item->data->data[rightIndex], "Blocked"))
+				return true;
+		}
+		return false;
+	}
+	else
+	{
+		iPoint left = app->map->WorldToMap(position.x, position.y - 1);
+		uint leftIndex = left.y * app->map->data.height + left.x;
+		ListItem<MapLayer*>* item = app->map->data.layers.start;
+		for (item; item; item = item->next)
+		{
+			if (app->map->GetTileProperty(item->data->data[leftIndex], "Blocked"))
+				return true;
+		}
+		return false;
+	}
 }
 
 void Player::Draw() {
@@ -49,8 +119,6 @@ void Player::Draw() {
 }
 
 void Player::Move() {
-	speed.x = -1;
-	speed.y = 1;
 	if (speed.x != 0) 
 	{
 		if (position.y % app->map->data.tileHeight != 0) 
@@ -417,7 +485,7 @@ void Player::Move() {
 				distance = position.y - left.y;
 			}
 			else 
-			{//estem anant cap a l'esquerra
+			{//moving down
 
 				ListItem<MapLayer*>* item = app->map->data.layers.start;
 				bool found = false;

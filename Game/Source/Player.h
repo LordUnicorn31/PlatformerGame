@@ -15,13 +15,7 @@ public:
 	void Draw();
 	void Move();
 	bool Update(float dt);
-	void UpdateLogic();
-	SDL_Rect textureRect;
-	SDL_Texture* texture;
-	iPoint position; //unsigned int?
-	uint width;
-	uint height;
-	fPoint speed;
+	iPoint GetPosition() const;
 	/*
 	fPoint targetSpeed; //Si volem posar aceleracio
 	float a; //Si volem posar acceleracio
@@ -34,5 +28,22 @@ public:
 	//Pujar ladder
 	*/
 private:
+	bool OnPlatform();
+
+	SDL_Rect textureRect;
+	SDL_Texture* texture;
+	iPoint position; //unsigned int?
+	uint width;
+	uint height;
+	fPoint speed;
+	float terminalSpeed;
+	float a;
+	fPoint targetSpeed;
+	float maxSpeed;
+	float threshold;
+
 	SString texturePath;
+	float acumulatedMs;
+	float updateMsCycle;
+	bool doLogic;
 };

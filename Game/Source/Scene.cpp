@@ -98,14 +98,14 @@ bool Scene::CleanUp()
 
 void Scene::CameraMovement()
 {
-	app->render->camera.x = -(app->player->position.x - app->render->camera.w/2);
+	app->render->camera.x = -(app->player->GetPosition().x - app->render->camera.w/2);
 	
 	if (app->render->camera.x > 0)
 	{
 		app->render->camera.x = 0;
 	}
 
-	app->render->camera.y = -(app->player->position.y - app->render->camera.h/2);
+	app->render->camera.y = -(app->player->GetPosition().y - app->render->camera.h/2);
 	
 	if (app->render->camera.y > 0)
 	{
