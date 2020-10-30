@@ -9,11 +9,12 @@
 Player::Player() : Module() {
 	name.create("player");
 	speed = { 0.0f,0.0f };
-	maxSpeed = 5.0f;
-	terminalSpeed = 5.0f;
+	maxSpeed = 3.0f;
+	jumpSpeed = -10.0f;
+	terminalSpeed = 10.0f;
 	width = 16;
 	height = 16;
-	a = 0.5f;
+	a = 1.0f;
 	threshold = 1.0f;
 	doLogic = false;
 	acumulatedMs = 0.0f;
@@ -39,6 +40,16 @@ bool Player::Start()
 	return true;
 }
 
+float Sign(float num) //Problems: Where should we put this function
+{
+	if (num > 0)
+		return 1.0f;
+	else if (num < 0)
+		return -1.0f;
+	else
+		return 0.0f;
+}
+
 bool Player::Update(float dt) {
 	//Get the input and update the movement variables accordingly
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
@@ -47,6 +58,12 @@ bool Player::Update(float dt) {
 		targetSpeed.x = -maxSpeed;
 	else
 		targetSpeed.x = 0;
+
+	if(app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+	{
+		if (OnPlatform())
+			speed.y = jumpSpeed;
+	}
 
 	if (OnPlatform())
 		targetSpeed.y = 0;
@@ -58,10 +75,13 @@ bool Player::Update(float dt) {
 		doLogic = true;
 	if (doLogic) 
 	{
-		speed.x = a * targetSpeed.x + (1 - a) * speed.x;
-		speed.y = a * targetSpeed.y + (1 - a) * speed.y;
-		if (fabs(speed.x) < threshold) speed.x = 0;
-		if (fabs(speed.y) < threshold) speed.y = 0;
+		fPoint direction = fPoint(Sign(targetSpeed.x - speed.x),Sign(targetSpeed.y - speed.y));
+		speed.x += a * direction.x;
+		speed.y += a * direction.y;
+		if (Sign(targetSpeed.x - speed.x) != direction.x)
+			speed.x = targetSpeed.x;
+		if (Sign(targetSpeed.y - speed.y) != direction.y)
+			speed.y = targetSpeed.y;
 		Move();
 
 		acumulatedMs = 0.0f;
@@ -78,7 +98,7 @@ iPoint Player::GetPosition() const
 
 bool Player::OnPlatform()
 {
-	if (position.x % app->map->data.width != 0)
+	if (position.y % app->map->data.height != 0) //PROBLEM: How do we check if we have to check t columns or 1
 	{
 		iPoint left = app->map->WorldToMap(position.x, position.y + height + 1);
 		uint leftIndex = left.y * app->map->data.height + left.x;
@@ -243,6 +263,8 @@ void Player::Move() {
 			{
 				position.x += MAX(speed.x, -distance);
 			}
+			if (distance == 0)
+				speed.x = 0;
 		}
 		else 
 		{ //just check 1 row of tiles to find obstacles
@@ -320,6 +342,8 @@ void Player::Move() {
 			{
 				position.x += MAX(speed.x, -distance);
 			}
+			if (distance == 0)
+				speed.x = 0;
 		}
 	}
 
@@ -446,6 +470,8 @@ void Player::Move() {
 			{
 				position.y += MIN(speed.y, distance);
 			}
+			if (distance == 0)
+				speed.y = 0;
 		}
 		else { //just check 1 row of tiles to find obstacles
 			iPoint left;
@@ -519,6 +545,8 @@ void Player::Move() {
 			{
 				position.y += MIN(speed.y, distance);
 			}
+			if (distance == 0)
+				speed.y = 0;
 		}
 	}
 }

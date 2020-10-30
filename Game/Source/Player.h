@@ -41,6 +41,7 @@ private:
 	fPoint targetSpeed;
 	float maxSpeed;
 	float threshold;
+	float jumpSpeed;
 
 	SString texturePath;
 	float acumulatedMs;
