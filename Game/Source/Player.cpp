@@ -26,7 +26,7 @@ bool Player::Awake(pugi::xml_node& playerNode)
 bool Player::Start()
 {
 	texture = app->tex->Load(texturePath.GetString());
-	position = { 300, 3017};
+	position = { 200, 6300};
 	return true;
 }
 
@@ -49,8 +49,8 @@ void Player::Draw() {
 }
 
 void Player::Move() {
-	speed.x = 1;
-	speed.y = 0;
+	speed.x = 0;
+	speed.y = -1;
 	if (speed.x != 0) 
 	{
 		if (position.y % app->map->data.tileHeight != 0) 
@@ -77,10 +77,10 @@ void Player::Move() {
 
 				ListItem<MapLayer*>* item = app->map->data.layers.start;
 				bool found = false;
-				uint lastcheckindex = (indextop - (indextop % app->map->data.width)) + app->map->data.width - 1;
+				uint lastcheckindex = (indextop - (indextop % app->map->data.width)) + app->map->data.width -1;
 				for (item; item; item = item->next) 
 				{//iterar les layers
-					for (uint i = indextop; i < lastcheckindex; ++i) 
+					for (uint i = indextop; i <= lastcheckindex; ++i) 
 					{//iterar les tilesets
 						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
 						{
@@ -97,10 +97,10 @@ void Player::Move() {
 				}
 				item = app->map->data.layers.start;
 				found = false;
-				lastcheckindex = (indexbottom - (indexbottom % app->map->data.width)) + app->map->data.width - 1;
+				lastcheckindex = (indexbottom - (indexbottom % app->map->data.width)) + app->map->data.width -1;
 				for (item; item; item = item->next) 
 				{//iterar les layers
-					for (uint i = indexbottom; i < lastcheckindex; ++i) 
+					for (uint i = indexbottom; i <= lastcheckindex; ++i) 
 					{//iterar les tilesets
 						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
 						{
@@ -127,7 +127,7 @@ void Player::Move() {
 				uint lastcheckindex = indextop - (indextop % app->map->data.width);
 				for (item; item; item = item->next) 
 				{//iterar les layers
-					for (uint i=indextop; i > lastcheckindex; --i) 
+					for (uint i=indextop; i >= lastcheckindex; --i) 
 					{//iterar les tilesets
 						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
 						{
@@ -147,7 +147,7 @@ void Player::Move() {
 				lastcheckindex = indexbottom - (indexbottom % app->map->data.width);
 				for (item; item; item = item->next) 
 				{//iterar les layers
-					for (uint i = indexbottom; i > lastcheckindex; --i) 
+					for (uint i = indexbottom; i >= lastcheckindex; --i) 
 					{//iterar les tilesets
 						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
 						{
@@ -197,10 +197,10 @@ void Player::Move() {
 
 				ListItem<MapLayer*>* item = app->map->data.layers.start;
 				bool found = false;
-				uint lastcheckindex = (indextop - (indextop % app->map->data.width)) + app->map->data.width - 1;
+				uint lastcheckindex = (indextop - (indextop % app->map->data.width)) + app->map->data.width -1;
 				for (item; item; item = item->next) 
 				{//iterar les layers
-					for (uint i = indextop; i < lastcheckindex; ++i) 
+					for (uint i = indextop; i <= lastcheckindex; ++i) 
 					{//iterar les tilesets
 						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
 						{
@@ -225,7 +225,7 @@ void Player::Move() {
 				uint lastcheckindex = indextop - (indextop % app->map->data.width);
 				for (item; item; item = item->next) 
 				{//iterar les layers
-					for (uint i = indextop; i > lastcheckindex; --i) 
+					for (uint i = indextop; i >= lastcheckindex; --i) 
 					{//iterar les tilesets
 						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
 						{
@@ -282,10 +282,10 @@ void Player::Move() {
 
 				ListItem<MapLayer*>* item = app->map->data.layers.start;
 				bool found = false;
-				uint lastcheckindex = indexleft % app->map->data.width;
+				int lastcheckindex = indexleft % app->map->data.width;
 				for (item; item; item = item->next) 
 				{//iterar les layers
-					for (uint i = indexleft; i > lastcheckindex; i -=app->map->data.width) 
+					for (int i = indexleft; i >= lastcheckindex; i = i - app->map->data.width) 
 					{//iterar les tilesets
 						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
 						{
@@ -305,7 +305,7 @@ void Player::Move() {
 				lastcheckindex = indexright % app->map->data.width;
 				for (item; item; item = item->next) 
 				{//iterar les layers
-					for (uint i = indexright; i > lastcheckindex; i -= app->map->data.width) 
+					for (int i = indexright; i >= lastcheckindex; i -= app->map->data.width) 
 					{//iterar les tilesets
 						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
 						{
@@ -329,9 +329,9 @@ void Player::Move() {
 
 				ListItem<MapLayer*>* item = app->map->data.layers.start;
 				bool found = false;
-				uint lastcheckindex = indexleft % app->map->data.width + (app->map->data.height - 1) * app->map->data.width;
+				uint lastcheckindex = indexleft % app->map->data.width + (app->map->data.height -1) * app->map->data.width;
 				for (item; item; item = item->next) {//iterar les layers
-					for (uint i = indexleft; i < lastcheckindex; i += app->map->data.width) 
+					for (uint i = indexleft; i <= lastcheckindex; i += app->map->data.width) 
 					{//iterar les tilesets
 						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
 						{
@@ -351,7 +351,7 @@ void Player::Move() {
 				lastcheckindex = indexright % app->map->data.width + (app->map->data.height - 1) * app->map->data.width;
 				for (item; item; item = item->next) 
 				{//iterar les layers
-					for (uint i = indexright; i < lastcheckindex; i += app->map->data.width) 
+					for (uint i = indexright; i <= lastcheckindex; i += app->map->data.width) 
 					{//iterar les tilesets
 						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) {
 							//get the position of the tile
@@ -399,9 +399,9 @@ void Player::Move() {
 
 				ListItem<MapLayer*>* item = app->map->data.layers.start;
 				bool found = false;
-				uint lastcheckindex = indexleft % app->map->data.width;
+				int lastcheckindex = indexleft % app->map->data.width;
 				for (item; item; item = item->next) {//iterar les layers
-					for (uint i = indexleft; i > lastcheckindex; i -= app->map->data.width) {//iterar les tilesets
+					for (int i = indexleft; i >= lastcheckindex; i -= app->map->data.width) {//iterar les tilesets
 						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) {
 							//get the position of the tile
 							left.x = i % app->map->data.width;
@@ -424,7 +424,7 @@ void Player::Move() {
 				uint lastcheckindex = indexleft % app->map->data.width + (app->map->data.height - 1) * app->map->data.width;
 				for (item; item; item = item->next) 
 				{//iterar les layers
-					for (uint i = indexleft; i < lastcheckindex; i += app->map->data.width) 
+					for (uint i = indexleft; i <= lastcheckindex; i += app->map->data.width) 
 					{//iterar les tilesets
 						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
 						{
