@@ -17,6 +17,7 @@ class Scene;
 class Map;
 class Player;
 class Transitions;
+class LoseScene;
 
 class SString;
 
@@ -91,6 +92,7 @@ public:
 	Map* map;
 	Player* player;
 	Transitions* transitions;
+	LoseScene* loseScene;
 
 private:
 

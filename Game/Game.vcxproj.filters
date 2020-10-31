@@ -19,6 +19,7 @@
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Transitions.cpp" />
+    <ClCompile Include="Source\LoseScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -57,6 +58,7 @@
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\Transitions.h" />
+    <ClInclude Include="Source\LoseScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
