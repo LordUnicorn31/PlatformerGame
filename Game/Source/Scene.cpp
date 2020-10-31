@@ -71,7 +71,7 @@ bool Scene::Update(float dt)
 		app->SaveGame();*/
 
 	app->map->Draw();
-	CameraMovement();
+	
 	//app->render->DrawTexture(img, 380, 100);
 
 	return true;

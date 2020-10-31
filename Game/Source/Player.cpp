@@ -5,17 +5,20 @@
 #include "List.h"
 #include "Player.h"
 #include "Input.h"
+#include "Scene.h"
 
 Player::Player() : Module() {
 	name.create("player");
 	speed = { 0.0f,0.0f };
-	maxSpeed = 3.0f;
+	maxSpeed = 5.0f;
 	jumpSpeed = -10.0f;
 	terminalSpeed = 10.0f;
 	width = 16;
 	height = 16;
+	//groundA = 1.0f;
+	//airA = 0.1f;
+	//a = groundA;
 	a = 1.0f;
-	threshold = 1.0f;
 	doLogic = false;
 	acumulatedMs = 0.0f;
 	updateMsCycle = 16.66666666f; //A 60 fps
@@ -36,7 +39,7 @@ bool Player::Awake(pugi::xml_node& playerNode)
 bool Player::Start()
 {
 	texture = app->tex->Load(texturePath.GetString());
-	position = { 16, 2716};
+	position = { 16, 2720};
 	return true;
 }
 
@@ -64,11 +67,16 @@ bool Player::Update(float dt) {
 		if (OnPlatform())
 			speed.y = jumpSpeed;
 	}
-
 	if (OnPlatform())
+	{
 		targetSpeed.y = 0;
+		//a = groundA;
+	}
 	else
+	{
 		targetSpeed.y = terminalSpeed;
+		//a = airA;
+	}
 
 	acumulatedMs += dt * 1000.0f;
 	if (acumulatedMs >= updateMsCycle)
@@ -82,12 +90,19 @@ bool Player::Update(float dt) {
 			speed.x = targetSpeed.x;
 		if (Sign(targetSpeed.y - speed.y) != direction.y)
 			speed.y = targetSpeed.y;
+		
 		Move();
-
+		app->scene->CameraMovement();//Problem: if we dont put the camera movement here the player gets drawn double
 		acumulatedMs = 0.0f;
 		doLogic = false;
+		//Draw();
 	}
 	Draw();
+	return true;
+}
+
+bool Player::PostUpdate() {
+	
 	return true;
 }
 
