@@ -7,6 +7,7 @@
 #include "Input.h"
 #include "Scene.h"
 #include "Transitions.h"
+#include "Audio.h"
 
 Player::Player() : Module() 
 {
@@ -38,6 +39,7 @@ bool Player::Awake(pugi::xml_node& playerNode)
 {
 	texturePath.create(playerNode.child_value("texture"));
 	textureRect = { playerNode.child("textureRect").attribute("x").as_int(), playerNode.child("textureRect").attribute("y").as_int(), playerNode.child("textureRect").attribute("w").as_int(), playerNode.child("textureRect").attribute("h").as_int() };
+	jumpSound = app->audio->LoadFx("Assets/audio/fx/jump.wav");
 	return true;
 }
 
@@ -108,7 +110,10 @@ bool Player::Update(float dt)
 	if(app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) //Problem: KEY_DOWN or KEY_REPEAT
 	{
 		if (onPlatform)
+		{ 
 			speed.y = jumpSpeed;
+			app->audio->PlayFx(jumpSound);
+		}
 	}
 	if (onPlatform)
 	{

@@ -54,4 +54,6 @@ private:
 	float acumulatedMs;
 	float updateMsCycle;
 	bool doLogic;
+
+	uint jumpSound;
 };
