@@ -49,6 +49,7 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+	/*Camera For DEBUG purposes
 	if(app->render->camera.y >= -3200 && app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 		app->render->camera.y -= 10*2;
 
@@ -60,14 +61,14 @@ bool Scene::Update(float dt)
 
 	if(app->render->camera.x <= 0 && app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x += 10*2;
-
+	*/
 	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		app->win->FullScreen();
 
 	//PROBLEM: Don't forget save and load
-	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		app->LoadGame();
-	if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		app->SaveGame();
 
 	app->map->Draw();
