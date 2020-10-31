@@ -365,6 +365,22 @@ void Player::MoveLadder()
 		
 }
 
+bool Player::Load(pugi::xml_node& playerNode)
+{
+	position.x = playerNode.child("position").attribute("x").as_int();
+	position.y = playerNode.child("position").attribute("y").as_int();
+	return true;
+}
+
+bool Player::Save(pugi::xml_node& playerNode) const
+{
+	pugi::xml_node playerPos = playerNode.append_child("position");
+
+	playerPos.append_attribute("x") = position.x;
+	playerPos.append_attribute("y") = position.y;
+	return true;
+}
+
 void Player::Move() 
 {
 	if (speed.x != 0) 
