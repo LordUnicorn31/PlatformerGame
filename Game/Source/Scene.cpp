@@ -67,7 +67,7 @@ bool Scene::Update(float dt)
 	//PROBLEM: Don't forget save and load
 	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		app->LoadGame();
-	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_K) == KEY_DOWN)
 		app->SaveGame();
 
 	app->map->Draw();
