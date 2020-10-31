@@ -62,7 +62,7 @@ bool Player::Update(float dt) {
 	else
 		targetSpeed.x = 0;
 
-	if(app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+	if(app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) //Problem: KEY_DOWN or KEY_REPEAT
 	{
 		if (OnPlatform())
 			speed.y = jumpSpeed;
@@ -101,11 +101,6 @@ bool Player::Update(float dt) {
 	return true;
 }
 
-bool Player::PostUpdate() {
-	
-	return true;
-}
-
 iPoint Player::GetPosition() const
 {
 	return position;
@@ -113,7 +108,7 @@ iPoint Player::GetPosition() const
 
 bool Player::OnPlatform()
 {
-	if (position.y % app->map->data.height != 0) //PROBLEM: How do we check if we have to check t columns or 1
+	if ((position.x % app->map->data.tileWidth) != 0) //check if we have to check 2 columns or 1
 	{
 		iPoint left = app->map->WorldToMap(position.x, position.y + height + 1);
 		uint leftIndex = left.y * app->map->data.height + left.x;
@@ -135,7 +130,7 @@ bool Player::OnPlatform()
 	}
 	else
 	{
-		iPoint left = app->map->WorldToMap(position.x, position.y - 1);
+		iPoint left = app->map->WorldToMap(position.x, position.y + height + 1);
 		uint leftIndex = left.y * app->map->data.height + left.x;
 		ListItem<MapLayer*>* item = app->map->data.layers.start;
 		for (item; item; item = item->next)

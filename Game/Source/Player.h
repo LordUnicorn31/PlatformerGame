@@ -15,7 +15,6 @@ public:
 	void Draw();
 	void Move();
 	bool Update(float dt);
-	bool PostUpdate();
 	iPoint GetPosition() const;
 	/*
 	fPoint targetSpeed; //Si volem posar aceleracio
