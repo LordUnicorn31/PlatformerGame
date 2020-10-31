@@ -29,10 +29,12 @@ public:
 	*/
 private:
 	bool OnPlatform();
+	bool OnDeath();
 	bool OnBlockedTile();
 	bool OnLadder(iPoint position);
 	bool SnapToLadder(bool onPlatform, bool down);
 	void MoveLadder();
+	void Die();
 
 	SDL_Rect textureRect;
 	SDL_Texture* texture;

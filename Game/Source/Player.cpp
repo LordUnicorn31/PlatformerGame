@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Input.h"
 #include "Scene.h"
+#include "Transitions.h"
 
 Player::Player() : Module() 
 {
@@ -61,6 +62,7 @@ bool Player::Update(float dt)
 {
 	//Get the input and update the movement variables accordingly
 	bool onPlatform = OnPlatform();
+	bool onDeath = OnDeath();
 
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
@@ -146,6 +148,12 @@ bool Player::Update(float dt)
 		doLogic = false;
 		//Draw();
 	}
+
+	if (onDeath)
+	{
+		Die();
+	}
+
 	Draw();
 	return true;
 }
@@ -199,6 +207,42 @@ bool Player::OnPlatform()
 	}
 }
 
+bool Player::OnDeath()
+{
+	if ((position.x % app->map->data.tileWidth) != 0) //check if we have to check 2 columns or 1
+	{
+		iPoint left = app->map->WorldToMap(position.x, position.y + height + 1);
+		uint leftIndex = left.y * app->map->data.height + left.x;
+		ListItem<MapLayer*>* item = app->map->data.layers.start;
+		for (item; item; item = item->next) //Problem: Maybe the function GetTileProperty should be the one iterating the layers
+		{
+			if (app->map->GetTileProperty(item->data->data[leftIndex], "Death"))
+				return true;
+		}
+		iPoint right = app->map->WorldToMap(position.x + width, position.y + height + 1);
+		uint rightIndex = right.y * app->map->data.height + right.x;
+		item = app->map->data.layers.start;
+		for (item; item; item = item->next)
+		{
+			if (app->map->GetTileProperty(item->data->data[rightIndex], "Death"))
+				return true;
+		}
+		return false;
+	}
+	else
+	{
+		iPoint left = app->map->WorldToMap(position.x, position.y + height + 1);
+		uint leftIndex = left.y * app->map->data.height + left.x;
+		ListItem<MapLayer*>* item = app->map->data.layers.start;
+		for (item; item; item = item->next)
+		{
+			if (app->map->GetTileProperty(item->data->data[leftIndex], "Death"))
+				return true;
+		}
+		return false;
+	}
+}
+
 bool Player::OnLadder(iPoint position)
 {
 	position = app->map->WorldToMap(position.x, position.y);
@@ -213,6 +257,7 @@ bool Player::OnLadder(iPoint position)
 	}
 	return false;
 }
+
 
 bool Player::OnBlockedTile()
 {
@@ -725,4 +770,13 @@ void Player::Move()
 				speed.y = 0;
 		}
 	}
+
+}
+
+void Player::Die()
+{
+
+		position.x = 16;
+		position.y = 2720;
+
 }
