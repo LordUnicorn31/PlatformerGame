@@ -159,6 +159,8 @@ bool Player::Update(float dt)
 		Die();
 	}
 
+
+
 	Draw();
 	return true;
 }

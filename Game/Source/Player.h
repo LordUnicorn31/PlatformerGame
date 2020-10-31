@@ -16,6 +16,7 @@ public:
 	void Move();
 	bool Update(float dt);
 	iPoint GetPosition() const;
+	void Die();
 	/*
 	fPoint targetSpeed; //Si volem posar aceleracio
 	float a; //Si volem posar acceleracio
@@ -34,7 +35,7 @@ private:
 	bool OnLadder(iPoint position);
 	bool SnapToLadder(bool onPlatform, bool down);
 	void MoveLadder();
-	void Die();
+	
 
 	SDL_Rect textureRect;
 	SDL_Texture* texture;

@@ -65,15 +65,21 @@ bool Scene::Update(float dt)
 		app->win->FullScreen();
 
 	//PROBLEM: Don't forget save and load
-	/*if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 		app->LoadGame();
 	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
-		app->SaveGame();*/
+		app->SaveGame();
 
 	app->map->Draw();
 	
 	//app->render->DrawTexture(img, 380, 100);
 
+
+	// DEBUG KEYS
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	{
+		app->player->Die();
+	}
 	return true;
 }
 
