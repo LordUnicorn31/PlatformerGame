@@ -7,14 +7,17 @@
 #include "Input.h"
 #include "Scene.h"
 
-Player::Player() : Module() {
+Player::Player() : Module() 
+{
 	name.create("player");
 	speed = { 0.0f,0.0f };
 	maxSpeed = 5.0f;
 	jumpSpeed = -10.0f;
+	ladderSpeed = 2.5f;
 	terminalSpeed = 10.0f;
 	width = 16;
 	height = 16;
+	onLadder = false;
 	//groundA = 1.0f;
 	//airA = 0.1f;
 	//a = groundA;
@@ -25,7 +28,8 @@ Player::Player() : Module() {
 	targetSpeed = {0,0};
 }
 
-Player::~Player() {
+Player::~Player() 
+{
 
 }
 
@@ -53,21 +57,58 @@ float Sign(float num) //Problems: Where should we put this function
 		return 0.0f;
 }
 
-bool Player::Update(float dt) {
+bool Player::Update(float dt) 
+{
 	//Get the input and update the movement variables accordingly
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		targetSpeed.x = maxSpeed;
-	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		targetSpeed.x = -maxSpeed;
-	else
-		targetSpeed.x = 0;
+	bool onPlatform = OnPlatform();
+
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
+	{
+		if(!onLadder)
+			if(SnapToLadder(onPlatform, false))
+				onLadder = true;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_S) == KEY_DOWN)
+	{
+		if(!onLadder)
+			if (SnapToLadder(onPlatform, true)) 
+				onLadder = true;
+	}
+	if (onLadder) 
+	{
+		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
+		{
+			if (!OnBlockedTile())
+			{
+				onLadder = false;
+				speed.x = ladderSpeed;
+			}
+		}
+		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+		{
+			if (!OnBlockedTile())
+			{
+				onLadder = false;
+				speed.x = -ladderSpeed;
+			}
+		}
+	}
+	else 
+	{
+		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
+			targetSpeed.x = maxSpeed;
+		else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+			targetSpeed.x = -maxSpeed;
+		else
+			targetSpeed.x = 0;
+	}
 
 	if(app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) //Problem: KEY_DOWN or KEY_REPEAT
 	{
-		if (OnPlatform())
+		if (onPlatform)
 			speed.y = jumpSpeed;
 	}
-	if (OnPlatform())
+	if (onPlatform)
 	{
 		targetSpeed.y = 0;
 		//a = groundA;
@@ -83,15 +124,23 @@ bool Player::Update(float dt) {
 		doLogic = true;
 	if (doLogic) 
 	{
-		fPoint direction = fPoint(Sign(targetSpeed.x - speed.x),Sign(targetSpeed.y - speed.y));
-		speed.x += a * direction.x;
-		speed.y += a * direction.y;
-		if (Sign(targetSpeed.x - speed.x) != direction.x)
-			speed.x = targetSpeed.x;
-		if (Sign(targetSpeed.y - speed.y) != direction.y)
-			speed.y = targetSpeed.y;
-		
-		Move();
+		if (onLadder) 
+		{
+			MoveLadder();
+		}
+		else 
+		{
+			fPoint direction = fPoint(Sign(targetSpeed.x - speed.x), Sign(targetSpeed.y - speed.y));
+			speed.x += a * direction.x;
+			speed.y += a * direction.y;
+			if (Sign(targetSpeed.x - speed.x) != direction.x)
+				speed.x = targetSpeed.x;
+			if (Sign(targetSpeed.y - speed.y) != direction.y)
+				speed.y = targetSpeed.y;
+
+			Move();
+		}
+
 		app->scene->CameraMovement();//Problem: if we dont put the camera movement here the player gets drawn double
 		acumulatedMs = 0.0f;
 		doLogic = false;
@@ -104,6 +153,14 @@ bool Player::Update(float dt) {
 iPoint Player::GetPosition() const
 {
 	return position;
+}
+
+void Player::Draw()
+{
+	//Animations
+	//Diferent tile drawings depending on the player action or state
+	//Maybe some tiles will need to get fliped depending on the orientation
+	app->render->DrawTexture(texture, position.x, position.y, &textureRect);
 }
 
 bool Player::OnPlatform()
@@ -142,13 +199,122 @@ bool Player::OnPlatform()
 	}
 }
 
-void Player::Draw() {
-	//Diferent tile drawings depending on the player action or state
-	//Maybe some tiles will need to get fliped depending on the orientation
-	app->render->DrawTexture(texture, position.x, position.y, &textureRect);
+bool Player::OnLadder(iPoint position)
+{
+	position = app->map->WorldToMap(position.x, position.y);
+	uint index = position.y * app->map->data.height + position.x;
+	ListItem<MapLayer*>* item = app->map->data.layers.start;
+	for (item; item; item = item->next) //Problem: Maybe the function GetTileProperty should be the one iterating the layers
+	{
+		if (app->map->GetTileProperty(item->data->data[index], "Ladder"))
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
-void Player::Move() {
+bool Player::OnBlockedTile()
+{
+	iPoint tilePosition = app->map->WorldToMap(position.x, position.y);
+	uint index = tilePosition.y * app->map->data.height + tilePosition.x;
+	ListItem<MapLayer*>* item = app->map->data.layers.start;
+	for (item; item; item = item->next) //Problem: Maybe the function GetTileProperty should be the one iterating the layers
+	{
+		if (app->map->GetTileProperty(item->data->data[index], "Blocked"))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+bool Player::SnapToLadder(bool onPlatform, bool down)
+{
+	iPoint playerCenter(position.x + width / 2, position.y + height / 2);
+	if (OnLadder(playerCenter))
+	{
+		playerCenter = app->map->WorldToMap(playerCenter.x, playerCenter.y);
+		uint index = playerCenter.y * app->map->data.height + playerCenter.x; //Problem : Maybe we don't need the index calculation to snap the player
+		position.x = (index % app->map->data.width) * app->map->data.tileWidth;
+		return true;
+	}
+
+	if (onPlatform) 
+	{
+		if (down) //chack if there is a ladder the tile below
+		{
+			iPoint playerCenterDown(position.x + width / 2, position.y + height);
+			if (OnLadder(playerCenterDown))
+			{
+				playerCenterDown = app->map->WorldToMap(playerCenter.x, playerCenter.y);
+				uint index = playerCenterDown.y * app->map->data.height + playerCenterDown.x; //Problem : Maybe we don't need the index calculation to snap the player
+				position.x = (index % app->map->data.width) * app->map->data.tileWidth;
+				position.y += app->map->data.tileHeight;
+				return true;
+			}
+		}
+		else ////chack if there is a ladder the tile avobe
+		{
+			iPoint playerCenterUp(position.x + width / 2, position.y - 1);
+			if (OnLadder(playerCenterUp))
+			{
+				playerCenterUp = app->map->WorldToMap(playerCenter.x, playerCenter.y);
+				uint index = playerCenterUp.y * app->map->data.height + playerCenterUp.x; //Problem : Maybe we don't need the index calculation to snap the player
+				position.x = (index % app->map->data.width) * app->map->data.tileWidth;
+				position.y -= app->map->data.tileHeight;
+				return true;
+			}
+		}
+	}
+	return false;
+}
+
+void Player::MoveLadder()
+{
+	bool moving = false;
+	bool up = false;
+	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && !app->input->GetKey(SDL_SCANCODE_S))
+	{
+		moving = true;
+		up = true;
+	}
+	if (app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && !app->input->GetKey(SDL_SCANCODE_W))
+	{
+		moving = true;
+		up = false;
+	}
+
+	if(moving)
+	{
+		if(up)
+		{
+			position.y -= ladderSpeed;
+			if (!OnLadder(position))
+			{
+				position.y -= position.y % app->map->data.tileHeight;
+				speed.x = 0;
+				speed.y = 0;
+				onLadder = false;
+			}
+		}
+		else 
+		{
+			position.y += ladderSpeed;
+			if (!OnLadder(position))
+			{
+				position.y += (position.y + height) % app->map->data.tileHeight;
+				speed.x = 0;
+				speed.y = 0;
+				onLadder = false;
+			}
+		}
+	}
+		
+}
+
+void Player::Move() 
+{
 	if (speed.x != 0) 
 	{
 		if (position.y % app->map->data.tileHeight != 0) 

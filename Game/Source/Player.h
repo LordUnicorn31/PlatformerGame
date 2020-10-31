@@ -29,6 +29,10 @@ public:
 	*/
 private:
 	bool OnPlatform();
+	bool OnBlockedTile();
+	bool OnLadder(iPoint position);
+	bool SnapToLadder(bool onPlatform, bool down);
+	void MoveLadder();
 
 	SDL_Rect textureRect;
 	SDL_Texture* texture;
@@ -41,6 +45,8 @@ private:
 	fPoint targetSpeed;
 	float maxSpeed;
 	float jumpSpeed;
+	bool onLadder;
+	float ladderSpeed;
 
 	SString texturePath;
 	float acumulatedMs;
