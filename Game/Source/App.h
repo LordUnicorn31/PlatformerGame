@@ -16,6 +16,7 @@ class Audio;
 class Scene;
 class Map;
 class Player;
+class Transitions;
 
 class SString;
 
@@ -89,6 +90,7 @@ public:
 	Scene* scene;
 	Map* map;
 	Player* player;
+	Transitions* transitions;
 
 private:
 

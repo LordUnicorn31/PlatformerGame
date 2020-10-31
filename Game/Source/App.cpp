@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "Map.h"
 #include "Player.h"
+#include "Transitions.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -29,6 +30,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	scene = new Scene();
 	map = new Map();
 	player = new Player();
+	transitions = new Transitions();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -39,6 +41,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(map);
 	AddModule(scene);
 	AddModule(player);
+	AddModule(transitions);
 
 	// render last to swap buffer
 	AddModule(render);

@@ -65,10 +65,34 @@ public:
 		return true;
 	}
 
+	void Enable()
+	{
+		if (enabled == false) 
+		{
+			enabled = true;
+			Start();
+		}
+	}
+
+	void Disable()
+	{
+		if (enabled)
+		{
+			enabled = false;
+		}
+	}
+
+	const bool isEnabled()
+	{
+		return enabled;
+	}
+
 public:
 
 	SString name;
 	bool active;
+protected:
+	bool enabled = true;
 
 };
 
