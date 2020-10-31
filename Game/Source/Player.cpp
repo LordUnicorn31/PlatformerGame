@@ -11,9 +11,9 @@ Player::Player() : Module()
 {
 	name.create("player");
 	speed = { 0.0f,0.0f };
-	maxSpeed = 5.0f;
-	jumpSpeed = -10.0f;
-	ladderSpeed = 2.5f;
+	maxSpeed = 3.0f;
+	jumpSpeed = -8.5f;
+	ladderSpeed = 2.0f;
 	terminalSpeed = 10.0f;
 	width = 16;
 	height = 16;
