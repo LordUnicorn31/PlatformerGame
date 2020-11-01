@@ -20,9 +20,7 @@ You are Elyes, a skin-changer and your goal is to defeat the evil force ruling i
 
  - Jordi Bach - Design/Coding
  - Jordi Espriu - Design/Coding
- - {Dev03} - {Role(s)}
- - {Dev04} - {Role(s)}
- - {Dev05} - {Role(s)}
+
 
 ## License
 
