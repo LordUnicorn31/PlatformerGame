@@ -7,21 +7,25 @@ You are Elyes, a skin-changer and your goal is to defeat the evil force ruling i
 
 ## Key Features
 
- - F: Fullscreen.
- - F1: Restart first level.
- 
- ### Debug Keys
- - F3: Restart current level.
- - F5: Save the game.
- - F6: Load the game.
+- Running (with acceleration).
+- Jumping.
+- Climbing ropes (The player can climb through ropes and jump from one to another).
  
 ## Controls
 
+ - F: Fullscreen.
  - A: Move left.
  - D: Move Right.
- - W: Climb up.
- - S: Climb down.
- - Space: Jump
+ - W: Climb up a rope.
+ - S: Climb down a rope.
+ - Space: Jump / Stop climbing rope.
+ 
+  ### Debug Keys
+  
+  - F1: Restart first level.
+ - F3: Restart current level.
+ - F5: Save the game.
+ - F6: Load the game.
 
 ## Developers
 
