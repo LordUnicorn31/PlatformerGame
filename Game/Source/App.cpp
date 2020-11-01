@@ -9,6 +9,8 @@
 #include "Player.h"
 #include "Transitions.h"
 #include "LoseScene.h"
+#include "SceneLogo.h"
+#include "SceneTitle.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -33,6 +35,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	player = new Player();
 	transitions = new Transitions();
 	loseScene = new LoseScene();
+	sceneLogo = new SceneLogo();
+	sceneTitle = new SceneTitle();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -45,6 +49,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(player);
 	AddModule(transitions);
 	AddModule(loseScene);
+	AddModule(sceneLogo);
+	AddModule(sceneTitle);
 
 	// render last to swap buffer
 	AddModule(render);
