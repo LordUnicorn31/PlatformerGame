@@ -9,6 +9,8 @@ You are Elyes, a skin-changer and your goal is to defeat the evil force ruling i
 
  - F: Fullscreen.
  - F1: Restart first level.
+ 
+ ### Debug Keys
  - F3: Restart current level.
  - F5: Save the game.
  - F6: Load the game.
@@ -18,13 +20,13 @@ You are Elyes, a skin-changer and your goal is to defeat the evil force ruling i
  - A: Move left.
  - D: Move Right.
  - W: Climb up.
- - S: climb down.
+ - S: Climb down.
  - Space: Jump
 
 ## Developers
 
- - Jordi Bach - Design/Coding
- - Jordi Espriu - Design/Coding
+ - [Jordi Bach](https://github.com/bottzo) - Design/Coding
+ - [Jordi Espriu](https://github.com/LordUnicorn31) - Design/Coding
 
 
 ## License
