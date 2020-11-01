@@ -191,7 +191,7 @@ bool App::PreUpdate()
 	{
 		pModule = item->data;
 
-		if(pModule->active == false) {
+		if(pModule->active == false || !pModule->isEnabled()) {
 			continue;
 		}
 
@@ -213,7 +213,7 @@ bool App::DoUpdate()
 	{
 		pModule = item->data;
 
-		if(pModule->active == false) {
+		if(pModule->active == false || !pModule->isEnabled()) {
 			continue;
 		}
 
@@ -234,7 +234,7 @@ bool App::PostUpdate()
 	{
 		pModule = item->data;
 
-		if(pModule->active == false) {
+		if(pModule->active == false || !pModule->isEnabled()) {
 			continue;
 		}
 

@@ -11,12 +11,13 @@ public:
 	Player();
 	~Player();
 	bool Awake(pugi::xml_node&playerNode);
+	void Init();
 	bool Start();
-	void Draw();
-	void Move();
 	bool Update(float dt);
-	iPoint GetPosition() const;
+	bool CleanUp();
+
 	void Die();
+	iPoint GetPosition() const;
 	/*
 	fPoint targetSpeed; //Si volem posar aceleracio
 	float a; //Si volem posar acceleracio
@@ -29,6 +30,8 @@ public:
 	//Pujar ladder
 	*/
 private:
+	void Draw();
+	void Move();
 	bool OnPlatform();
 	bool OnDeath();
 	bool OnBlockedTile();
@@ -52,11 +55,9 @@ private:
 	float jumpSpeed;
 	bool onLadder;
 	float ladderSpeed;
-
 	SString texturePath;
 	float acumulatedMs;
 	float updateMsCycle;
 	bool doLogic;
-
 	uint jumpSound;
 };

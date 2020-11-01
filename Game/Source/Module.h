@@ -14,9 +14,10 @@ public:
 	Module() : active(false)
 	{}
 
-	void Init()
+	virtual void Init()
 	{
 		active = true;
+		enabled = true;
 	}
 
 	// Called before render is available
@@ -79,6 +80,7 @@ public:
 		if (enabled)
 		{
 			enabled = false;
+			CleanUp();
 		}
 	}
 

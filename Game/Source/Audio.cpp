@@ -176,3 +176,20 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
+void Audio::UnloadFx()
+{
+	ListItem<Mix_Chunk*>* it = fx.start;
+	for (it; it; ++it)
+	{
+		Mix_FreeChunk(it->data);
+	}
+	fx.clear();
+}
+
+void Audio::UnloadMusic()
+{
+	Mix_FreeMusic(music);
+
+	music = NULL;
+}

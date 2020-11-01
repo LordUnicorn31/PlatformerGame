@@ -33,7 +33,6 @@ bool LoseScene::Awake(pugi::xml_node& config)
 bool LoseScene::Start()
 {
 	exitGame = false;
-
 	
 	background = app->tex->Load("Assets/textures/titleScene.png");
 	loseText = app->tex->Load("Assets/textures/logo.png");

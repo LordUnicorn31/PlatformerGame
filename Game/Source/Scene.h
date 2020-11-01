@@ -17,6 +17,8 @@ public:
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
 
+	void Init();
+
 	// Called before the first frame
 	bool Start();
 
@@ -36,7 +38,6 @@ public:
 	void CameraMovement();
 
 private:
-	SDL_Texture* img;
 	SString map_name;
 };
 

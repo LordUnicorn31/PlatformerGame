@@ -31,10 +31,15 @@ bool Scene::Awake(pugi::xml_node& config)
 	return ret;
 }
 
+void Scene::Init()
+{
+	enabled = false;
+	active = true;
+}
+
 // Called before the first frame
 bool Scene::Start()
 {
-	img = app->tex->Load("Assets/textures/test.png");
 	app->audio->PlayMusic("Assets/audio/music/Forest.ogg");
 	app->map->Load(map_name.GetString());
 	return true;
@@ -99,7 +104,8 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
-
+	app->audio->UnloadFx();
+	app->audio->UnloadMusic();
 	return true;
 }
 
