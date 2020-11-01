@@ -34,7 +34,8 @@ bool LoseScene::Start()
 {
 	exitGame = false;
 
-	background = app->tex->Load("Assets/textures/logoBackground.png");
+	
+	background = app->tex->Load("Assets/textures/titleScene.png");
 	loseText = app->tex->Load("Assets/textures/logo.png");
 	/*app->audio->PlayMusic("Resources/audio/music/epic_fall.ogg");*/
 
@@ -54,7 +55,7 @@ bool LoseScene::Update(float dt)
 
 	
 
-	app->render->DrawTexture(background, 0, 0, NULL, true, 1.5);
+	app->render->DrawTexture(background, 0, 0, NULL, true);
 	app->render->DrawTexture(loseText, app->win->width * 1.55f, app->win->height, NULL, true, 0.2);
 
 	if (exitGame) {
