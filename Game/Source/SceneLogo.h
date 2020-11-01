@@ -38,6 +38,6 @@ public:
 
 	float r = 0;
 	SDL_Rect rect;
-
+	SString texturePath;
 
 };

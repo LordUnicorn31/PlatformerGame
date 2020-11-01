@@ -2,7 +2,6 @@
 #include "Module.h"
 
 struct SDL_Texture;
-class UiElement;
 
 class LoseScene : public Module
 {
@@ -33,16 +32,9 @@ public:
 
 	void Init();
 
-	void ui_callback(UiElement* element);
-
 private:
 
 	SDL_Texture* background;
-	SDL_Texture* loseText;
-
-	UiElement* titleButton;
-	int buttonFx;
-
-	bool exitGame;
+	SString texturePath;
 
 };

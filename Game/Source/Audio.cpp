@@ -180,16 +180,18 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 void Audio::UnloadFx()
 {
 	ListItem<Mix_Chunk*>* it = fx.start;
-	for (it; it; ++it)
+	while (it != NULL)
 	{
 		Mix_FreeChunk(it->data);
+		it = it->next;
 	}
 	fx.clear();
 }
 
 void Audio::UnloadMusic()
 {
-	Mix_FreeMusic(music);
+	if(music != nullptr)
+		Mix_FreeMusic(music);
 
 	music = NULL;
 }

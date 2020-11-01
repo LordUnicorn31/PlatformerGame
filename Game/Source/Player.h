@@ -60,4 +60,5 @@ private:
 	float updateMsCycle;
 	bool doLogic;
 	uint jumpSound;
+	iPoint initialPos;
 };

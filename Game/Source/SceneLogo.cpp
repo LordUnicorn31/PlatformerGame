@@ -28,6 +28,7 @@ SceneLogo::~SceneLogo()
 bool SceneLogo::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
+	texturePath.create(config.child("texture").attribute("path").as_string());
 	bool ret = true;
 	return ret;
 }
@@ -39,7 +40,7 @@ bool SceneLogo::Start()
 
 	r = 0;
 
-	logoImage = app->tex->Load("Assets/textures/logoImage.png");
+	logoImage = app->tex->Load(texturePath.GetString());
 
 	return true;
 }
@@ -56,13 +57,13 @@ bool SceneLogo::Update(float dt)
 
 	bool ret = true;
 
-	app->render->DrawRectangle(rect, 150, 0, 0, (Uint8)r);
+	//app->render->DrawRectangle(rect, 150, 0, 0, (Uint8)r);
 
 	
 	app->render->DrawTexture(logoImage, 0, 0, NULL);
 
 
-	/*if (app->input->GetKey(SDL_SCANCODE_SPACE))
+	if (app->input->GetKey(SDL_SCANCODE_SPACE))
 	{
 		app->transitions->FadeToBlack(app->sceneLogo, app->sceneTitle, 2.0f);
 	}
@@ -73,7 +74,7 @@ bool SceneLogo::Update(float dt)
 	{
 		r--;
 		app->transitions->FadeToBlack(app->sceneLogo, app->sceneTitle, 2.0f);
-	}*/
+	}
 
 	
 	return ret;

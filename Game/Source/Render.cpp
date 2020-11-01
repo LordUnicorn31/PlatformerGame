@@ -46,7 +46,7 @@ bool Render::Awake(pugi::xml_node& config)
 		camera.w = app->win->screenSurface->w;
 		camera.h = app->win->screenSurface->h;
 		camera.x = 0;
-		camera.y = -2700;
+		camera.y = 0;
 	}
 
 	return ret;
@@ -75,7 +75,7 @@ bool Render::Update(float dt)
 
 bool Render::PostUpdate()
 {
-	SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
+	//SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;
 }

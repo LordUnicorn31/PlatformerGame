@@ -9,11 +9,12 @@
 #include "Map.h"
 #include "Transitions.h"
 #include "Audio.h"
-#include "LoseScene.h"
+#include "SceneLose.h"
+#include "Player.h"
 
 LoseScene::LoseScene() : Module()
 {
-	name = "loseScene";
+	name = "sceneLose";
 }
 
 // Destructor
@@ -25,6 +26,7 @@ LoseScene::~LoseScene()
 bool LoseScene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
+	texturePath.create(config.child("texture").attribute("path").as_string());
 	bool ret = true;
 	return ret;
 }
@@ -32,11 +34,10 @@ bool LoseScene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool LoseScene::Start()
 {
-	exitGame = false;
-	
-	background = app->tex->Load("Assets/textures/titleScene.png");
-	loseText = app->tex->Load("Assets/textures/logo.png");
-	/*app->audio->PlayMusic("Resources/audio/music/epic_fall.ogg");*/
+	app->player->Disable();
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
+	background = app->tex->Load(texturePath.GetString());
 
 	return true;
 }
@@ -53,14 +54,11 @@ bool LoseScene::Update(float dt)
 	bool ret = true;
 
 	
-
-	app->render->DrawTexture(background, 0, 0, NULL, true);
-	app->render->DrawTexture(loseText, app->win->width * 1.55f, app->win->height, NULL, true, 0.2);
-
-	if (exitGame) {
-		ret = false;
-		exitGame = false;
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		app->transitions->FadeToBlack(this, app->scene,0.5f);
 	}
+	app->render->DrawTexture(background, 0, 0, NULL, true);
 
 	return ret;
 }
@@ -81,10 +79,6 @@ bool LoseScene::CleanUp()
 	LOG("Freeing scene");
 
 	app->tex->UnLoad(background);
-	app->tex->UnLoad(loseText);
-	/*app->audio->UnloadMusic();*/
-
-
 	return true;
 }
 

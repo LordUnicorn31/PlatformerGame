@@ -38,7 +38,8 @@ public:
 	void CameraMovement();
 
 private:
-	SString map_name;
+	SString mapName;
+	SString audioPath;
 };
 
 #endif // __SCENE_H__

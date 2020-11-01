@@ -8,7 +8,7 @@
 #include "Map.h"
 #include "Player.h"
 #include "Transitions.h"
-#include "LoseScene.h"
+#include "SceneLose.h"
 #include "SceneLogo.h"
 #include "SceneTitle.h"
 
@@ -43,7 +43,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
-	AddModule(audio);
 	AddModule(map);
 	AddModule(scene);
 	AddModule(player);
@@ -51,6 +50,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(loseScene);
 	AddModule(sceneLogo);
 	AddModule(sceneTitle);
+	AddModule(audio);
 
 	// render last to swap buffer
 	AddModule(render);
@@ -117,7 +117,8 @@ bool App::Start()
 
 	while(item != NULL && ret == true)
 	{
-		ret = item->data->Start();
+		if(item->data->isEnabled())
+			ret = item->data->Start();
 		item = item->next;
 	}
 

@@ -26,7 +26,8 @@ bool Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
-	map_name.create(config.child("map_name").attribute("name").as_string());
+	mapName.create(config.child("map_name").attribute("name").as_string());
+	audioPath.create(config.child("audio").attribute("path").as_string());
 	SDL_ShowCursor(SDL_DISABLE);
 	return ret;
 }
@@ -40,8 +41,9 @@ void Scene::Init()
 // Called before the first frame
 bool Scene::Start()
 {
-	app->audio->PlayMusic("Assets/audio/music/Forest.ogg");
-	app->map->Load(map_name.GetString());
+	app->audio->PlayMusic(audioPath.GetString());
+	app->map->Load(mapName.GetString());
+	app->player->Enable();
 	return true;
 }
 
@@ -104,7 +106,7 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
-	app->audio->UnloadFx();
+	app->map->CleanUp();
 	app->audio->UnloadMusic();
 	return true;
 }

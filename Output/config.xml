@@ -20,12 +20,24 @@
   <player>
     <texture>Assets/maps/Tiles Bosc3.png</texture>
     <textureRect x="417" y="16" w="16" h="16"/>
+    <position x="16" y="2720"/>
   </player>
   <scene>
     <map_name name="Forest1.tmx"/>
+    <audio path ="Assets/audio/music/Forest.ogg"/>
   </scene>
   <map>
     <folder>Assets/maps/</folder>
   </map>
+  <sceneLogo>
+    <texture path="Assets/textures/logoImage.png"/>
+  </sceneLogo>
+  <sceneTitle>
+    <texture path="Assets/textures/titleImage.png"/>
+    <audio path ="Assets/audio/music/Menu.ogg"/>
+  </sceneTitle>
+  <sceneLose>
+    <texture path="Assets/textures/loseImage.png"/>
+  </sceneLose>
 
 </config>

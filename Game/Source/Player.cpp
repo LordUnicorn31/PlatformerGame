@@ -8,7 +8,7 @@
 #include "Scene.h"
 #include "Transitions.h"
 #include "Audio.h"
-#include "LoseScene.h"
+#include "SceneLose.h"
 
 Player::Player() : Module() 
 {
@@ -40,6 +40,7 @@ bool Player::Awake(pugi::xml_node& playerNode)
 {
 	texturePath.create(playerNode.child_value("texture"));
 	textureRect = { playerNode.child("textureRect").attribute("x").as_int(), playerNode.child("textureRect").attribute("y").as_int(), playerNode.child("textureRect").attribute("w").as_int(), playerNode.child("textureRect").attribute("h").as_int() };
+	initialPos = iPoint(playerNode.child("position").attribute("x").as_int(), playerNode.child("position").attribute("y").as_int());
 	return true;
 }
 
@@ -53,7 +54,7 @@ bool Player::Start()
 {
 	texture = app->tex->Load(texturePath.GetString());
 	jumpSound = app->audio->LoadFx("Assets/audio/fx/jump.wav");
-	position = { 16, 2720};
+	position = initialPos;
 	return true;
 }
 
@@ -176,6 +177,7 @@ bool Player::Update(float dt)
 bool Player::CleanUp()
 {
 	app->tex->UnLoad(texture);
+	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
 	return true;
 }

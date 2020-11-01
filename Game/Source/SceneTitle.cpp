@@ -3,14 +3,13 @@
 #include "App.h"
 #include "Textures.h"
 #include "Render.h"
-#include "Window.h"
 #include "Scene.h"
 #include "SceneTitle.h"
 #include "Input.h"
-#include "Map.h"
 #include "Transitions.h"
 #include "Audio.h"
 #include "SceneLogo.h"
+#include "Player.h"
 
 SceneTitle::SceneTitle() : Module()
 {
@@ -27,6 +26,8 @@ SceneTitle::~SceneTitle()
 bool SceneTitle::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
+	texturePath.create(config.child("texture").attribute("path").as_string());
+	audioPath.create(config.child("audio").attribute("path").as_string());
 	bool ret = true;
 	return ret;
 }
@@ -35,8 +36,8 @@ bool SceneTitle::Awake(pugi::xml_node& config)
 bool SceneTitle::Start()
 {
 	exitGame = false;
-	titleImage = app->tex->Load("Assets/textures/titleImage.png");
-    /*app->audio->PlayMusic("Assets/audio/music/Menu.ogg");*/
+	titleImage = app->tex->Load(texturePath.GetString());
+    app->audio->PlayMusic(audioPath.GetString());
 	return true;
 }
 
@@ -58,6 +59,11 @@ bool SceneTitle::Update(float dt)
 		exitGame = false;
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+	{
+		app->transitions->FadeToBlack(this, app->scene,0.5f);
+	}
+
 	return ret;
 }
 
@@ -77,6 +83,8 @@ bool SceneTitle::CleanUp()
 	LOG("Freeing scene");
 
 	app->tex->UnLoad(titleImage);
+	app->audio->UnloadMusic();
+	app->audio->UnloadFx();
 	titleImage = nullptr;
 
 

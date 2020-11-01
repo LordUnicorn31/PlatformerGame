@@ -36,10 +36,8 @@ public:
 private:
 	
 	SDL_Texture* titleImage;
-	
-
-	int buttonFx;
-
 	bool exitGame;
+	SString texturePath;
+	SString audioPath;
 
 };
