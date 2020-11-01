@@ -105,7 +105,7 @@ bool Scene::CleanUp()
 
 void Scene::CameraMovement()
 {
-	if(-app->render->camera.x + app->win->width <= 6400) 
+	if(app->player->GetPosition().x <= 6400 -(app->win->width/2))
     {
 		app->render->camera.x = -(app->player->GetPosition().x - app->render->camera.w/2);
 	}
