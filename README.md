@@ -13,7 +13,7 @@ You are Elyes, a skin-changer and your goal is to defeat the evil force ruling i
  
 ## Controls
  
- - ESC: Ingame quit game.
+ - ESC: Quit game.
  - F: Fullscreen.
  - A: Move left.
  - D: Move Right.
