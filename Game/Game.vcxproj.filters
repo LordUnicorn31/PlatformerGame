@@ -20,6 +20,8 @@
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Transitions.cpp" />
     <ClCompile Include="Source\LoseScene.cpp" />
+    <ClCompile Include="Source\SceneLogo.cpp" />
+    <ClCompile Include="Source\SceneTitle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -59,6 +61,8 @@
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\Transitions.h" />
     <ClInclude Include="Source\LoseScene.h" />
+    <ClInclude Include="Source\SceneLogo.h" />
+    <ClInclude Include="Source\SceneTitle.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
