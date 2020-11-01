@@ -88,6 +88,11 @@ bool Scene::Update(float dt)
 	{
 		app->player->Die();
 	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
+		app->player->Die();
+	}
 	return true;
 }
 

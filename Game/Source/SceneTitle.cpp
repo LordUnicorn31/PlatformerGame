@@ -10,6 +10,7 @@
 #include "Audio.h"
 #include "SceneLogo.h"
 #include "Player.h"
+#include "Window.h"
 
 SceneTitle::SceneTitle() : Module()
 {
@@ -58,7 +59,8 @@ bool SceneTitle::Update(float dt)
 		ret = false;
 		exitGame = false;
 	}
-
+	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		app->win->FullScreen();
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	{
 		app->transitions->FadeToBlack(this, app->scene,0.5f);
@@ -72,7 +74,8 @@ bool SceneTitle::PostUpdate()
 {
 	
 	bool ret = true;
-
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		ret = false;
 	return ret;
 }
 

@@ -63,11 +63,8 @@ bool SceneLogo::Update(float dt)
 	app->render->DrawTexture(logoImage, 0, 0, NULL);
 
 
-	if (app->input->GetKey(SDL_SCANCODE_SPACE))
-	{
-		app->transitions->FadeToBlack(app->sceneLogo, app->sceneTitle, 2.0f);
-	}
-
+	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		app->win->FullScreen();
 	r++;
 
 	if (r == 255)
@@ -75,6 +72,7 @@ bool SceneLogo::Update(float dt)
 		r--;
 		app->transitions->FadeToBlack(app->sceneLogo, app->sceneTitle, 2.0f);
 	}
+
 
 	
 	return ret;
@@ -84,7 +82,8 @@ bool SceneLogo::Update(float dt)
 bool SceneLogo::PostUpdate()
 {
 	bool ret = true;
-
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		ret = false;
 	return ret;
 }
 

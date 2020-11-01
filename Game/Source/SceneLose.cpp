@@ -53,7 +53,8 @@ bool LoseScene::Update(float dt)
 {
 	bool ret = true;
 
-	
+	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		app->win->FullScreen();
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
 	{
 		app->transitions->FadeToBlack(this, app->scene,0.5f);
@@ -68,7 +69,8 @@ bool LoseScene::PostUpdate()
 {
 	
 	bool ret = true;
-
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		ret = false;
 	return ret;
 }
 
