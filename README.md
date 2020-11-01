@@ -18,7 +18,7 @@ You are Elyes, a skin-changer and your goal is to defeat the evil force ruling i
  - A: Move left.
  - D: Move Right.
  - W: Climb up.
- - S: climb down.
+ - S: Climb down.
  - Space: Jump
 
 ## Developers
