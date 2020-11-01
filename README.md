@@ -12,7 +12,8 @@ You are Elyes, a skin-changer and your goal is to defeat the evil force ruling i
 - Climbing ropes (The player can climb through ropes and jump from one to another).
  
 ## Controls
-
+ 
+ - ESC: Ingame quit game.
  - F: Fullscreen.
  - A: Move left.
  - D: Move Right.
@@ -22,7 +23,7 @@ You are Elyes, a skin-changer and your goal is to defeat the evil force ruling i
  
   ### Debug Keys
   
-  - F1: Restart first level.
+ - F1: Restart first level.
  - F3: Restart current level.
  - F5: Save the game.
  - F6: Load the game.
