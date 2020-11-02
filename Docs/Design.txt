@@ -27,4 +27,44 @@ cargas invocadoras:
 - goblin: es transforma a base de lootejar monedes dels morts.
 - ghost: sacrifica les barres de les altres transformacions.
 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Entrega 2:
+- animations.
+- win condition.
+- 2nd map.
+- framerate
+- Entity (objects and players/characters & enemies)
+- Pathfinding.
+- Mechanic to kill enemies.
+- Brofiler.
+
+F9 To view colliders and pathfinding 
+F10 God Mode (allows to fly around)
+F11 Enable/Disable FPS cap to 30
+
+- Checkpoint autosave.
+- Spatial Audio (?)
+- Random map (?)
+- minimapa (?)
+
+Enemies: forest(bats and rats) Castle(Zombie, Skeleton, fire(?))
+parallax in both.
+Change day and night (?).
+trampolines (?).
+Random items that have effects (apples, etc.)
+breakable rocks. 
+blocked tiles.
+x loot = 1UP
+
+Combat:
+- Auto.
+- Ranged hadouken.
+- Jump on enemy (?).
+
+Characters mechanics:
+- General: allies, power ups (change colours), 
+- Ghost: Jetpack (?), cant die, cant hit.
+
+
 

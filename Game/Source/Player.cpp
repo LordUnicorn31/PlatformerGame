@@ -73,6 +73,7 @@ bool Player::Update(float dt)
 	//Get the input and update the movement variables accordingly
 	bool onPlatform = OnPlatform();
 	bool onDeath = OnDeath();
+	bool onChange = Onchange();
 
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
@@ -118,7 +119,7 @@ bool Player::Update(float dt)
 	if(app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) //Problem: KEY_DOWN or KEY_REPEAT
 	{
 		if (onPlatform)
-		{ 
+		{
 			speed.y = jumpSpeed;
 			app->audio->PlayFx(jumpSound);
 		}
@@ -166,6 +167,11 @@ bool Player::Update(float dt)
 	{
 		//Die(); Respawn
 		app->transitions->FadeToBlack(app->scene,app->loseScene);
+	}
+	
+	if (onChange)
+	{
+		app->transitions->FadeToBlack(app->scene, app->loseScene);
 	}
 
 
@@ -265,6 +271,19 @@ bool Player::OnDeath()
 		}
 		return false;
 	}
+}
+
+bool Player::Onchange()
+{
+	iPoint left = app->map->WorldToMap(position.x, position.y);
+	uint leftIndex = left.y * app->map->data.height + left.x;
+	ListItem<MapLayer*>* item = app->map->data.layers.start;
+	for (item; item; item = item->next)
+	{
+		if (app->map->GetTileProperty(item->data->data[leftIndex], "Change"))
+			return true;
+	}
+	return false;
 }
 
 bool Player::OnLadder(iPoint position)

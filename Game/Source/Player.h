@@ -34,6 +34,7 @@ private:
 	void Move();
 	bool OnPlatform();
 	bool OnDeath();
+	bool Onchange();
 	bool OnBlockedTile();
 	bool OnLadder(iPoint position);
 	bool SnapToLadder(bool onPlatform, bool down);
