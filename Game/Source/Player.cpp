@@ -9,6 +9,7 @@
 #include "Transitions.h"
 #include "Audio.h"
 #include "SceneLose.h"
+#include "CastleScene.h"
 
 Player::Player() : Module() 
 {
@@ -171,7 +172,7 @@ bool Player::Update(float dt)
 	
 	if (onChange)
 	{
-		app->transitions->FadeToBlack(app->scene, app->loseScene);
+		app->transitions->FadeToBlack(app->scene, app->castleScene);
 	}
 
 

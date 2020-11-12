@@ -11,6 +11,7 @@
 #include "SceneLose.h"
 #include "SceneLogo.h"
 #include "SceneTitle.h"
+#include "CastleScene.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -37,6 +38,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	loseScene = new LoseScene();
 	sceneLogo = new SceneLogo();
 	sceneTitle = new SceneTitle();
+	castleScene = new CastleScene();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -51,6 +53,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(sceneLogo);
 	AddModule(sceneTitle);
 	AddModule(audio);
+	AddModule(castleScene);
 
 	// render last to swap buffer
 	AddModule(render);

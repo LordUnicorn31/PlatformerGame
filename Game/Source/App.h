@@ -20,6 +20,7 @@ class Transitions;
 class LoseScene;
 class SceneLogo;
 class SceneTitle;
+class CastleScene;
 
 class SString;
 
@@ -97,6 +98,7 @@ public:
 	LoseScene* loseScene;
 	SceneLogo* sceneLogo;
 	SceneTitle* sceneTitle;
+	CastleScene* castleScene;
 
 private:
 

@@ -22,6 +22,7 @@
     <ClCompile Include="Source\SceneLogo.cpp" />
     <ClCompile Include="Source\SceneTitle.cpp" />
     <ClCompile Include="Source\SceneLose.cpp" />
+    <ClCompile Include="Source\CastleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -63,6 +64,7 @@
     <ClInclude Include="Source\SceneLogo.h" />
     <ClInclude Include="Source\SceneTitle.h" />
     <ClInclude Include="Source\SceneLose.h" />
+    <ClInclude Include="Source\CastleScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
