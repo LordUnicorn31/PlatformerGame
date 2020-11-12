@@ -75,6 +75,7 @@ bool Player::Update(float dt)
 	bool onPlatform = OnPlatform();
 	bool onDeath = OnDeath();
 	bool onChange = Onchange();
+	bool onCamera = OnCamera();
 
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
@@ -282,6 +283,32 @@ bool Player::Onchange()
 	for (item; item; item = item->next)
 	{
 		if (app->map->GetTileProperty(item->data->data[leftIndex], "Change"))
+			return true;
+	}
+	return false;
+}
+
+bool Player::OnCamera()
+{
+	iPoint left = app->map->WorldToMap(position.x, position.y);
+	uint leftIndex = left.y * app->map->data.height + left.x;
+	ListItem<MapLayer*>* item = app->map->data.layers.start;
+	for (item; item; item = item->next)
+	{
+		if (app->map->GetTileProperty(item->data->data[leftIndex], "Camera"))
+			return true;
+	}
+	return false;
+}
+
+bool Player::OffCamera()
+{
+	iPoint left = app->map->WorldToMap(position.x +app->render->camera.w/2, position.y);
+	uint leftIndex = left.y * app->map->data.height + left.x;
+	ListItem<MapLayer*>* item = app->map->data.layers.start;
+	for (item; item; item = item->next)
+	{
+		if (app->map->GetTileProperty(item->data->data[leftIndex], "Camera"))
 			return true;
 	}
 	return false;
