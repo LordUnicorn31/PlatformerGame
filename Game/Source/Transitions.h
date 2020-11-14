@@ -32,11 +32,11 @@ private:
 	enum class fade_step
 	{
 		none,
-		fade_to_black,
-		fade_from_black,
-		slide_in,
-		slide_change,
-		slide_out
+		fadetoblack,
+		fadefromblack,
+		slidein,
+		slidechange,
+		slideout
 	}
 	current_step = fade_step::none;
 

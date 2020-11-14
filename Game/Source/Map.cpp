@@ -31,8 +31,8 @@ void Map::Draw()
 	if (mapLoaded == false)
 		return;
 
-	iPoint cam_size(WorldToMap(-app->render->camera.x + app->render->camera.w, -app->render->camera.y + app->render->camera.h));
-	iPoint cam_pos = WorldToMap(-app->render->camera.x, -app->render->camera.y);
+	iPoint camSize(WorldToMap(-app->render->camera.x + app->render->camera.w, -app->render->camera.y + app->render->camera.h));
+	iPoint camPos = WorldToMap(-app->render->camera.x, -app->render->camera.y);
 	ListItem<MapLayer*>* item;
 	for (item = data.layers.start; item != NULL; item = item->next)
 	{
@@ -40,11 +40,11 @@ void Map::Draw()
 		/*if (layer->properties.Get("Navigation", 0) == 1)
 			continue;*/
 
-		for (int y = cam_pos.y; y <= cam_size.y; ++y)
+		for (int y = camPos.y; y <= camSize.y; ++y)
 		{
 			if (y < 0 || y >= data.height)
 				continue;
-			for (int x = cam_pos.x; x <= cam_size.x; ++x)
+			for (int x = camPos.x; x <= camSize.x; ++x)
 			{
 				if (x<0 || x>data.width)
 					continue;
@@ -57,6 +57,7 @@ void Map::Draw()
 					iPoint pos = MapToWorld(x, y);
 
 					app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
+					
 				}
 			}
 		}
@@ -81,37 +82,37 @@ int Properties::Get(const char* value, int default_value) const
 
 void Map::DrawGrid()
 {
-	iPoint point_a = { data.tileWidth / 2 + 3,data.tileHeight / 2 + 3 };
-	iPoint point_b = { -((data.width * data.tileWidth) / 2 + data.tileWidth / 2) + data.tileWidth + 3,
+	iPoint pointA = { data.tileWidth / 2 + 3,data.tileHeight / 2 + 3 };
+	iPoint pointB = { -((data.width * data.tileWidth) / 2 + data.tileWidth / 2) + data.tileWidth + 3,
 		(data.height * data.tileHeight) / 2 + data.tileHeight / 2 + 3 };
 
 	for (int i = 0; i <= data.width; ++i)
 	{
-		app->render->DrawLine(point_a.x, point_a.y, point_b.x, point_b.y, 255, 255, 255, 50);
+		app->render->DrawLine(pointA.x, pointA.y, pointB.x, pointB.y, 255, 255, 255, 50);
 
-		point_a.x += data.tileWidth / 2;
-		point_a.y += data.tileHeight / 2;
+		pointA.x += data.tileWidth / 2;
+		pointA.y += data.tileHeight / 2;
 
-		point_b.x += data.tileWidth / 2;
-		point_b.y += data.tileHeight / 2;
+		pointB.x += data.tileWidth / 2;
+		pointB.y += data.tileHeight / 2;
 	}
 
 	//Back to the first tile
-	point_a.x = data.tileWidth / 2;
-	point_a.y = data.tileHeight / 2 + 3;
+	pointA.x = data.tileWidth / 2;
+	pointA.y = data.tileHeight / 2 + 3;
 
-	point_b.x = (data.width * data.tileWidth) / 2 + data.tileWidth / 2;
-	point_b.y = (data.height * data.tileHeight) / 2 + data.tileHeight / 2 + 3;
+	pointB.x = (data.width * data.tileWidth) / 2 + data.tileWidth / 2;
+	pointB.y = (data.height * data.tileHeight) / 2 + data.tileHeight / 2 + 3;
 
 	for (int i = 0; i <= data.height; ++i)
 	{
-		app->render->DrawLine(point_a.x, point_a.y, point_b.x, point_b.y, 255, 255, 255, 50);
+		app->render->DrawLine(pointA.x, pointA.y, pointB.x, pointB.y, 255, 255, 255, 50);
 
-		point_a.x -= data.tileWidth / 2;
-		point_a.y += data.tileHeight / 2;
+		pointA.x -= data.tileWidth / 2;
+		pointA.y += data.tileHeight / 2;
 
-		point_b.x -= data.tileWidth / 2;
-		point_b.y += data.tileHeight / 2;
+		pointB.x -= data.tileWidth / 2;
+		pointB.y += data.tileHeight / 2;
 	}
 }
 

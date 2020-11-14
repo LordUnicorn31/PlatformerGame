@@ -36,7 +36,7 @@ bool Transitions::Update(float dt)
 
 	switch (current_step)
 	{
-	case fade_step::fade_to_black:
+	case fade_step::fadetoblack:
 	{
 		if (now >= totalTime)
 		{
@@ -44,11 +44,11 @@ bool Transitions::Update(float dt)
 			moduleOn->Enable();
 			totalTime += totalTime;
 			startTime = SDL_GetTicks();
-			current_step = fade_step::fade_from_black;
+			current_step = fade_step::fadefromblack;
 		}
 	} break;
 
-	case fade_step::fade_from_black:
+	case fade_step::fadefromblack:
 	{
 
 		normalized = 1.0f - normalized;
@@ -58,7 +58,7 @@ bool Transitions::Update(float dt)
 
 	} break;
 
-	case fade_step::slide_in:
+	case fade_step::slidein:
 
 		normalized = 1.0f;
 		if (screen.x >= 0)
@@ -68,12 +68,12 @@ bool Transitions::Update(float dt)
 
 		if (now >= totalTime)
 		{
-			current_step = fade_step::slide_change;
+			current_step = fade_step::slidechange;
 		}
 
 		break;
 
-	case fade_step::slide_change:
+	case fade_step::slidechange:
 
 		normalized = 1.0f;
 		screen.x;
@@ -81,11 +81,11 @@ bool Transitions::Update(float dt)
 		moduleOn->Enable();
 		totalTime += totalTime;
 		startTime = SDL_GetTicks();
-		current_step = fade_step::slide_out;
+		current_step = fade_step::slideout;
 
 		break;
 
-	case fade_step::slide_out:
+	case fade_step::slideout:
 
 		normalized = 1.0f;
 		screen.x += (int)(((float)(screen.w) / (float)totalTime) * dt * (float)now * 2);
@@ -109,7 +109,7 @@ bool Transitions::FadeToBlack(Module* Module_off, Module* Module_on, float time)
 	if (current_step == fade_step::none)
 	{
 		screen.x = 0;
-		current_step = fade_step::fade_to_black;
+		current_step = fade_step::fadetoblack;
 		startTime = SDL_GetTicks();
 		totalTime = (Uint32)(time * 0.5f * 1000.0f);
 		moduleOff = Module_off;
@@ -127,7 +127,7 @@ bool Transitions::Slide(Module* Module_off, Module* Module_on, float time)
 	if (current_step == fade_step::none)
 	{
 		screen.x -= app->win->width;
-		current_step = fade_step::slide_in;
+		current_step = fade_step::slidein;
 		startTime = SDL_GetTicks();
 		totalTime = (Uint32)(time * 0.5 * 1000.0f);
 		moduleOff = Module_off;
