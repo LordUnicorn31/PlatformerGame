@@ -23,7 +23,7 @@
     <position x="16" y="2720"/>
   </player>
   <scene>
-    <map_name name="Castle.tmx"/>
+    <map_name name="Forest1.tmx"/>
     <audio path ="Assets/audio/music/Forest.ogg"/>
   </scene>
   <map>

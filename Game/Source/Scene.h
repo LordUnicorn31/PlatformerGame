@@ -37,9 +37,6 @@ public:
 	// Camera movement
 	void CameraMovement();
 
-	// Sets the camera
-	bool SetCamera();
-
 private:
 	SString mapName;
 	SString audioPath;

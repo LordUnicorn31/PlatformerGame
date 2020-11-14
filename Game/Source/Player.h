@@ -29,8 +29,6 @@ public:
 	//Jump
 	//Pujar ladder
 	*/
-	bool OnCamera();
-	bool OffCamera();
 private:
 	void Draw();
 	void Move();

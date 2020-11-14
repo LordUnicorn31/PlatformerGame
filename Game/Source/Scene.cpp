@@ -7,8 +7,6 @@
 #include "Scene.h"
 #include "Map.h"
 #include "Player.h"
-#include "SceneLose.h"
-#include "Transitions.h"
 
 
 #include "Defs.h"
@@ -120,15 +118,7 @@ bool Scene::CleanUp()
 
 void Scene::CameraMovement()
 {
-	
-	bool onCamera = app->player->OnCamera();
-	bool offCamera = app->player->OffCamera();
-	bool noCamera = !offCamera;
-	/*if (offCamera)
-	{
-		!offCamera;
-	}*/
-	if(app->player->GetPosition().x <= 6400 -(app->win->width/2) && noCamera)
+	if(app->player->GetPosition().x <= 6400 -(app->win->width/2))
     {
 		app->render->camera.x = -(app->player->GetPosition().x - app->render->camera.w/2);
 	}
@@ -136,17 +126,6 @@ void Scene::CameraMovement()
 	{
 		app->render->camera.x = 0;
 	}
-	if (onCamera)
-	{
-		app->render->camera.x = -app->player->GetPosition().x;
-		!onCamera;
-		
-	}
-	/*if (offCamera)
-	{
-		app->render->camera.x = -app->player->GetPosition().x;
-	}*/
-	
 
 	app->render->camera.y = -(app->player->GetPosition().y - app->render->camera.h/2);
 	
@@ -154,14 +133,4 @@ void Scene::CameraMovement()
 	{
 		app->render->camera.y = 0;
 	}
-}
-
-bool SetCamera()
-{
-	bool ret = true;
-	bool onCamera = app->player->OnCamera();
-	bool offCamera = app->player->OffCamera();
-
-	return ret;
-
 }
