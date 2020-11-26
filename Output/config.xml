@@ -33,7 +33,7 @@
     <texture path="Assets/textures/logoImage.png"/>
   </sceneLogo>
   <sceneTitle>
-    <texture path="Assets/textures/titleImage.png"/>
+    <texture path="Assets/textures/title_image.png"/>
     <audio path ="Assets/audio/music/Menu.ogg"/>
   </sceneTitle>
   <sceneLose>
