@@ -1,3 +1,8 @@
+#ifdef OPTICKPROFILE
+#include "optick.h"
+#pragma comment(lib, "OptickCore.lib")
+#endif
+
 #include "App.h"
 
 #include "Defs.h"
@@ -34,6 +39,10 @@ int main(int argc, char* args[])
 
 	while(state != EXIT)
 	{
+#ifdef OPTICKPROFILE
+		OPTICK_FRAME("MainThread");
+#endif // OPTICKPROFILE
+
 		switch(state)
 		{
 

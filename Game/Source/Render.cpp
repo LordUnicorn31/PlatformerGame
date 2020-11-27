@@ -5,7 +5,12 @@
 #include "Defs.h"
 #include "Log.h"
 
-#define VSYNC true
+//#define VSYNC true
+#ifdef OPTICKPROFILE
+#include "optick.h"
+#endif // OPTICKPROFILE
+
+
 
 Render::Render() : Module()
 {
@@ -75,6 +80,10 @@ bool Render::Update(float dt)
 
 bool Render::PostUpdate()
 {
+#ifdef OPTICKPROFILE
+	OPTICK_EVENT();
+#endif // OPTICKPROFILE
+
 	//SDL_SetRenderDrawColor(renderer, background.r, background.g, background.g, background.a);
 	SDL_RenderPresent(renderer);
 	return true;

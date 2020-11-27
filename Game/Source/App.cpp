@@ -24,6 +24,10 @@
 #include <iostream>
 #include <sstream>
 
+#ifdef OPTICKPROFILE
+#include "optick.h"
+#endif // OPTICKPROFILE
+
 // Constructor
 App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("savegame.xml")
 {
@@ -152,6 +156,9 @@ bool App::Start()
 // Called each loop iteration
 bool App::Update()
 {
+#ifdef OPTICKPROFILE
+	OPTICK_EVENT();
+#endif // OPTICKPROFILE
 	bool ret = true;
 	PrepareUpdate();
 
@@ -166,8 +173,6 @@ bool App::Update()
 
 	if(ret == true)
 		ret = PostUpdate();
-
-
 
 	FinishUpdate();
 	return ret;
@@ -209,6 +214,9 @@ void App::PrepareUpdate()
 // ---------------------------------------------
 void App::FinishUpdate()
 {
+#ifdef OPTICKPROFILE
+	OPTICK_EVENT();
+#endif // OPTICKPROFILE
 	// This is a good place to call Load / Save functions
 	if (wantToSave == true)
 		SaveGameNow();
@@ -264,6 +272,10 @@ bool App::PreUpdate()
 // Call modules on each loop iteration
 bool App::DoUpdate()
 {
+#ifdef OPTICKPROFILE
+	OPTICK_EVENT();
+#endif // OPTICKPROFILE
+
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
@@ -286,6 +298,10 @@ bool App::DoUpdate()
 // Call modules after each loop iteration
 bool App::PostUpdate()
 {
+#ifdef OPTICKPROFILE
+	OPTICK_EVENT();
+#endif // OPTICKPROFILE
+
 	bool ret = true;
 	ListItem<Module*>* item;
 	Module* pModule = NULL;

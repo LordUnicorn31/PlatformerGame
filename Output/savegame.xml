@@ -6,7 +6,7 @@
 	<map />
 	<scene />
 	<player>
-		<position x="3760" y="3120" />
+		<position x="522" y="3096" />
 	</player>
 	<transitions />
 	<sceneLose />
@@ -15,6 +15,6 @@
 	<audio />
 	<castleScene />
 	<renderer>
-		<camera x="-3400" y="-2880" />
+		<camera x="-162" y="-2856" />
 	</renderer>
 </game_state>

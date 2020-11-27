@@ -11,6 +11,11 @@
 #include "SceneLose.h"
 #include "CastleScene.h"
 
+#ifdef OPTICKPROFILE
+#include "optick.h"
+#endif // OPTICKPROFILE
+
+
 Player::Player() : Module() 
 {
 	name.create("player");
@@ -72,6 +77,10 @@ float Sign(float num) //Problems: Where should we put this function
 
 bool Player::Update(float dt) 
 {
+#ifdef OPTICKPROFILE
+	OPTICK_EVENT("PlayerUpdate");
+#endif // OPTICKPROFILE
+
 	//Get the input and update the movement variables accordingly
 	bool onPlatform = OnPlatform();
 	bool onDeath = OnDeath();
@@ -442,6 +451,10 @@ bool Player::Save(pugi::xml_node& playerNode) const
 
 void Player::Move() 
 {
+#ifdef OPTICKPROFILE
+	OPTICK_EVENT("PlayerMove");
+#endif // OPTICKPROFILE
+
 	if (speed.x != 0) 
 	{
 		if (position.y % app->map->data.tileHeight != 0) 

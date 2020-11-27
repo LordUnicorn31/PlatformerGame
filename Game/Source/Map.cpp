@@ -6,6 +6,11 @@
 #include "Map.h"
 #include <math.h>
 
+#ifdef OPTICKPROFILE
+#include "optick.h"
+#endif // OPTICKPROFILE
+
+
 Map::Map() : Module(), mapLoaded(false)
 {
 	name = "map";
@@ -28,6 +33,10 @@ bool Map::Awake(pugi::xml_node& config)
 
 void Map::Draw()
 {
+#ifdef OPTICKPROFILE
+	OPTICK_EVENT();
+#endif // OPTICKPROFILE
+
 	if (mapLoaded == false)
 		return;
 

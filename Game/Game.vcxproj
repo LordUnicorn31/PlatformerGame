@@ -57,15 +57,15 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>OPTICKPROFILE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ShowIncludes>false</ShowIncludes>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\External\SDL2-2.0.10\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\External\SDL2-2.0.10\include;$(ProjectDir)Source\External\OptickProfiler\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib; SDL2_mixer.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL_Main;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL_Main;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf;$(SolutionDir)Game\Source\External\OptickProfiler</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll $(SolutionDir)Output /s /y
@@ -90,15 +90,15 @@ Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\fre
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <UseFullPaths>false</UseFullPaths>
       <ShowIncludes>false</ShowIncludes>
-      <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\External\SDL2-2.0.10\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>OPTICKPROFILE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\External\SDL2-2.0.10\include;$(ProjectDir)Source\External\OptickProfiler\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib; SDL2_mixer.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL_Main;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL_Main;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf;$(SolutionDir)Game\Source\External\OptickProfiler</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
       <Command>Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll $(SolutionDir)Output /s /y
@@ -111,7 +111,8 @@ Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Zlib\zlib1
 Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libogg\llibogg.dll $(SolutionDir)Output /s /y
 Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbis\llibvorbis.dll $(SolutionDir)Output /s /y
 Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbisfile\libvorbisfile.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\freetype.dll $(SolutionDir)Output /s /y</Command>
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\freetype.dll $(SolutionDir)Output /s /y
+Xcopy $(SolutionDir)Build\$(Configuration)\Bin\Game.exe $(SolutionDir)Output /s /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
