@@ -27,6 +27,7 @@ bool LoseScene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	texturePath.create(config.child("texture").attribute("path").as_string());
+	audioPath.create(config.child("audio").attribute("path").as_string());
 	bool ret = true;
 	return ret;
 }
@@ -38,6 +39,7 @@ bool LoseScene::Start()
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 	background = app->tex->Load(texturePath.GetString());
+	app->audio->PlayMusic(audioPath.GetString());
 
 	return true;
 }
@@ -81,6 +83,7 @@ bool LoseScene::CleanUp()
 	LOG("Freeing scene");
 
 	app->tex->UnLoad(background);
+	app->audio->UnloadMusic();
 	return true;
 }
 

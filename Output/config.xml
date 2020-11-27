@@ -37,7 +37,8 @@
     <audio path ="Assets/audio/music/Menu.ogg"/>
   </sceneTitle>
   <sceneLose>
-    <texture path="Assets/textures/loseImage.png"/>
+    <texture path="Assets/textures/lose_image.png"/>
+    <audio path="Assets/audio/music/lose_music.ogg"/>
   </sceneLose>
 
 </config>

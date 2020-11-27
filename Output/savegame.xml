@@ -3,14 +3,17 @@
 	<input />
 	<window />
 	<textures />
-	<audio />
 	<map />
 	<scene />
 	<player>
-		<position x="16" y="2720" />
+		<position x="145" y="3008" />
 	</player>
 	<transitions />
-	<loseScene />
+	<sceneLose />
+	<sceneLogo />
+	<sceneTitle />
+	<audio />
+	<castleScene />
 	<renderer>
 		<camera x="0" y="-2768" />
 	</renderer>

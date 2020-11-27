@@ -36,5 +36,6 @@ private:
 
 	SDL_Texture* background;
 	SString texturePath;
+	SString audioPath;
 
 };
