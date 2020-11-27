@@ -210,6 +210,7 @@ void Player::Draw()
 	app->render->DrawTexture(texture, position.x, position.y, &textureRect);
 }
 
+
 bool Player::OnPlatform()
 {
 	if ((position.x % app->map->data.tileWidth) != 0) //check if we have to check 2 columns or 1

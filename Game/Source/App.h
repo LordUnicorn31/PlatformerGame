@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "List.h"
 #include "Timer.h" //Vull fowarddeclarar aixo amb class Timer pero no em deixa
+#include "PerfTimer.h" //Same :(
 
 #include "PugiXml/src/pugixml.hpp"
 
@@ -82,6 +83,7 @@ private:
 	// Load / Save
 	bool LoadGameNow();
 	bool SaveGameNow() const;
+	bool freeze;
 
 public:
 
@@ -121,7 +123,21 @@ private:
 	pugi::xml_node configApp;
 
 	Timer frameTime;
+	PerfTimer timer;
+	float avgFps;
+	float secondstartUp;
+	uint32 lastFrame;
+	uint32 frameLast;
+	char title1[256];
 	float dt;
+	uint64 frameCount = 0;
+	Timer startupTime;
+	Timer lastSecFrameTime;
+	uint32 lastSecFrameCount = 0;
+	uint32 prevLastSecFrameCount = 0;
+	int cappedMs = -1;
+	bool capNum;
+	int cap;
 };
 
 extern App* app;

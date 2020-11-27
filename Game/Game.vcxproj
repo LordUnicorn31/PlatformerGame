@@ -116,6 +116,7 @@ Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\fre
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\CastleScene.cpp" />
+    <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\SceneLose.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
@@ -132,6 +133,7 @@ Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\fre
     <ClCompile Include="Source\Transitions.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\CastleScene.h" />
+    <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\SceneLose.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Player.h" />

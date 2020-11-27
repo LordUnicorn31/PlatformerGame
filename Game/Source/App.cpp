@@ -2,6 +2,8 @@
 #include "Window.h"
 #include "Input.h"
 #include "Render.h"
+#include "Timer.h"
+#include "PerfTimer.h"
 #include "Textures.h"
 #include "Audio.h"
 #include "Scene.h"
@@ -12,6 +14,7 @@
 #include "SceneLogo.h"
 #include "SceneTitle.h"
 #include "CastleScene.h"
+
 
 #include "Defs.h"
 #include "Log.h"
@@ -24,7 +27,9 @@
 // Constructor
 App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("savegame.xml")
 {
+	PERF_START(timer);
 	wantToSave = wantToLoad = false;
+	freeze = false;
 
 	input = new Input();
 	win = new Window();
@@ -57,6 +62,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 
 	// render last to swap buffer
 	AddModule(render);
+
+	PERF_PEEK(timer);
 }
 
 // Destructor
@@ -85,11 +92,20 @@ void App::AddModule(Module* module)
 // Called before render is available
 bool App::Awake()
 {
+	PERF_START(timer);
 	// TODO 3: Load config.xml file using load_file() method from the xml_document class.
 	bool ret = LoadConfig();
 
 	// TODO 4: Read the title from the config file
+	pugi::xml_node configApp;
+	configApp = config.child("app");
 	title.create(configApp.child("title").child_value());
+	cap = configApp.attribute("cap").as_int(-1);
+	capNum = cap;
+	if (cap > 0)
+	{
+		cappedMs = 1000 / cap;
+	}
 	win->SetTitle(title.GetString());
 
 	if(ret == true)
@@ -108,12 +124,15 @@ bool App::Awake()
 		}
 	}
 
+	PERF_PEEK(timer);
+
 	return ret;
 }
 
 // Called before the first frame
 bool App::Start()
 {
+	PERF_START(timer);
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
@@ -124,6 +143,8 @@ bool App::Start()
 			ret = item->data->Start();
 		item = item->next;
 	}
+
+	PERF_PEEK(timer);
 
 	return ret;
 }
@@ -145,6 +166,8 @@ bool App::Update()
 
 	if(ret == true)
 		ret = PostUpdate();
+
+
 
 	FinishUpdate();
 	return ret;
@@ -174,7 +197,12 @@ bool App::LoadConfig()
 // ---------------------------------------------
 void App::PrepareUpdate()
 {
+	frameCount++;
+	lastSecFrameCount++;
+
 	dt = frameTime.ReadSec();
+	if (freeze)
+		dt = 0;
 	frameTime.Start();
 }
 
@@ -187,6 +215,28 @@ void App::FinishUpdate()
 
 	if (wantToLoad == true)
 		LoadGameNow();
+
+	if (lastSecFrameTime.Read() > 1000)
+	{
+		lastSecFrameTime.Start();
+		prevLastSecFrameCount = lastSecFrameCount;
+		lastSecFrameCount = 0;
+	}
+
+	avgFps = float(frameCount) / startupTime.ReadSec();
+	secondstartUp = startupTime.ReadSec();
+	lastFrame = frameTime.Read();
+	frameLast = prevLastSecFrameCount;
+
+	sprintf_s(title1, 256, "FPS: %i Avg.FPS: %.2f Last Frame Ms: %u VSync: %d",
+		frameLast, avgFps, lastFrame, app->render->vSync);
+	app->win->SetTitle(title1);
+
+	if (cappedMs > 0 && lastFrame < cappedMs)
+	{
+		SDL_Delay(cappedMs - lastFrame);
+	}
+
 }
 
 // Call modules before each loop iteration
@@ -338,6 +388,7 @@ void App::GetSaveGames(List<SString>& list_to_fill) const
 // Called before quitting
 bool App::CleanUp()
 {
+	PERF_START(timer);
 	//PREGUNTA: PK ENS FAN FER EL CLEAN UP DELS MODULS AL REVES??? DONA EL ASSERT AL DESTRUIR EL RENDERER ABANS D'AVERR DESTRUIT LES TEXTURES!!?? PK NO SIMPLEMENT ITEREM LA LLISTA DE MODULS EN ORDRE?
 	bool ret = true;
 	ListItem<Module*>* item;
@@ -348,6 +399,8 @@ bool App::CleanUp()
 		ret = item->data->CleanUp();
 		item = item->next;
 	}
+
+	PERF_PEEK(timer);
 
 	return ret;
 }

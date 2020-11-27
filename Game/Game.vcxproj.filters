@@ -23,6 +23,7 @@
     <ClCompile Include="Source\SceneTitle.cpp" />
     <ClCompile Include="Source\SceneLose.cpp" />
     <ClCompile Include="Source\CastleScene.cpp" />
+    <ClCompile Include="Source\PerfTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -65,6 +66,7 @@
     <ClInclude Include="Source\SceneTitle.h" />
     <ClInclude Include="Source\SceneLose.h" />
     <ClInclude Include="Source\CastleScene.h" />
+    <ClInclude Include="Source\PerfTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
