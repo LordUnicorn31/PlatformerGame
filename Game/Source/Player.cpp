@@ -55,6 +55,7 @@ bool Player::Start()
 {
 	texture = app->tex->Load(texturePath.GetString());
 	jumpSound = app->audio->LoadFx("Assets/audio/fx/jump.wav");
+	checkpointSound = app->audio->LoadFx("Assets/audio/fx/checkpoint.wav");
 	position = initialPos;
 	return true;
 }
@@ -179,6 +180,7 @@ bool Player::Update(float dt)
 	if (onSave)
 	{
 		app->SaveGame();
+		app->audio->PlayFx(checkpointSound);
 	}
 
 

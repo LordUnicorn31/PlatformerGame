@@ -63,4 +63,5 @@ private:
 	bool doLogic;
 	uint jumpSound;
 	iPoint initialPos;
+	uint checkpointSound;
 };
