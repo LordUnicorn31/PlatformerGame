@@ -8,6 +8,7 @@
 
 #ifdef OPTICKPROFILE
 #include "optick.h"
+#include "Map2.h"
 #endif // OPTICKPROFILE
 
 

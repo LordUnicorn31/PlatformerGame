@@ -117,6 +117,8 @@ Xcopy $(SolutionDir)Build\$(Configuration)\Bin\Game.exe $(SolutionDir)Output /s 
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\CastleScene.cpp" />
+    <ClCompile Include="Source\Map2.cpp" />
+    <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\SceneLose.cpp" />
     <ClCompile Include="Source\Main.cpp" />
@@ -134,6 +136,8 @@ Xcopy $(SolutionDir)Build\$(Configuration)\Bin\Game.exe $(SolutionDir)Output /s 
     <ClCompile Include="Source\Transitions.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\CastleScene.h" />
+    <ClInclude Include="Source\Map2.h" />
+    <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\SceneLose.h" />
     <ClInclude Include="Source\Map.h" />

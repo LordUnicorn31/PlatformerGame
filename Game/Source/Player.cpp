@@ -169,11 +169,12 @@ bool Player::Update(float dt)
 			Move();
 		}
 
-		app->scene->CameraMovement();//Problem: if we dont put the camera movement here the player gets drawn double
+		
 		acumulatedMs = 0.0f;
 		doLogic = false;
 		//Draw();
 	}
+	app->scene->CameraMovement();//Problem: if we dont put the camera movement here the player gets drawn double
 
 	if (onDeath)
 	{

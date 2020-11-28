@@ -24,6 +24,8 @@
     <ClCompile Include="Source\SceneLose.cpp" />
     <ClCompile Include="Source\CastleScene.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
+    <ClCompile Include="Source\Pathfinding.cpp" />
+    <ClCompile Include="Source\Map2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -67,6 +69,8 @@
     <ClInclude Include="Source\SceneLose.h" />
     <ClInclude Include="Source\CastleScene.h" />
     <ClInclude Include="Source\PerfTimer.h" />
+    <ClInclude Include="Source\Pathfinding.h" />
+    <ClInclude Include="Source\Map2.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
