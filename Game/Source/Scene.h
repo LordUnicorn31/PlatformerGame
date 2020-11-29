@@ -39,6 +39,7 @@ public:
 
 private:
 	SString mapName;
+	SString mapPath;
 	SString audioPath;
 };
 

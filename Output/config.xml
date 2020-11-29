@@ -7,7 +7,7 @@
   </app>
 	
   <renderer>
-    <vsync value="false"/>
+    <vsync value="true"/>
   </renderer>
 
   <window>
@@ -20,15 +20,13 @@
   <player>
     <texture>Assets/maps/Tiles Bosc3.png</texture>
     <textureRect x="417" y="16" w="16" h="16"/>
-    <position x="16" y="2720"/>
+    <position x="20" y="2720"/>
   </player>
   <scene>
-    <map_name name="Forest1.tmx"/>
+    <mapname name="Forest1.tmx"/>
     <audio path ="Assets/audio/music/Forest.ogg"/>
+    <mapfolder name = "Assets/maps/" />
   </scene>
-  <map>
-    <folder>Assets/maps/</folder>
-  </map>
   <sceneLogo>
     <texture path="Assets/textures/logoImage.png"/>
   </sceneLogo>

@@ -15,7 +15,6 @@ class Render;
 class Textures;
 class Audio;
 class Scene;
-class Map;
 class Player;
 class Transitions;
 class LoseScene;
@@ -94,7 +93,6 @@ public:
 	Textures* tex;
 	Audio* audio;
 	Scene* scene;
-	Map* map;
 	Player* player;
 	Transitions* transitions;
 	LoseScene* loseScene;

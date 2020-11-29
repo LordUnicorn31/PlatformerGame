@@ -169,10 +169,10 @@ bool Player::Update(float dt)
 			Move();
 		}
 
-		app->scene->CameraMovement();//Problem: if we dont put the camera movement here the player gets drawn double
+		position;
 		acumulatedMs = 0.0f;
 		doLogic = false;
-		//Draw();
+		app->scene->CameraMovement();//Problem: if we dont put the camera movement here the player gets drawn double
 	}
 
 	if (onDeath)
@@ -222,113 +222,85 @@ void Player::Draw()
 
 bool Player::OnPlatform()
 {
-	if ((position.x % app->map->data.tileWidth) != 0) //check if we have to check 2 columns or 1
+	if ((position.x % Map::GetTileWidth()) != 0) //check if we have to check 2 columns or 1
 	{
-		iPoint left = app->map->WorldToMap(position.x, position.y + height + 1);
-		uint leftIndex = left.y * app->map->data.height + left.x;
-		ListItem<MapLayer*>* item = app->map->data.layers.start;
-		for (item; item; item = item->next) //Problem: Maybe the function GetTileProperty should be the one iterating the layers
-		{
-			if (app->map->GetTileProperty(item->data->data[leftIndex], "Blocked"))
-				return true;
-		}
-		iPoint right = app->map->WorldToMap(position.x + width, position.y + height + 1);
-		uint rightIndex = right.y * app->map->data.height + right.x;
-		item = app->map->data.layers.start;
-		for (item; item; item = item->next)
-		{
-			if (app->map->GetTileProperty(item->data->data[rightIndex], "Blocked"))
-				return true;
-		}
+		iPoint left = Map::WorldToMap(position.x, position.y + height + 1);
+		uint leftIndex = left.y * Map::GetMapHeight() + left.x;
+		if (Map::GetTileProperty(leftIndex, "Blocked"))
+			return true;
+
+		iPoint right = Map::WorldToMap(position.x + width, position.y + height + 1);
+		uint rightIndex = right.y * Map::GetMapHeight() + right.x;
+		if (Map::GetTileProperty(rightIndex, "Blocked"))
+			return true;
+
 		return false;
 	}
 	else
 	{
-		iPoint left = app->map->WorldToMap(position.x, position.y + height + 1);
-		uint leftIndex = left.y * app->map->data.height + left.x;
-		ListItem<MapLayer*>* item = app->map->data.layers.start;
-		for (item; item; item = item->next)
-		{
-			if (app->map->GetTileProperty(item->data->data[leftIndex], "Blocked"))
-				return true;
-		}
+		iPoint left = Map::WorldToMap(position.x, position.y + height + 1);
+		uint leftIndex = left.y * Map::GetMapHeight() + left.x;
+		if (Map::GetTileProperty(leftIndex, "Blocked"))
+			return true;
+
 		return false;
 	}
 }
 
 bool Player::OnDeath()
 {
-	if ((position.x % app->map->data.tileWidth) != 0) //check if we have to check 2 columns or 1
+	if ((position.x % Map::GetTileWidth()) != 0) //check if we have to check 2 columns or 1
 	{
-		iPoint left = app->map->WorldToMap(position.x, position.y + height + 1);
-		uint leftIndex = left.y * app->map->data.height + left.x;
-		ListItem<MapLayer*>* item = app->map->data.layers.start;
-		for (item; item; item = item->next) //Problem: Maybe the function GetTileProperty should be the one iterating the layers
-		{
-			if (app->map->GetTileProperty(item->data->data[leftIndex], "Death"))
+		iPoint left = Map::WorldToMap(position.x, position.y + height + 1);
+		uint leftIndex = left.y * Map::GetMapHeight() + left.x;
+		if (Map::GetTileProperty(leftIndex, "Death"))
+			return true;
+
+		iPoint right = Map::WorldToMap(position.x + width, position.y + height + 1);
+		uint rightIndex = right.y * Map::GetMapHeight() + right.x;
+		if (Map::GetTileProperty(rightIndex, "Death"))
 				return true;
-		}
-		iPoint right = app->map->WorldToMap(position.x + width, position.y + height + 1);
-		uint rightIndex = right.y * app->map->data.height + right.x;
-		item = app->map->data.layers.start;
-		for (item; item; item = item->next)
-		{
-			if (app->map->GetTileProperty(item->data->data[rightIndex], "Death"))
-				return true;
-		}
+
 		return false;
 	}
 	else
 	{
-		iPoint left = app->map->WorldToMap(position.x, position.y + height + 1);
-		uint leftIndex = left.y * app->map->data.height + left.x;
-		ListItem<MapLayer*>* item = app->map->data.layers.start;
-		for (item; item; item = item->next)
-		{
-			if (app->map->GetTileProperty(item->data->data[leftIndex], "Death"))
+		iPoint left = Map::WorldToMap(position.x, position.y + height + 1);
+		uint leftIndex = left.y * Map::GetMapHeight() + left.x;
+			if (Map::GetTileProperty(leftIndex, "Death"))
 				return true;
-		}
+
 		return false;
 	}
 }
 
 bool Player::Onchange()
 {
-	iPoint left = app->map->WorldToMap(position.x, position.y);
-	uint leftIndex = left.y * app->map->data.height + left.x;
-	ListItem<MapLayer*>* item = app->map->data.layers.start;
-	for (item; item; item = item->next)
-	{
-		if (app->map->GetTileProperty(item->data->data[leftIndex], "Change"))
-			return true;
-	}
+	iPoint left = Map::WorldToMap(position.x, position.y);
+	uint leftIndex = left.y * Map::GetMapHeight() + left.x;
+	if (Map::GetTileProperty(leftIndex, "Change"))
+		return true;
+
 	return false;
 }
 
 bool Player::OnSave()
 {
-	iPoint left = app->map->WorldToMap(position.x, position.y);
-	uint leftIndex = left.y * app->map->data.height + left.x;
-	ListItem<MapLayer*>* item = app->map->data.layers.start;
-	for (item; item; item = item->next)
-	{
-		if (app->map->GetTileProperty(item->data->data[leftIndex], "Save"))
-			return true;
-	}
+	iPoint left = Map::WorldToMap(position.x, position.y);
+	uint leftIndex = left.y * Map::GetMapHeight() + left.x;
+	if (Map::GetTileProperty(leftIndex, "Save"))
+		return true;
+
 	return false;
 }
 
 bool Player::OnLadder(iPoint position)
 {
-	position = app->map->WorldToMap(position.x, position.y);
-	uint index = position.y * app->map->data.height + position.x;
-	ListItem<MapLayer*>* item = app->map->data.layers.start;
-	for (item; item; item = item->next) //Problem: Maybe the function GetTileProperty should be the one iterating the layers
+	position = Map::WorldToMap(position.x, position.y);
+	uint index = position.y * Map::GetMapHeight() + position.x;
+	if (Map::GetTileProperty(index, "Ladder"))
 	{
-		if (app->map->GetTileProperty(item->data->data[index], "Ladder"))
-		{
-			return true;
-		}
+		return true;
 	}
 	return false;
 }
@@ -336,16 +308,13 @@ bool Player::OnLadder(iPoint position)
 
 bool Player::OnBlockedTile()
 {
-	iPoint tilePosition = app->map->WorldToMap(position.x, position.y);
-	uint index = tilePosition.y * app->map->data.height + tilePosition.x;
-	ListItem<MapLayer*>* item = app->map->data.layers.start;
-	for (item; item; item = item->next) //Problem: Maybe the function GetTileProperty should be the one iterating the layers
+	iPoint tilePosition = Map::WorldToMap(position.x, position.y);
+	uint index = tilePosition.y * Map::GetMapHeight() + tilePosition.x;
+	if (Map::GetTileProperty(index, "Blocked"))
 	{
-		if (app->map->GetTileProperty(item->data->data[index], "Blocked"))
-		{
-			return true;
-		}
+		return true;
 	}
+
 	return false;
 }
 
@@ -354,9 +323,9 @@ bool Player::SnapToLadder(bool onPlatform, bool down)
 	iPoint playerCenter(position.x + width / 2, position.y + height / 2);
 	if (OnLadder(playerCenter))
 	{
-		playerCenter = app->map->WorldToMap(playerCenter.x, playerCenter.y);
-		uint index = playerCenter.y * app->map->data.height + playerCenter.x; //Problem : Maybe we don't need the index calculation to snap the player
-		position.x = (index % app->map->data.width) * app->map->data.tileWidth;
+		playerCenter = Map::WorldToMap(playerCenter.x, playerCenter.y);
+		uint index = playerCenter.y * Map::GetMapHeight() + playerCenter.x; //Problem : Maybe we don't need the index calculation to snap the player
+		position.x = (index % Map::GetMapWidth()) * Map::GetTileWidth();
 		return true;
 	}
 
@@ -367,10 +336,10 @@ bool Player::SnapToLadder(bool onPlatform, bool down)
 			iPoint playerCenterDown(position.x + width / 2, position.y + height);
 			if (OnLadder(playerCenterDown))
 			{
-				playerCenterDown = app->map->WorldToMap(playerCenter.x, playerCenter.y);
-				uint index = playerCenterDown.y * app->map->data.height + playerCenterDown.x; //Problem : Maybe we don't need the index calculation to snap the player
-				position.x = (index % app->map->data.width) * app->map->data.tileWidth;
-				position.y += app->map->data.tileHeight;
+				playerCenterDown = Map::WorldToMap(playerCenter.x, playerCenter.y);
+				uint index = playerCenterDown.y * Map::GetMapHeight() + playerCenterDown.x; //Problem : Maybe we don't need the index calculation to snap the player
+				position.x = (index % Map::GetMapWidth()) * Map::GetTileWidth();
+				position.y += Map::GetTileHeight();
 				return true;
 			}
 		}
@@ -379,10 +348,10 @@ bool Player::SnapToLadder(bool onPlatform, bool down)
 			iPoint playerCenterUp(position.x + width / 2, position.y - 1);
 			if (OnLadder(playerCenterUp))
 			{
-				playerCenterUp = app->map->WorldToMap(playerCenter.x, playerCenter.y);
-				uint index = playerCenterUp.y * app->map->data.height + playerCenterUp.x; //Problem : Maybe we don't need the index calculation to snap the player
-				position.x = (index % app->map->data.width) * app->map->data.tileWidth;
-				position.y -= app->map->data.tileHeight;
+				playerCenterUp = Map::WorldToMap(playerCenter.x, playerCenter.y);
+				uint index = playerCenterUp.y * Map::GetMapHeight() + playerCenterUp.x; //Problem : Maybe we don't need the index calculation to snap the player
+				position.x = (index % Map::GetMapWidth()) * Map::GetTileWidth();
+				position.y -= Map::GetTileHeight();
 				return true;
 			}
 		}
@@ -412,7 +381,7 @@ void Player::MoveLadder()
 			position.y -= ladderSpeed;
 			if (!OnLadder(position))
 			{
-				position.y -= position.y % app->map->data.tileHeight;
+				position.y -= position.y % Map::GetTileHeight();
 				speed.x = 0;
 				speed.y = 0;
 				onLadder = false;
@@ -423,7 +392,7 @@ void Player::MoveLadder()
 			position.y += ladderSpeed;
 			if (!OnLadder(position))
 			{
-				position.y += (position.y + height) % app->map->data.tileHeight;
+				position.y += (position.y + height) % Map::GetTileHeight();
 				speed.x = 0;
 				speed.y = 0;
 				onLadder = false;
@@ -457,68 +426,54 @@ void Player::Move()
 
 	if (speed.x != 0) 
 	{
-		if (position.y % app->map->data.tileHeight != 0) 
+		if (position.y % Map::GetTileHeight() != 0) 
 		{ //check 2 rows of tiles to find obstacles
 			iPoint top, bottom;
 			float distance;
 			bool movingright = speed.x > 0;
 			if (movingright) 
 			{
-				top = app->map->WorldToMap(position.x + width, position.y);
-				bottom = app->map->WorldToMap(position.x + width, position.y + height);
+				top = Map::WorldToMap(position.x + width, position.y);
+				bottom = Map::WorldToMap(position.x + width, position.y + height);
 			}
 			else 
 			{
-				top = app->map->WorldToMap(position.x, position.y);
-				bottom = app->map->WorldToMap(position.x, position.y + height);
+				top = Map::WorldToMap(position.x, position.y);
+				bottom = Map::WorldToMap(position.x, position.y + height);
 			}
 
-			uint indextop = top.y * app->map->data.width + top.x;
-			uint indexbottom = bottom.y * app->map->data.width + bottom.x;
+			uint indextop = top.y * Map::GetMapWidth() + top.x;
+			uint indexbottom = bottom.y * Map::GetMapWidth() + bottom.x;
 
 			if (movingright) 
 			{ //estem anant cap a la dreta
 
-				ListItem<MapLayer*>* item = app->map->data.layers.start;
-				bool found = false;
-				uint lastcheckindex = (indextop - (indextop % app->map->data.width)) + app->map->data.width -1;
-				for (item; item; item = item->next) 
-				{//iterar les layers
-					for (uint i = indextop; i <= lastcheckindex; ++i) 
-					{//iterar les tilesets
-						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
+				uint lastcheckindex = (indextop - (indextop % Map::GetMapWidth())) + Map::GetMapWidth() -1;
+					for (int i = indextop; i <= lastcheckindex; ++i) 
+					{
+						if (Map::GetTileProperty(i, "Blocked")) 
 						{
 							//get the position of the tile
-							top.x = i % app->map->data.width;
-							top.y = i / app->map->data.width;
-							top = app->map->MapToWorld(top.x -1, top.y);
-							found = true;
+							top.x = i % Map::GetMapWidth();
+							top.y = i / Map::GetMapWidth();
+							top = Map::MapToWorld(top.x -1, top.y);
 							break;
 						}
 					}
-					if (found)
-						break;
-				}
-				item = app->map->data.layers.start;
-				found = false;
-				lastcheckindex = (indexbottom - (indexbottom % app->map->data.width)) + app->map->data.width -1;
-				for (item; item; item = item->next) 
-				{//iterar les layers
-					for (uint i = indexbottom; i <= lastcheckindex; ++i) 
-					{//iterar les tilesets
-						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
+
+				lastcheckindex = (indexbottom - (indexbottom % Map::GetMapWidth())) + Map::GetMapWidth() -1;
+					for (int i = indexbottom; i <= lastcheckindex; ++i) 
+					{
+						if (Map::GetTileProperty(i, "Blocked")) 
 						{
 							//get the position of the tile
-							bottom.x = i % app->map->data.width;
-							bottom.y = i / app->map->data.width;
-							bottom = app->map->MapToWorld(bottom.x - 1, bottom.y);
-							found = true;
+							bottom.x = i % Map::GetMapWidth();
+							bottom.y = i / Map::GetMapWidth();
+							bottom = Map::MapToWorld(bottom.x - 1, bottom.y);
 							break;
 						}
 					}
-					if (found)
-						break;
-				}
+
 				float topdistance = top.x - position.x;
 				float bottomdistance = bottom.x - position.x;
 				distance = MIN(topdistance, bottomdistance);
@@ -526,46 +481,30 @@ void Player::Move()
 			else 
 			{//estem anant cap a l'esquerra
 
-				ListItem<MapLayer*>* item = app->map->data.layers.start;
-				bool found = false;
-				uint lastcheckindex = indextop - (indextop % app->map->data.width);
-				for (item; item; item = item->next) 
-				{//iterar les layers
-					for (uint i=indextop; i >= lastcheckindex; --i) 
+				uint lastcheckindex = indextop - (indextop % Map::GetMapWidth());
+					for (int i=indextop; i >= lastcheckindex; --i) 
 					{//iterar les tilesets
-						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
+						if (Map::GetTileProperty(i, "Blocked")) 
 						{
 							//get the position of the tile
-							top.x = i % app->map->data.width;
-							top.y = i / app->map->data.width;
-							top = app->map->MapToWorld(top.x + 1, top.y);
-							found = true;
+							top.x = i % Map::GetMapWidth();
+							top.y = i / Map::GetMapWidth();
+							top = Map::MapToWorld(top.x + 1, top.y);
 							break;
 						}
 					}
-					if (found)
-						break;
-				}
-				item = app->map->data.layers.start;
-				found = false;
-				lastcheckindex = indexbottom - (indexbottom % app->map->data.width);
-				for (item; item; item = item->next) 
-				{//iterar les layers
-					for (uint i = indexbottom; i >= lastcheckindex; --i) 
+				lastcheckindex = indexbottom - (indexbottom % Map::GetMapWidth());
+					for (int i = indexbottom; i >= lastcheckindex; --i) 
 					{//iterar les tilesets
-						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
+						if (Map::GetTileProperty(i, "Blocked")) 
 						{
 							//get the position of the tile
-							bottom.x = i % app->map->data.width;
-							bottom.y = i / app->map->data.width;
-							bottom = app->map->MapToWorld(bottom.x + 1, bottom.y);
-							found = true;
+							bottom.x = i % Map::GetMapWidth();
+							bottom.y = i / Map::GetMapWidth();
+							bottom = Map::MapToWorld(bottom.x + 1, bottom.y);
 							break;
 						}
 					}
-					if (found)
-						break;
-				}
 				float topdistance = position.x - top.x;
 				float bottomdistance = position.x - bottom.x;
 				distance = MIN(topdistance, bottomdistance);
@@ -589,63 +528,47 @@ void Player::Move()
 			bool movingright = speed.x > 0;
 			if (movingright) 
 			{
-				top = app->map->WorldToMap(position.x + width, position.y);
+				top = Map::WorldToMap(position.x + width, position.y);
 			}
 			else 
 			{
-				top = app->map->WorldToMap(position.x, position.y);
+				top = Map::WorldToMap(position.x, position.y);
 			}
 
-			uint indextop = top.y * app->map->data.width + top.x;
+			uint indextop = top.y * Map::GetMapWidth() + top.x;
 
 			if (movingright) 
 			{ //estem anant cap a la dreta
 
-				ListItem<MapLayer*>* item = app->map->data.layers.start;
-				bool found = false;
-				uint lastcheckindex = (indextop - (indextop % app->map->data.width)) + app->map->data.width -1;
-				for (item; item; item = item->next) 
-				{//iterar les layers
-					for (uint i = indextop; i <= lastcheckindex; ++i) 
+				uint lastcheckindex = (indextop - (indextop % Map::GetMapWidth())) + Map::GetMapWidth() -1;
+					for (int i = indextop; i <= lastcheckindex; ++i) 
 					{//iterar les tilesets
-						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
+						if (Map::GetTileProperty(i, "Blocked")) 
 						{
 							//get the position of the tile
-							top.x = i % app->map->data.width;
-							top.y = i / app->map->data.width;
-							top = app->map->MapToWorld(top.x -1, top.y);
-							found = true;
+							top.x = i % Map::GetMapWidth();
+							top.y = i / Map::GetMapWidth();
+							top = Map::MapToWorld(top.x -1, top.y);
 							break;
 						}
 					}
-					if (found)
-						break;
-				}
 				distance = top.x - position.x;
 			}
 			else 
 			{//estem anant cap a l'esquerra
 
-				ListItem<MapLayer*>* item = app->map->data.layers.start;
-				bool found = false;
-				uint lastcheckindex = indextop - (indextop % app->map->data.width);
-				for (item; item; item = item->next) 
-				{//iterar les layers
-					for (uint i = indextop; i >= lastcheckindex; --i) 
+				uint lastcheckindex = indextop - (indextop % Map::GetMapWidth());
+					for (int i = indextop; i >= lastcheckindex; --i) 
 					{//iterar les tilesets
-						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
+						if (Map::GetTileProperty(i, "Blocked")) 
 						{
 							//get the position of the tile
-							top.x = i % app->map->data.width;
-							top.y = i / app->map->data.width;
-							top = app->map->MapToWorld(top.x + 1, top.y);
-							found = true;
+							top.x = i % Map::GetMapWidth();
+							top.y = i / Map::GetMapWidth();
+							top = Map::MapToWorld(top.x + 1, top.y);
 							break;
 						}
 					}
-					if (found)
-						break;
-				}
 				
 				distance = position.x - top.x;
 			}
@@ -666,68 +589,52 @@ void Player::Move()
 	//Repetir el process pel moviment en l'altre coordenada
 	if (speed.y != 0) 
 	{
-		if (position.x % app->map->data.tileWidth != 0) 
+		if (position.x % Map::GetTileWidth() != 0) 
 		{ //check 2 columns of tiles to find obstacles
 			iPoint left, right;
 			float distance;
 			bool movingup = speed.y < 0;
 			if (movingup) 
 			{
-				left = app->map->WorldToMap(position.x, position.y);
-				right = app->map->WorldToMap(position.x + width, position.y);
+				left = Map::WorldToMap(position.x, position.y);
+				right = Map::WorldToMap(position.x + width, position.y);
 			}
 			else 
 			{
-				left = app->map->WorldToMap(position.x, position.y + height);
-				right = app->map->WorldToMap(position.x + width, position.y + height);
+				left = Map::WorldToMap(position.x, position.y + height);
+				right = Map::WorldToMap(position.x + width, position.y + height);
 			}
 
-			uint indexleft = left.y * app->map->data.width + left.x;
-			uint indexright = right.y * app->map->data.width + right.x;
+			uint indexleft = left.y * Map::GetMapWidth() + left.x;
+			uint indexright = right.y * Map::GetMapWidth() + right.x;
 
 			if (movingup) 
 			{ //estem anant cap amunt
 
-				ListItem<MapLayer*>* item = app->map->data.layers.start;
-				bool found = false;
-				int lastcheckindex = indexleft % app->map->data.width;
-				for (item; item; item = item->next) 
-				{//iterar les layers
-					for (int i = indexleft; i >= lastcheckindex; i = i - app->map->data.width) 
+				int lastcheckindex = indexleft % Map::GetMapWidth();
+					for (int i = indexleft; i >= lastcheckindex; i = i - Map::GetMapWidth()) 
 					{//iterar les tilesets
-						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
+						if (Map::GetTileProperty(i, "Blocked")) 
 						{
 							//get the position of the tile
-							left.x = i % app->map->data.width;
-							left.y = i / app->map->data.width;
-							left = app->map->MapToWorld(left.x, left.y + 1);
-							found = true;
+							left.x = i % Map::GetMapWidth();
+							left.y = i / Map::GetMapWidth();
+							left = Map::MapToWorld(left.x, left.y + 1);
 							break;
 						}
 					}
-					if (found)
-						break;
-				}
-				item = app->map->data.layers.start;
-				found = false;
-				lastcheckindex = indexright % app->map->data.width;
-				for (item; item; item = item->next) 
-				{//iterar les layers
-					for (int i = indexright; i >= lastcheckindex; i -= app->map->data.width) 
+				lastcheckindex = indexright % Map::GetMapWidth();
+					for (int i = indexright; i >= lastcheckindex; i -= Map::GetMapWidth()) 
 					{//iterar les tilesets
-						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
+						if (Map::GetTileProperty(i, "Blocked")) 
 						{
 							//get the position of the tile
-							right.x = i % app->map->data.width;
-							right.y = i / app->map->data.width;
-							right = app->map->MapToWorld(right.x, right.y + 1);
-							found = true;
+							right.x = i % Map::GetMapWidth();
+							right.y = i / Map::GetMapWidth();
+							right = Map::MapToWorld(right.x, right.y + 1);
 							break;
 						}
 					}
-					if (found)
-						break;
-				}
 				float leftdistance = position.y - left.y;
 				float rightdistance = position.y - right.y;
 				distance = MIN(leftdistance, rightdistance);
@@ -735,44 +642,29 @@ void Player::Move()
 			else 
 			{//movingdown
 
-				ListItem<MapLayer*>* item = app->map->data.layers.start;
-				bool found = false;
-				uint lastcheckindex = indexleft % app->map->data.width + (app->map->data.height -1) * app->map->data.width;
-				for (item; item; item = item->next) {//iterar les layers
-					for (uint i = indexleft; i <= lastcheckindex; i += app->map->data.width) 
+				uint lastcheckindex = indexleft % Map::GetMapWidth() + (Map::GetMapHeight() -1) * Map::GetMapWidth();
+					for (int i = indexleft; i <= lastcheckindex; i += Map::GetMapWidth()) 
 					{//iterar les tilesets
-						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
+						if (Map::GetTileProperty(i, "Blocked")) 
 						{
 							//get the position of the tile
-							left.x = i % app->map->data.width;
-							left.y = i / app->map->data.width;
-							left = app->map->MapToWorld(left.x, left.y - 1);
-							found = true;
+							left.x = i % Map::GetMapWidth();
+							left.y = i / Map::GetMapWidth();
+							left = Map::MapToWorld(left.x, left.y - 1);
 							break;
 						}
 					}
-					if (found)
-						break;
-				}
-				item = app->map->data.layers.start;
-				found = false;
-				lastcheckindex = indexright % app->map->data.width + (app->map->data.height - 1) * app->map->data.width;
-				for (item; item; item = item->next) 
-				{//iterar les layers
-					for (uint i = indexright; i <= lastcheckindex; i += app->map->data.width) 
+				lastcheckindex = indexright % Map::GetMapWidth() + (Map::GetMapHeight() - 1) * Map::GetMapWidth();
+					for (int i = indexright; i <= lastcheckindex; i += Map::GetMapWidth()) 
 					{//iterar les tilesets
-						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) {
+						if (Map::GetTileProperty(i, "Blocked")) {
 							//get the position of the tile
-							right.x = i % app->map->data.width;
-							right.y = i / app->map->data.width;
-							right = app->map->MapToWorld(right.x, right.y -1);
-							found = true;
+							right.x = i % Map::GetMapWidth();
+							right.y = i / Map::GetMapWidth();
+							right = Map::MapToWorld(right.x, right.y -1);
 							break;
 						}
 					}
-					if (found)
-						break;
-				}
 				float leftdistance = left.y - position.y;
 				float rightdistance = right.y - position.y;
 				distance = MIN(leftdistance, rightdistance);
@@ -795,60 +687,45 @@ void Player::Move()
 			bool movingup = speed.y < 0;
 			if (movingup) 
 			{
-				left = app->map->WorldToMap(position.x, position.y);
+				left = Map::WorldToMap(position.x, position.y);
 			}
 			else 
 			{
-				left = app->map->WorldToMap(position.x, position.y + height);
+				left = Map::WorldToMap(position.x, position.y + height);
 			}
 
-			uint indexleft = left.y * app->map->data.width + left.x;
+			uint indexleft = left.y * Map::GetMapWidth() + left.x;
 
 			if (movingup) 
 			{ //estem anant cap a la dreta
 
-				ListItem<MapLayer*>* item = app->map->data.layers.start;
-				bool found = false;
-				int lastcheckindex = indexleft % app->map->data.width;
-				for (item; item; item = item->next) {//iterar les layers
-					for (int i = indexleft; i >= lastcheckindex; i -= app->map->data.width) {//iterar les tilesets
-						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) {
+				int lastcheckindex = indexleft % Map::GetMapWidth();
+					for (int i = indexleft; i >= lastcheckindex; i -= Map::GetMapWidth()) {//iterar les tilesets
+						if (Map::GetTileProperty(i, "Blocked")) {
 							//get the position of the tile
-							left.x = i % app->map->data.width;
-							left.y = i / app->map->data.width;
-							left = app->map->MapToWorld(left.x, left.y + 1); //PROBLEM: WE DONT KNOW WHY THIS +1 OFFSET
-							found = true;
+							left.x = i % Map::GetMapWidth();
+							left.y = i / Map::GetMapWidth();
+							left = Map::MapToWorld(left.x, left.y + 1); //PROBLEM: WE DONT KNOW WHY THIS +1 OFFSET
 							break;
 						}
 					}
-					if (found)
-						break;
-				}
 				distance = position.y - left.y;
 			}
 			else 
 			{//moving down
 
-				ListItem<MapLayer*>* item = app->map->data.layers.start;
-				bool found = false;
-				uint lastcheckindex = indexleft % app->map->data.width + (app->map->data.height - 1) * app->map->data.width;
-				for (item; item; item = item->next) 
-				{//iterar les layers
-					for (uint i = indexleft; i <= lastcheckindex; i += app->map->data.width) 
+				uint lastcheckindex = indexleft % Map::GetMapWidth() + (Map::GetMapHeight() - 1) * Map::GetMapWidth();
+					for (int i = indexleft; i <= lastcheckindex; i += Map::GetMapWidth()) 
 					{//iterar les tilesets
-						if (app->map->GetTileProperty(item->data->data[i], "Blocked")) 
+						if (Map::GetTileProperty(i, "Blocked")) 
 						{
 							//get the position of the tile
-							left.x = i % app->map->data.width;
-							left.y = i / app->map->data.width;
-							left = app->map->MapToWorld(left.x, left.y-1); //PROBLEM: WE DONT KNOW WHY THIS -1 OFFSET 
-							found = true;
+							left.x = i % Map::GetMapWidth();
+							left.y = i / Map::GetMapWidth();
+							left = Map::MapToWorld(left.x, left.y-1); //PROBLEM: WE DONT KNOW WHY THIS -1 OFFSET 
 							break;
 						}
 					}
-					if (found)
-						break;
-				}
 
 				distance = left.y - position.y;
 			}
