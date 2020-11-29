@@ -7,6 +7,11 @@
 #include "List.h"
 #include "SString.h"
 
+#ifdef OPTICKPROFILE
+#include "optick.h"
+#endif // OPTICKPROFILER
+
+
 bool Map::ILoad(const char* mapPath, const char* fileName)
 {
 	SString tmp(mapPath);
@@ -257,6 +262,11 @@ bool Map::IGetTileProperty(int id, const char* iName)
 
 void Map::IDraw() 
 {
+#ifdef OPTICKPROFILE
+	OPTICK_EVENT();
+#endif // OPTICKPROFILER
+
+	
 	if (!mapLoaded)
 		return;
 
