@@ -27,7 +27,7 @@ bool CastleScene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
 	bool ret = true;
-	mapName.create(config.child("map_name").attribute("name").as_string());
+	mapName.create(config.child("mapname").attribute("name").as_string());
 	audioPath.create(config.child("audio").attribute("path").as_string());
 	SDL_ShowCursor(SDL_DISABLE);
 	return ret;
@@ -43,7 +43,7 @@ void CastleScene::Init()
 bool CastleScene::Start()
 {
 	app->audio->PlayMusic(audioPath.GetString());
-	app->map->Load(mapName.GetString());
+	Map::Load("Assets/maps",mapName.GetString());
 	app->player->Enable();
 	return true;
 }
@@ -79,7 +79,7 @@ bool CastleScene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		app->SaveGame();
 
-	app->map->Draw();
+	Map::Draw();
 
 	//app->render->DrawTexture(img, 380, 100);
 
@@ -112,7 +112,7 @@ bool CastleScene::PostUpdate()
 bool CastleScene::CleanUp()
 {
 	LOG("Freeing scene");
-	app->map->CleanUp();
+	Map::UnLoad();
 	app->audio->UnloadMusic();
 	return true;
 }

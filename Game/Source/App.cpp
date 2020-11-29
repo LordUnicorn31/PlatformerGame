@@ -7,7 +7,6 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "Scene.h"
-#include "Map.h"
 #include "Player.h"
 #include "Transitions.h"
 #include "SceneLose.h"
@@ -41,7 +40,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	tex = new Textures();
 	audio = new Audio();
 	scene = new Scene();
-	map = new Map();
 	player = new Player();
 	transitions = new Transitions();
 	loseScene = new LoseScene();
@@ -54,7 +52,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
-	AddModule(map);
 	AddModule(scene);
 	AddModule(player);
 	AddModule(transitions);

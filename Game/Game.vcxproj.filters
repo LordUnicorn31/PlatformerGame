@@ -15,7 +15,6 @@
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp">
       <Filter>External\PuguiXml</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Transitions.cpp" />
@@ -25,7 +24,7 @@
     <ClCompile Include="Source\CastleScene.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
-    <ClCompile Include="Source\Map2.cpp" />
+    <ClCompile Include="Source\Map.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -60,7 +59,6 @@
     <ClInclude Include="Source\External\PugiXml\src\pugixml.hpp">
       <Filter>External\PuguiXml</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\Transitions.h" />
@@ -70,7 +68,7 @@
     <ClInclude Include="Source\CastleScene.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Pathfinding.h" />
-    <ClInclude Include="Source\Map2.h" />
+    <ClInclude Include="Source\Map.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
