@@ -57,7 +57,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>OPTICKPROFILE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ShowIncludes>false</ShowIncludes>
       <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\External\SDL2-2.0.10\include;$(ProjectDir)Source\External\OptickProfiler\include</AdditionalIncludeDirectories>
     </ClCompile>
@@ -90,7 +90,7 @@ Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\fre
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <UseFullPaths>false</UseFullPaths>
       <ShowIncludes>false</ShowIncludes>
-      <PreprocessorDefinitions>OPTICKPROFILE;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(ProjectDir)Source\External;$(ProjectDir)Source\External\SDL2-2.0.10\include;$(ProjectDir)Source\External\OptickProfiler\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
