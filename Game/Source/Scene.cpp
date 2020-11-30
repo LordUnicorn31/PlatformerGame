@@ -114,6 +114,7 @@ bool Scene::CleanUp()
 	LOG("Freeing scene");
 	Map::UnLoad();
 	app->audio->UnloadMusic();
+	app->player->Disable();
 	return true;
 }
 

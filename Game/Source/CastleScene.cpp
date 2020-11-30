@@ -8,7 +8,8 @@
 #include "CastleScene.h"
 #include "Map.h"
 #include "Player.h"
-
+#include "Transitions.h"
+#include "SceneLose.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -29,6 +30,7 @@ bool CastleScene::Awake(pugi::xml_node& config)
 	bool ret = true;
 	mapName.create(config.child("mapname").attribute("name").as_string());
 	audioPath.create(config.child("audio").attribute("path").as_string());
+	mapPath.create(config.child("mapfolder").attribute("name").as_string());
 	SDL_ShowCursor(SDL_DISABLE);
 	return ret;
 }
@@ -43,8 +45,9 @@ void CastleScene::Init()
 bool CastleScene::Start()
 {
 	app->audio->PlayMusic(audioPath.GetString());
-	Map::Load("Assets/maps",mapName.GetString());
+	Map::Load(mapPath.GetString(),mapName.GetString());
 	app->player->Enable();
+	/*ResetPos();*/
 	return true;
 }
 
@@ -85,6 +88,11 @@ bool CastleScene::Update(float dt)
 
 
 	// DEBUG KEYS
+	onDeath = app->player->OnDeath();
+	if (onDeath)
+	{
+		app->transitions->FadeToBlack(this, app->loseScene);
+	}
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		app->player->Die();
@@ -117,21 +125,3 @@ bool CastleScene::CleanUp()
 	return true;
 }
 
-void CastleScene::CameraMovement()
-{
-	if (app->player->GetPosition().x <= 6400 - (app->win->width / 2))
-	{
-		app->render->camera.x = -(app->player->GetPosition().x - app->render->camera.w / 2);
-	}
-	if (app->render->camera.x > 0)
-	{
-		app->render->camera.x = 0;
-	}
-
-	app->render->camera.y = -(app->player->GetPosition().y - app->render->camera.h / 2);
-
-	if (app->render->camera.y > 0)
-	{
-		app->render->camera.y = 0;
-	}
-}

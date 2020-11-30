@@ -27,6 +27,11 @@
     <audio path ="Assets/audio/music/Forest.ogg"/>
     <mapfolder name = "Assets/maps/" />
   </scene>
+  <castleScene>
+    <mapname name="Castle.tmx"/>
+    <audio path ="Assets/audio/music/Forest.ogg"/>
+    <mapfolder name ="Assets/maps/" />
+  </castleScene>
   <sceneLogo>
     <texture path="Assets/textures/logoImage.png"/>
   </sceneLogo>

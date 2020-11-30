@@ -18,6 +18,7 @@ public:
 
 	void Die();
 	iPoint GetPosition() const;
+	bool OnDeath();
 	/*
 	fPoint targetSpeed; //Si volem posar aceleracio
 	float a; //Si volem posar acceleracio
@@ -33,7 +34,7 @@ private:
 	void Draw();
 	void Move();
 	bool OnPlatform();
-	bool OnDeath();
+	
 	bool Onchange();
 	bool OnBlockedTile();
 	bool OnLadder(iPoint position);

@@ -35,11 +35,12 @@ public:
 	bool CleanUp();
 
 	// Camera movement
-	void CameraMovement();
 
 private:
 	SString mapName;
 	SString audioPath;
+	SString mapPath;
+	bool onDeath;
 };
 
 #endif // __CASTLESCENE_H__
