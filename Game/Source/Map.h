@@ -64,6 +64,6 @@ private:
 	int width, height, tileWidth, tileHeight;
 	bool mapLoaded = false;
 	MapTile* mapTiles = nullptr;
-	std::vector<Property> properties;
+	DynArray<Property> properties;
 	DynArray<SDL_Texture*> textures;
 };

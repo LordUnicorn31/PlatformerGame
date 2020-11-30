@@ -167,7 +167,7 @@ bool Map::ILoad(const char* mapPath, const char* fileName)
 					current.value = propertyNode.attribute("id").as_int();
 
 					tempProperties.PushBack(temp);
-					properties.push_back(current);
+					properties.PushBack(current);
 				}
 			}
 		}
@@ -229,7 +229,7 @@ bool Map::IUnLoad()
 	//TODO: do i need to delete the properties dynArray memory?
 	//properties.~DynArray();
 	//properties.Clear();
-	properties.clear();
+	properties.Clear();
 	delete[] mapTiles;
 	mapTiles = nullptr;
 	mapLoaded = false;
