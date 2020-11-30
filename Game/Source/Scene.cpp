@@ -78,6 +78,7 @@ bool Scene::Update(float dt)
 		app->LoadGame();
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		app->SaveGame();
+	
 
 	Map::Draw();
 	
