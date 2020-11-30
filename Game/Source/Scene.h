@@ -35,7 +35,7 @@ public:
 	bool CleanUp();
 
 	// Camera movement
-	void CameraMovement();
+	
 
 private:
 	SString mapName;

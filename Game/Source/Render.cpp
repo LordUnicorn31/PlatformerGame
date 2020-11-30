@@ -1,6 +1,8 @@
 #include "App.h"
 #include "Window.h"
 #include "Render.h"
+#include "Player.h"
+#include "Map.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -256,4 +258,23 @@ bool Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uin
 	}
 
 	return ret;
+}
+
+void Render::CameraMovement()
+{
+	if (app->player->GetPosition().x <= (Map::GetMapWidth() * Map::GetTileWidth())- (app->win->width / 2))
+	{
+		camera.x = -(app->player->GetPosition().x - camera.w / 2);
+	}
+	if (camera.x > 0)
+	{
+		camera.x = 0;
+	}
+
+	app->render->camera.y = -(app->player->GetPosition().y - camera.h / 2);
+
+	if (camera.y > 0)
+	{
+		camera.y = 0;
+	}
 }

@@ -117,21 +117,3 @@ bool Scene::CleanUp()
 	return true;
 }
 
-void Scene::CameraMovement()
-{
-	if(app->player->GetPosition().x <= 6400 -(app->win->width/2))
-    {
-		app->render->camera.x = -(app->player->GetPosition().x - app->render->camera.w/2);
-	}
-	if (app->render->camera.x > 0)
-	{
-		app->render->camera.x = 0;
-	}
-
-	app->render->camera.y = -(app->player->GetPosition().y - app->render->camera.h/2);
-	
-	if (app->render->camera.y > 0)
-	{
-		app->render->camera.y = 0;
-	}
-}
