@@ -64,4 +64,5 @@ private:
 	uint jumpSound;
 	iPoint initialPos;
 	uint checkpointSound;
+	
 };

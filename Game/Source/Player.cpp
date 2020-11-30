@@ -748,7 +748,6 @@ void Player::Move()
 void Player::Die()
 {
 
-		position.x = 16;
-		position.y = 2720;
+	position = initialPos;
 
 }
