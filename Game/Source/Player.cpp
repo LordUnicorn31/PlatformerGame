@@ -192,7 +192,8 @@ bool Player::Update(float dt)
 		app->audio->PlayFx(checkpointSound);
 	}
 
-
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		app->transitions->FadeToBlack(app->scene, app->castleScene);
 
 	Draw();
 	return true;

@@ -15,7 +15,7 @@ public:
 	bool Start();
 	bool Update(float dt);
 	bool CleanUp();
-
+    
 	void Die();
 	iPoint GetPosition() const;
 	bool OnDeath();

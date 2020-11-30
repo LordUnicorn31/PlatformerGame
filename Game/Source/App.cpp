@@ -53,13 +53,14 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(win);
 	AddModule(tex);
 	AddModule(scene);
+	AddModule(castleScene);
 	AddModule(player);
 	AddModule(transitions);
 	AddModule(loseScene);
 	AddModule(sceneLogo);
 	AddModule(sceneTitle);
 	AddModule(audio);
-	AddModule(castleScene);
+	
 
 	// render last to swap buffer
 	AddModule(render);
