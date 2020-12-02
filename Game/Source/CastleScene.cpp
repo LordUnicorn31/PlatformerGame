@@ -91,7 +91,8 @@ bool CastleScene::Update(float dt)
 	onDeath = app->player->OnDeath();
 	if (onDeath)
 	{
-		app->transitions->FadeToBlack(this, app->loseScene);
+		/*app->transitions->FadeToBlack(this, app->loseScene);*/
+		app->LoadGame();
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{

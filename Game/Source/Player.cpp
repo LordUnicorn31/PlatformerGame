@@ -178,7 +178,8 @@ bool Player::Update(float dt)
 	if (onDeath)
 	{
 		//Die(); Respawn
-		app->transitions->FadeToBlack(app->scene,app->loseScene);
+		/*app->transitions->FadeToBlack(app->scene,app->loseScene);*/
+		app->LoadGame();
 	}
 	
 	if (onChange)
