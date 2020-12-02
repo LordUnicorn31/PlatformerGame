@@ -13,6 +13,7 @@
 #include "SceneLogo.h"
 #include "SceneTitle.h"
 #include "CastleScene.h"
+#include "EntityManager.h"
 
 
 #include "Defs.h"
@@ -46,6 +47,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	sceneLogo = new SceneLogo();
 	sceneTitle = new SceneTitle();
 	castleScene = new CastleScene();
+	entity = new EntityManager();
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -60,6 +62,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(sceneLogo);
 	AddModule(sceneTitle);
 	AddModule(audio);
+	AddModule(entity);
 	
 
 	// render last to swap buffer

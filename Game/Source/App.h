@@ -21,6 +21,7 @@ class LoseScene;
 class SceneLogo;
 class SceneTitle;
 class CastleScene;
+class EntityManager;
 
 class SString;
 
@@ -99,6 +100,7 @@ public:
 	SceneLogo* sceneLogo;
 	SceneTitle* sceneTitle;
 	CastleScene* castleScene;
+	EntityManager* entity;
 
 private:
 

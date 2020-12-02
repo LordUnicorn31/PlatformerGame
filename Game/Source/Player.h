@@ -1,6 +1,7 @@
 #pragma once
 #include "Point.h"
 #include "Module.h"
+#include "Entity.h"
 
 class SDL_Rect;
 class SDL_Texture;
