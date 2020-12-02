@@ -11,29 +11,7 @@
 class Entity;
 struct SDL_Texture;
 enum class EntityType : unsigned char;
-enum class AiType : unsigned char;
-
-
-enum class AviableEntities : unsigned char {
-	none,
-	base,
-	mine,
-	cuartel,
-	ship_factory,
-	collector,
-	greenship,
-	blueship,
-	redship,
-	PowerGenerator,
-	upgradedredship,
-	upgradedblueship,
-	upgradedgreenship,
-	gold,
-	ore,
-
-	numentities
-};
-
+enum class Enemy : unsigned char;
 
 class EntityManager :public Module {
 public:
@@ -51,7 +29,7 @@ public:
 	Entity* CreateEntity(EntityType type);
 	void DestroyEntity(Entity* entity);
 
-	const ListItem<Entity*>* GetEntities()const;
+	const List<Entity*> GetEntities()const;
 
 
 private:
@@ -60,7 +38,7 @@ private:
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&);
 
-	ListItem<Entity*>* entities;
+	List<Entity*> entities;
 	bool doLogic;
 	float accumulatedTime;
 	float updateMsCycle;

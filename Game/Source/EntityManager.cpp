@@ -93,7 +93,7 @@ bool EntityManager::Save(pugi::xml_node& managernode)
 }
 
 
-const ListItem<Entity*>* EntityManager::GetEntities()const 
+const List<Entity*> EntityManager::GetEntities()const 
 {
 	return entities;
 }

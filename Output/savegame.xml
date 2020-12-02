@@ -3,18 +3,18 @@
 	<input />
 	<window />
 	<textures />
-	<map />
 	<scene />
+	<castleScene />
 	<player>
-		<position x="522" y="3096" />
+		<position x="6337" y="3136" />
 	</player>
 	<transitions />
 	<sceneLose />
 	<sceneLogo />
 	<sceneTitle />
 	<audio />
-	<castleScene />
+	<EntityManager />
 	<renderer>
-		<camera x="-162" y="-2856" />
+		<camera x="-5679" y="-2896" />
 	</renderer>
 </game_state>

@@ -2,8 +2,8 @@
 #include "SDL_rect.h"
 
 struct SDL_Texture;
-class UiElement;
-//class Collider;
+
+
 
 enum class EntityType : unsigned char {
 	PLAYER,
@@ -18,7 +18,7 @@ public:
 	virtual ~Entity();
 	EntityType etype;
 	float health;
-	int MaxHealth;
+	int maxHealth;
 	SDL_Texture* sprite;
 	
 public:
