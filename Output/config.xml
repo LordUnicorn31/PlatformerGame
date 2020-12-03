@@ -18,12 +18,12 @@
     <fullscreen_window value="false"/>
   </window>
   <player>
-    <texture>Assets/maps/Tiles Bosc3.png</texture>
-    <textureRect x="417" y="16" w="16" h="16"/>
+    <texture>Assets/textures/entities.png</texture>
+    <textureRect x="0" y="16" w="16" h="16"/>
     <position x="20" y="2720"/>
   </player>
   <scene>
-    <mapname name="Forest1.tmx"/>
+    <mapname name="forest.tmx"/>
     <audio path ="Assets/audio/music/Forest.ogg"/>
     <mapfolder name = "Assets/maps/" />
   </scene>

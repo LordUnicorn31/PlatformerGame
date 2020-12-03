@@ -18,12 +18,14 @@ public:
 	static const DynArray<iPoint>* GetLastPath() { return &Get().lastPath; }
 	static bool CheckBoundaries(const iPoint& pos) { return Get().ICheckBoundaries(pos); }
 	static uchar GetTileAt(const iPoint& pos) { return Get().IGetTileAt(pos); }
+	static bool IsWalkable(const iPoint& pos) { return Get().IIsWalkable(pos); }
 
 private:
 	void ISetMap(unsigned int width, unsigned int height, unsigned char* data);
 	int ICreatePath(const iPoint& origin, const iPoint& destination);
 	bool ICheckBoundaries(const iPoint& pos) const;
 	uchar IGetTileAt(const iPoint& pos);
+	bool IIsWalkable(const iPoint& pos) const;
 
 	Pathfinding();
 
