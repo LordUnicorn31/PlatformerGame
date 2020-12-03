@@ -44,10 +44,8 @@ public:
 	static iPoint MapToWorld(int x, int y) { return Get().IMapToWorld(x,y); }
 	static iPoint WorldToMap(int x, int y) { return Get().IWorldToMap(x, y); }
 	static bool GetTileProperty(int id, const char* name) { return Get().IGetTileProperty(id, name); }
-	static bool GetTileProperty(int x, int y, const char* name) { return Get().IGetTileProperty(x, y, name); }
 	//TODO: getters are static?
 	static int GetMapWidth() { return Get().width; }
-	static int GetLogWidth() { return Get().logWidth; }
 	static int GetMapHeight() { return Get().height; }
 	static int GetTileWidth() { return Get().tileWidth; }
 	static int GetTileHeight() { return Get().tileHeight; }
@@ -59,12 +57,11 @@ private:
 	bool IUnLoad();
 	iPoint IMapToWorld(int x, int y) const;
 	iPoint IWorldToMap(int x, int y) const;
-	bool IGetTileProperty(int id, const char* iName);
-	bool IGetTileProperty(int x, int y, const char* iName);
+	bool IGetTileProperty(int id, const char* name);
 	//Draw collisions / walkability ?
 	Map() {};
 
-	int width, height, tileWidth, tileHeight, logWidth;
+	int width, height, tileWidth, tileHeight;
 	bool mapLoaded = false;
 	MapTile* mapTiles = nullptr;
 	DynArray<Property> properties;

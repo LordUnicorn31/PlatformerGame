@@ -40,7 +40,6 @@ bool Map::ILoad(const char* mapPath, const char* fileName)
 	}*/
 
 	width = map.attribute("width").as_int();
-	logWidth = log2(width);
 	height = map.attribute("height").as_int();
 	tileWidth = map.attribute("tilewidth").as_int();
 	tileHeight = map.attribute("tileheight").as_int();
@@ -50,12 +49,6 @@ bool Map::ILoad(const char* mapPath, const char* fileName)
 	pugi::xml_node layer;
 	for (layer = mapFile.child("map").child("layer"); layer; layer = layer.next_sibling("layer"))
 	{
-
-		SString navigation = "navigation";
-		SString layerName = layer.attribute("name").as_string();
-		if (layerName == navigation) //Todo: put the navigation name on the config???
-			continue;
-		
 		pugi::xml_node layerData = layer.child("data");
 
 		if (layerData == NULL)
@@ -63,7 +56,6 @@ bool Map::ILoad(const char* mapPath, const char* fileName)
 			LOG("Error parsing map xml file: Cannot find 'layer/data' tag.");
 			return false;
 		}
-
 		uint * data = new uint[width * height];
 		memset(data, 0, width * height);
 
@@ -265,20 +257,6 @@ bool Map::IGetTileProperty(int id, const char* iName)
 			return properties[mapTiles[id].propertyIDs[i]].value;
 		}
 	}
-	return false;
-}
-
-bool Map::IGetTileProperty(int x, int y, const char* iName)
-{
-	int id = (y << logWidth) + x;
-	for (int i = 0; i < mapTiles[id].propertyIDs.Count(); ++i)
-	{
-		SString testName = properties[mapTiles[id].propertyIDs[i]].name;
-		if (testName == iName)
-		{
-			return properties[mapTiles[id].propertyIDs[i]].value;
-		}
-		}
 	return false;
 }
 

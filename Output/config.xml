@@ -28,7 +28,7 @@
     <mapfolder name = "Assets/maps/" />
   </scene>
   <castleScene>
-    <mapname name="forest.tmx"/>
+    <mapname name="Castle.tmx"/>
     <audio path ="Assets/audio/music/Forest.ogg"/>
     <mapfolder name ="Assets/maps/" />
   </castleScene>
