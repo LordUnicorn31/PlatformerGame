@@ -49,6 +49,12 @@ bool Map::ILoad(const char* mapPath, const char* fileName)
 	pugi::xml_node layer;
 	for (layer = mapFile.child("map").child("layer"); layer; layer = layer.next_sibling("layer"))
 	{
+		SString layerName = layer.attribute("name").as_string();
+		SString navigation = "navigation";
+
+		if (layerName == navigation)
+			continue;
+		
 		pugi::xml_node layerData = layer.child("data");
 
 		if (layerData == NULL)
