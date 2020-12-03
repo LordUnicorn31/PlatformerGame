@@ -17,14 +17,14 @@ public:
 	static int CreatePath(const iPoint& origin, const iPoint& destination) { return Get().ICreatePath(origin, destination); }
 	static const DynArray<iPoint>* GetLastPath() { return &Get().lastPath; }
 	static bool CheckBoundaries(const iPoint& pos) { return Get().ICheckBoundaries(pos); }
-	static uchar GetTileAt(const iPoint& pos) { return Get().IGetTileAt(pos); }
+	//static uchar GetTileAt(const iPoint& pos) { return Get().IGetTileAt(pos); }
 	static bool IsWalkable(const iPoint& pos) { return Get().IIsWalkable(pos); }
 
 private:
 	void ISetMap(unsigned int width, unsigned int height, unsigned char* data);
 	int ICreatePath(const iPoint& origin, const iPoint& destination);
 	bool ICheckBoundaries(const iPoint& pos) const;
-	uchar IGetTileAt(const iPoint& pos);
+	//uchar IGetTileAt(const iPoint& pos);
 	bool IIsWalkable(const iPoint& pos) const;
 
 	Pathfinding();
@@ -43,7 +43,7 @@ struct PathNode
 	PathNode(int g, int h, const iPoint& pos, const PathNode* parent);
 	PathNode(const PathNode& node);
 
-	uint FindWalkableAdjacents(PathList& list_to_fill) const;
+	uint FindWalkableAdjacents(PathList& listToFill) const;
 
 	int Score() const;
 

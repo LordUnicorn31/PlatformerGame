@@ -422,9 +422,6 @@ bool Player::Save(pugi::xml_node& playerNode) const
 
 void Player::Move() 
 {
-#ifdef OPTICKPROFILE
-	OPTICK_EVENT("PlayerMove");
-#endif // OPTICKPROFILE
 
 	if (speed.x != 0) 
 	{

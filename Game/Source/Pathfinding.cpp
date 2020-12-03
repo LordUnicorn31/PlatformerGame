@@ -1,4 +1,4 @@
-/*#include "Pathfinding.h"
+#include "Pathfinding.h"
 
 PathNode::PathNode() : g(-1), h(-1), pos(-1, -1), parent(NULL)
 {}
@@ -9,49 +9,49 @@ PathNode::PathNode(int g, int h, const iPoint & pos, const PathNode * parent) : 
 PathNode::PathNode(const PathNode & node) : g(node.g), h(node.h), pos(node.pos), parent(node.parent)
 {}
 
-uint PathNode::FindWalkableAdjacents(PathList & list_to_fill) const
+uint PathNode::FindWalkableAdjacents(PathList & listToFill) const
 {
 	iPoint cell;
-	uint before = list_to_fill.list.count();
+	uint before = listToFill.list.count();
 
 	// north
 	cell.create(pos.x, pos.y + 1);
-	if ( IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
 
 	// south
 	cell.create(pos.x, pos.y - 1);
-	if (IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
 
 	// east
 	cell.create(pos.x + 1, pos.y);
-	if (IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
 
 	// west
 	cell.create(pos.x - 1, pos.y);
-	if (IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
 
 	//diagonals
 	cell.create(pos.x + 1, pos.y + 1);
-	if (IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x + 1, pos.y - 1);
-	if (IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x - 1, pos.y + 1);
-	if (IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
 
 	cell.create(pos.x - 1, pos.y - 1);
-	if (IsWalkable(cell))
-		list_to_fill.list.add(PathNode(-1, -1, cell, this));
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
 
-	return list_to_fill.list.count();
+	return listToFill.list.count();
 }
 
 int PathNode::Score() const
@@ -169,17 +169,14 @@ bool Pathfinding::ICheckBoundaries(const iPoint& pos) const
 		pos.y >= 0 && pos.y <= (int)height);
 }
 
-uchar Pathfinding::IGetTileAt(const iPoint& pos)
+ /*Pathfinding::IGetTileAt(const iPoint& pos)
 {
 	if (CheckBoundaries(pos))
 		return map[(pos.y * width) + pos.x];
 
 	return INVALID_WALK_CODE;
-}
-
+}*/
 bool Pathfinding::IIsWalkable(const iPoint& pos) const
 {
-	uchar t = GetTileAt(pos);
-	return t != INVALID_WALK_CODE && t > 0;
+	return map[(pos.y * width) + pos.x];
 }
-*/
