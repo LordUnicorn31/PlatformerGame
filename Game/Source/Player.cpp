@@ -227,13 +227,11 @@ bool Player::OnPlatform()
 	if ((position.x % Map::GetTileWidth()) != 0) //check if we have to check 2 columns or 1
 	{
 		iPoint left = Map::WorldToMap(position.x, position.y + height + 1);
-		uint leftIndex = left.y * Map::GetMapHeight() + left.x;
-		if (Map::GetTileProperty(leftIndex, "Blocked"))
+		if (Map::GetTileProperty(left.x, left.y, "Blocked"))
 			return true;
 
 		iPoint right = Map::WorldToMap(position.x + width, position.y + height + 1);
-		uint rightIndex = right.y * Map::GetMapHeight() + right.x;
-		if (Map::GetTileProperty(rightIndex, "Blocked"))
+		if (Map::GetTileProperty(right.x, right.y, "Blocked"))
 			return true;
 
 		return false;
@@ -241,8 +239,7 @@ bool Player::OnPlatform()
 	else
 	{
 		iPoint left = Map::WorldToMap(position.x, position.y + height + 1);
-		uint leftIndex = left.y * Map::GetMapHeight() + left.x;
-		if (Map::GetTileProperty(leftIndex, "Blocked"))
+		if (Map::GetTileProperty(left.x, left.y, "Blocked"))
 			return true;
 
 		return false;
@@ -254,13 +251,11 @@ bool Player::OnDeath()
 	if ((position.x % Map::GetTileWidth()) != 0) //check if we have to check 2 columns or 1
 	{
 		iPoint left = Map::WorldToMap(position.x, position.y + height + 1);
-		uint leftIndex = left.y * Map::GetMapHeight() + left.x;
-		if (Map::GetTileProperty(leftIndex, "Death"))
+		if (Map::GetTileProperty(left.x, left.y, "Death"))
 			return true;
 
 		iPoint right = Map::WorldToMap(position.x + width, position.y + height + 1);
-		uint rightIndex = right.y * Map::GetMapHeight() + right.x;
-		if (Map::GetTileProperty(rightIndex, "Death"))
+		if (Map::GetTileProperty(right.x, right.y, "Death"))
 				return true;
 
 		return false;
@@ -268,8 +263,7 @@ bool Player::OnDeath()
 	else
 	{
 		iPoint left = Map::WorldToMap(position.x, position.y + height + 1);
-		uint leftIndex = left.y * Map::GetMapHeight() + left.x;
-			if (Map::GetTileProperty(leftIndex, "Death"))
+			if (Map::GetTileProperty(left.x, left.y, "Death"))
 				return true;
 
 		return false;
@@ -280,7 +274,7 @@ bool Player::Onchange()
 {
 	iPoint left = Map::WorldToMap(position.x, position.y);
 	uint leftIndex = left.y * Map::GetMapHeight() + left.x;
-	if (Map::GetTileProperty(leftIndex, "Change"))
+	if (Map::GetTileProperty(left.x, left.y, "Change"))
 		return true;
 
 	return false;
@@ -290,7 +284,7 @@ bool Player::OnSave()
 {
 	iPoint left = Map::WorldToMap(position.x, position.y);
 	uint leftIndex = left.y * Map::GetMapHeight() + left.x;
-	if (Map::GetTileProperty(leftIndex, "Save"))
+	if (Map::GetTileProperty(left.x, left.y, "Save"))
 		return true;
 
 	return false;
@@ -300,7 +294,7 @@ bool Player::OnLadder(iPoint position)
 {
 	position = Map::WorldToMap(position.x, position.y);
 	uint index = position.y * Map::GetMapHeight() + position.x;
-	if (Map::GetTileProperty(index, "Ladder"))
+	if (Map::GetTileProperty(position.x, position.y, "Ladder"))
 	{
 		return true;
 	}
@@ -311,8 +305,7 @@ bool Player::OnLadder(iPoint position)
 bool Player::OnBlockedTile()
 {
 	iPoint tilePosition = Map::WorldToMap(position.x, position.y);
-	uint index = tilePosition.y * Map::GetMapHeight() + tilePosition.x;
-	if (Map::GetTileProperty(index, "Blocked"))
+	if (Map::GetTileProperty(tilePosition.x, tilePosition.y, "Blocked"))
 	{
 		return true;
 	}
@@ -444,8 +437,8 @@ void Player::Move()
 				bottom = Map::WorldToMap(position.x, position.y + height);
 			}
 
-			uint indextop = top.y * Map::GetMapWidth() + top.x;
-			uint indexbottom = bottom.y * Map::GetMapWidth() + bottom.x;
+			uint indextop = (top.y << Map::GetLogWidth()) + top.x;
+			uint indexbottom = (bottom.y << Map::GetLogWidth()) + bottom.x;
 
 			if (movingright) 
 			{ //estem anant cap a la dreta
@@ -537,7 +530,7 @@ void Player::Move()
 				top = Map::WorldToMap(position.x, position.y);
 			}
 
-			uint indextop = top.y * Map::GetMapWidth() + top.x;
+			uint indextop = (top.y << Map::GetLogWidth()) + top.x;
 
 			if (movingright) 
 			{ //estem anant cap a la dreta
@@ -607,8 +600,8 @@ void Player::Move()
 				right = Map::WorldToMap(position.x + width, position.y + height);
 			}
 
-			uint indexleft = left.y * Map::GetMapWidth() + left.x;
-			uint indexright = right.y * Map::GetMapWidth() + right.x;
+			uint indexleft = (left.y << Map::GetLogWidth()) + left.x;
+			uint indexright = (right.y << Map::GetLogWidth()) + right.x;
 
 			if (movingup) 
 			{ //estem anant cap amunt
@@ -696,7 +689,7 @@ void Player::Move()
 				left = Map::WorldToMap(position.x, position.y + height);
 			}
 
-			uint indexleft = left.y * Map::GetMapWidth() + left.x;
+			uint indexleft = (left.y << Map::GetLogWidth()) + left.x;
 
 			if (movingup) 
 			{ //estem anant cap a la dreta
