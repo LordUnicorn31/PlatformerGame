@@ -25,8 +25,15 @@
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\Map.cpp" />
-    <ClCompile Include="Source\Entity.cpp" />
-    <ClCompile Include="Source\EntityManager.cpp" />
+    <ClCompile Include="Source\EntityManager.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Entity.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\FlyEnemy.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -71,8 +78,15 @@
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\Map.h" />
-    <ClInclude Include="Source\Entity.h" />
-    <ClInclude Include="Source\EntityManager.h" />
+    <ClInclude Include="Source\EntityManager.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\FlyEnemy.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -83,6 +97,9 @@
     </Filter>
     <Filter Include="External\PuguiXml">
       <UniqueIdentifier>{2855ff7f-53a1-413d-a75b-18b4ade921dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{2c882312-b1cc-4105-af2a-e6d59ef9979b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -5,9 +5,6 @@
 #include "SString.h"
 //#include "Animation.h"
 
-#define MAXSELECTEDUNITS 33
-#define MAXRESOURCES 9999
-
 class Entity;
 struct SDL_Texture;
 enum class EntityType : unsigned char;
@@ -20,10 +17,10 @@ public:
 	~EntityManager();
 
 	void Init();
+	bool Awake(pugi::xml_node& entityNode);
 	bool Start();
 	bool Update(float dt);
 	void UpdateAll(float dt, bool doLogic);
-	bool PostUpdate();
 	bool CleanUp();
 
 	Entity* CreateEntity(EntityType type);
@@ -42,9 +39,6 @@ private:
 	bool doLogic;
 	float accumulatedTime;
 	float updateMsCycle;
-	SDL_Texture* player;
-	SDL_Texture* enemyWalk;
-	SDL_Texture* enemyFly;
-	SDL_Texture* apple;
-	SDL_Texture* Coin;
+	SDL_Texture* entityTexture;
+	SString texturePath;
 };

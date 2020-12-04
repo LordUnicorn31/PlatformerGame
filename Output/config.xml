@@ -22,6 +22,9 @@
     <textureRect x="0" y="16" w="16" h="16"/>
     <position x="20" y="2720"/>
   </player>
+  <EntityManager>
+    <texture>Assets/textures/entities.png</texture>
+  </EntityManager>
   <scene>
     <mapname name="forest.tmx"/>
     <audio path ="Assets/audio/music/Forest.ogg"/>
