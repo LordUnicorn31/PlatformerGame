@@ -31,9 +31,9 @@ public:
 class Dynamic : public Entity {
 protected:
 	Dynamic(EntityType type);
-	~Dynamic();
-	virtual void Move();
-	virtual void Die();
+	~Dynamic() {};
+	virtual void Move() {};
+	virtual void Die() {};
 	//Collider* myCollider;
 	//Collider* combatCollider;
 	float maxSpeed;

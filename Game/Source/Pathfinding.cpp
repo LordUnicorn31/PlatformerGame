@@ -1,4 +1,5 @@
 #include "Pathfinding.h"
+#include <string.h>
 
 PathNode::PathNode() : g(-1), h(-1), pos(-1, -1), parent(NULL)
 {}
