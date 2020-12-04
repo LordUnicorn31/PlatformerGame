@@ -1,9 +1,11 @@
+#ifndef __ANIMATION_H__
+#define __ANIMATION_H__
 #include "Defs.h"
 #include "SDL.h"
-#define MAX_FRAMES 60
+#define MAX_FRAMES 2
 
 
-class Animation
+class Animations
 {
 public:
 	bool loop = true;
@@ -45,3 +47,5 @@ public:
 		loops = 0;
 	}
 };
+
+#endif

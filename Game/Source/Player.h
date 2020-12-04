@@ -2,10 +2,12 @@
 #include "Point.h"
 #include "Module.h"
 #include "Entity.h"
+#include "Animation.h"
 
 class SDL_Rect;
 class SDL_Texture;
 class SString;
+
 
 class Player : public Module{ //public Entity ??
 public:
@@ -32,7 +34,7 @@ public:
 	//Pujar ladder
 	*/
 private:
-	void Draw();
+	void Draw(float dt);
 	void Move();
 	bool OnPlatform();
 	
@@ -66,5 +68,14 @@ private:
 	uint jumpSound;
 	iPoint initialPos;
 	uint checkpointSound;
+	bool flip;
+
+	Animations idleAnimation;
+	Animations runAnimation;
+	Animations jumpAnimation;
+	Animations climbAnimation;
+	Animations deathAnimation;
+	Animations attackAnimation;
+	Animations* currentAnimation = nullptr;
 	
 };

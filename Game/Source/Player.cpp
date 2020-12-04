@@ -10,6 +10,7 @@
 #include "Audio.h"
 #include "SceneLose.h"
 #include "CastleScene.h"
+#include "Animation.h"
 
 #ifdef OPTICKPROFILE
 #include "optick.h"
@@ -35,6 +36,14 @@ Player::Player() : Module()
 	acumulatedMs = 0.0f;
 	updateMsCycle = 16.66666666f; //A 60 fps
 	targetSpeed = {0,0};
+	flip = false;
+	idleAnimation.PushBack({ 0, 16, 16, 16 });
+	runAnimation.PushBack({ 16, 16, 16, 16 });
+	runAnimation.PushBack({ 32, 16, 16, 16 });
+	runAnimation.speed = 5.0f;
+	climbAnimation.PushBack({ 48, 16, 16, 16 });
+	jumpAnimation.PushBack({ 16, 16, 16, 16 });
+	
 }
 
 Player::~Player() 
@@ -54,6 +63,7 @@ void Player::Init()
 {
 	enabled = false;
 	active = true;
+
 }
 
 bool Player::Start()
@@ -62,6 +72,7 @@ bool Player::Start()
 	jumpSound = app->audio->LoadFx("Assets/audio/fx/jump.wav");
 	checkpointSound = app->audio->LoadFx("Assets/audio/fx/checkpoint.wav");
 	position = initialPos;
+	
 	return true;
 }
 
@@ -86,6 +97,8 @@ bool Player::Update(float dt)
 	bool onDeath = OnDeath();
 	bool onChange = Onchange();
 	bool onSave = OnSave();
+	flip = false;
+	currentAnimation = &idleAnimation;
 
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
 	{
@@ -101,12 +114,14 @@ bool Player::Update(float dt)
 	}
 	if (onLadder) 
 	{
+		currentAnimation = &climbAnimation;
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN)
 		{
 			if (!OnBlockedTile())
 			{
 				onLadder = false;
 				speed.x = ladderSpeed;
+				
 			}
 		}
 		if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
@@ -115,15 +130,24 @@ bool Player::Update(float dt)
 			{
 				onLadder = false;
 				speed.x = -ladderSpeed;
+				
 			}
 		}
 	}
 	else 
 	{
 		if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-			targetSpeed.x = maxSpeed;
+		{
+			targetSpeed.x = maxSpeed; 
+			currentAnimation = &runAnimation;
+			
+		}
 		else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
+		{ 
 			targetSpeed.x = -maxSpeed;
+			currentAnimation = &runAnimation;
+			flip = true;
+		}
 		else
 			targetSpeed.x = 0;
 	}
@@ -196,7 +220,11 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		app->transitions->FadeToBlack(app->scene, app->castleScene);
 
-	Draw();
+	/*if (speed.y != 0)
+		currentAnimation = &jumpAnimation;*/
+
+	
+	Draw(dt);
 	return true;
 }
 
@@ -205,6 +233,7 @@ bool Player::CleanUp()
 	app->tex->UnLoad(texture);
 	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
+
 	return true;
 }
 
@@ -213,12 +242,18 @@ iPoint Player::GetPosition() const
 	return position;
 }
 
-void Player::Draw()
+void Player::Draw(float dt)
 {
 	//Animations
 	//Diferent tile drawings depending on the player action or state
 	//Maybe some tiles will need to get fliped depending on the orientation
-	app->render->DrawTexture(texture, position.x, position.y, &textureRect);
+	
+	if (flip)
+		app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(dt), 1.0f, SDL_FLIP_HORIZONTAL);
+	else
+		app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(dt), 1.0f);
+
+	
 }
 
 
