@@ -42,6 +42,8 @@ Player::Player() : Module()
 	runAnimation.PushBack({ 32, 16, 16, 16 });
 	runAnimation.speed = 5.0f;
 	climbAnimation.PushBack({ 48, 16, 16, 16 });
+	climbAnimation.PushBack({ 291, 16, 16, 16 });
+	climbAnimation.speed = 6.0f;
 	jumpAnimation.PushBack({ 16, 16, 16, 16 });
 	
 }
@@ -97,7 +99,7 @@ bool Player::Update(float dt)
 	bool onDeath = OnDeath();
 	bool onChange = Onchange();
 	bool onSave = OnSave();
-	flip = false;
+
 	currentAnimation = &idleAnimation;
 
 	if (app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT || app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN)
@@ -146,7 +148,6 @@ bool Player::Update(float dt)
 		{ 
 			targetSpeed.x = -maxSpeed;
 			currentAnimation = &runAnimation;
-			flip = true;
 		}
 		else
 			targetSpeed.x = 0;
@@ -220,8 +221,8 @@ bool Player::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		app->transitions->FadeToBlack(app->scene, app->castleScene);
 
-	/*if (speed.y != 0)
-		currentAnimation = &jumpAnimation;*/
+	if (speed.y != 0 && !onLadder)
+		currentAnimation = &jumpAnimation;
 
 	
 	Draw(dt);
@@ -547,10 +548,12 @@ void Player::Move()
 			if (movingright) 
 			{
 				position.x += MIN(speed.x, distance);
+				flip = false;
 			}
 			else 
 			{
 				position.x += MAX(speed.x, -distance);
+				flip = true;
 			}
 			if (distance == 0)
 				speed.x = 0;
@@ -610,10 +613,12 @@ void Player::Move()
 			if (movingright) 
 			{
 				position.x += MIN(speed.x, distance);
+				flip = false;
 			}
 			else 
 			{
 				position.x += MAX(speed.x, -distance);
+				flip = true;
 			}
 			if (distance == 0)
 				speed.x = 0;

@@ -2,9 +2,9 @@ animations.
 
 player:
 
-Idle: x = 0, y = 16, width = 16, height = 16;
+Idle: x = 0, y = 16, width = 16, height = 16; x = 307, y = 16, width = 16, height = 16;
 run: x = 16, y = 16, width = 16, height = 16;  x = 32, y = 16, width = 16, height = 16;
-climb: x = 48, y = 16, width = 16, height = 16;
+climb: x = 48, y = 16, width = 16, height = 16; x = 291, y = 16, width = 16, height = 16;
 attack: x = 64, y = 16, width = 16, height = 16;
 death: x = 80, y = 16, width = 16, height = 16;
 
