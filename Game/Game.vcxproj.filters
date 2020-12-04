@@ -99,6 +99,7 @@
     <ClInclude Include="Source\WanderEnemy.h">
       <Filter>Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Animation.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
