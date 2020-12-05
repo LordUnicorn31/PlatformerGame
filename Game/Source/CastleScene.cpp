@@ -96,7 +96,7 @@ bool CastleScene::Update(float dt)
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
-		app->player->Die();
+		app->transitions->FadeToBlack(this, app->scene);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
@@ -123,6 +123,7 @@ bool CastleScene::CleanUp()
 	LOG("Freeing scene");
 	Map::UnLoad();
 	app->audio->UnloadMusic();
+	app->player->Disable();
 	return true;
 }
 

@@ -7,6 +7,8 @@
 #include "Scene.h"
 #include "Map.h"
 #include "Player.h"
+#include "Transitions.h"
+#include "CastleScene.h"
 
 
 #include "Defs.h"
@@ -93,7 +95,7 @@ bool Scene::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
-		app->player->Die();
+		app->transitions->FadeToBlack(this, app->castleScene);
 	}
 	return true;
 }
