@@ -18,33 +18,33 @@
     <fullscreen_window value="false"/>
   </window>
   <player>
-    <texture>Assets/textures/entities.png</texture>
+    <texture>Assets/Textures/entities.png</texture>
     <textureRect x="0" y="16" w="16" h="16"/>
-    <position x="7000" y="2720"/>
+    <position x="20" y="2720"/>
   </player>
   <EntityManager>
-    <texture>Assets/textures/entities.png</texture>
+    <texture>Assets/Textures/entities.png</texture>
   </EntityManager>
   <scene>
     <mapname name="forest.tmx"/>
-    <audio path ="Assets/audio/music/Forest.ogg"/>
-    <mapfolder name = "Assets/maps/" />
+    <audio path ="Assets/Audio/Music/forest_music.ogg"/>
+    <mapfolder name = "Assets/Maps/" />
   </scene>
   <castleScene>
-    <mapname name="Castle.tmx"/>
-    <audio path ="Assets/audio/music/Forest.ogg"/>
-    <mapfolder name ="Assets/maps/" />
+    <mapname name="castle.tmx"/>
+    <audio path ="Assets/Audio/Music/castle_music.ogg"/>
+    <mapfolder name ="Assets/Maps/" />
   </castleScene>
   <sceneLogo>
-    <texture path="Assets/textures/logoImage.png"/>
+    <texture path="Assets/Textures/logo_image.png"/>
   </sceneLogo>
   <sceneTitle>
-    <texture path="Assets/textures/title_image.png"/>
-    <audio path ="Assets/audio/music/Menu.ogg"/>
+    <texture path="Assets/Textures/title_image.png"/>
+    <audio path ="Assets/Audio/Music/menu_music.ogg"/>
   </sceneTitle>
   <sceneLose>
-    <texture path="Assets/textures/lose_image.png"/>
-    <audio path="Assets/audio/music/lose_music.ogg"/>
+    <texture path="Assets/Textures/lose_image.png"/>
+    <audio path="Assets/Audio/Music/victory_music.ogg"/>
   </sceneLose>
 
 </config>
