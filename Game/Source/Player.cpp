@@ -99,6 +99,7 @@ bool Player::Update(float dt)
 	bool onDeath = OnDeath();
 	bool onChange = Onchange();
 	bool onSave = OnSave();
+	bool onEnd = OnEnd();
 
 	currentAnimation = &idleAnimation;
 
@@ -211,6 +212,11 @@ bool Player::Update(float dt)
 	{
 		app->transitions->FadeToBlack(app->scene, app->castleScene);
 	}
+	
+	if (onEnd)
+	{
+		app->transitions->FadeToBlack(app->castleScene, app->loseScene);
+	}
 
 	if (onSave)
 	{
@@ -317,6 +323,16 @@ bool Player::Onchange()
 	iPoint left = Map::WorldToMap(position.x, position.y);
 	uint leftIndex = left.y * Map::GetMapHeight() + left.x;
 	if (Map::GetTileProperty(leftIndex, "Change"))
+		return true;
+
+	return false;
+}
+
+bool Player::OnEnd()
+{
+	iPoint left = Map::WorldToMap(position.x, position.y);
+	uint leftIndex = left.y * Map::GetMapHeight() + left.x;
+	if (Map::GetTileProperty(leftIndex, "End"))
 		return true;
 
 	return false;

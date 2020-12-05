@@ -20,7 +20,7 @@
   <player>
     <texture>Assets/textures/entities.png</texture>
     <textureRect x="0" y="16" w="16" h="16"/>
-    <position x="20" y="2720"/>
+    <position x="7000" y="2720"/>
   </player>
   <EntityManager>
     <texture>Assets/textures/entities.png</texture>

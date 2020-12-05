@@ -43,6 +43,7 @@ private:
 	bool OnLadder(iPoint position);
 	bool SnapToLadder(bool onPlatform, bool down);
 	bool OnSave();
+	bool OnEnd();
 	void MoveLadder();
 	bool Load(pugi::xml_node& playerNode);
 	bool Save(pugi::xml_node& playerNode) const;
