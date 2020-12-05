@@ -70,6 +70,14 @@ private:
 	iPoint initialPos;
 	uint checkpointSound;
 	bool flip;
+	int checkpoint1x;
+	int checkpoint1y;
+	int checkpoint2x;
+	int checkpoint2y;
+	int checkpoint3x;
+	int checkpoint3y;
+	
+	
 
 	Animations idleAnimation;
 	Animations runAnimation;
