@@ -146,7 +146,7 @@ int Pathfinding::ICreatePath(const iPoint& origin, const iPoint& destination)
 				lastPath.PushBack(path_node->pos);
 				path_node = path_node->parent;
 			}
-			lastPath.Flip();
+			//lastPath.Flip();
 			ret = lastPath.Count();
 			break;
 		}

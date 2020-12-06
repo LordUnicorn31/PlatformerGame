@@ -10,7 +10,7 @@ enum class FlyEnemyState : unsigned char;
 class FlyEnemy : public Dynamic 
 {
 public:
-	FlyEnemy();
+	FlyEnemy(iPoint pos);
 	~FlyEnemy();
 	void Update(float dt) override;
 	void Draw(float dt)override;

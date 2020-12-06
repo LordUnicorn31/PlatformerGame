@@ -35,6 +35,13 @@ bool Scene::Awake(pugi::xml_node& config)
 	mapName.create(config.child("mapname").attribute("name").as_string());
 	mapPath.create(config.child("mapfolder").attribute("name").as_string());
 	audioPath.create(config.child("audio").attribute("path").as_string());
+
+	mapBat.x = config.child("batposx").attribute("x").as_int();
+	mapBat.y = config.child("batposy").attribute("y").as_int();
+	mapZombie.x = config.child("zombieposx").attribute("x").as_int();
+	mapZombie.y = config.child("zombieposy").attribute("y").as_int();
+	mapSkeleton.x = config.child("skeletonposx").attribute("x").as_int();
+	mapSkeleton.y = config.child("skeletonposy").attribute("y").as_int();
 	SDL_ShowCursor(SDL_DISABLE);
 	return ret;
 }
@@ -48,15 +55,20 @@ void Scene::Init()
 // Called before the first frame
 bool Scene::Start()
 {   
-	app->entity->Enable();
+ 	app->entity->Enable();
 	app->audio->PlayMusic(audioPath.GetString());
+
 	Map::Load(mapPath.GetString(),mapName.GetString());
 	app->player->Enable();
 	
 
-	flyEnemy = (FlyEnemy*)app->entity->CreateEntity(EntityType::FLY_ENEMY);
-	patrolEnemy = (PatrolEnemy*)app->entity->CreateEntity(EntityType::PATROL_ENEMY);
-	wanderEnemy = (WanderEnemy*)app->entity->CreateEntity(EntityType::WANDER_ENEMY);
+
+	/*iPoint batPos = Map::MapToWorld(mapBat.x, mapBat.y);
+	iPoint skeletonPos = Map::MapToWorld(mapSkeleton.x, mapSkeleton.y);
+	iPoint zombiePos = Map::MapToWorld(mapZombie.x, mapZombie.y);
+	bat = (FlyEnemy*)app->entity->CreateEntity(EntityType::FLY_ENEMY, batPos);
+	skeleton = (PatrolEnemy*)app->entity->CreateEntity(EntityType::PATROL_ENEMY, skeletonPos);
+	zombie = (WanderEnemy*)app->entity->CreateEntity(EntityType::WANDER_ENEMY, zombiePos);*/
 
 
 	return true;

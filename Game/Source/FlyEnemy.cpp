@@ -15,14 +15,13 @@ enum class FlyEnemyState : unsigned char
 	RETURN
 };
 
-FlyEnemy::FlyEnemy() : Dynamic(EntityType::FLY_ENEMY)
+FlyEnemy::FlyEnemy(iPoint pos) : Dynamic(EntityType::FLY_ENEMY)
 {
 	a = 0.7f;
-	maxSpeed = 2.0f;
+	maxSpeed = 1.0f;
 	terminalSpeed = 0.0f;
 	// Random initial position.
-	initialPosition = { 54, 2992 };
-	pos = initialPosition;
+	initialPosition = pos;
 	idleAnimation.PushBack({ 192, 131, 16, 8 });
 	moveAnimation.PushBack({ 192, 131, 16, 8 });
 	moveAnimation.PushBack({ 208, 131, 16, 8 });
@@ -207,6 +206,9 @@ bool FlyEnemy::ReachedTile()
 void FlyEnemy::Draw(float dt)
 {
 	app->render->DrawTexture(this->sprite, pos.x, pos.y, &currentAnimation->GetCurrentFrame(dt), 1.0f);
+	/*for (int i = 0; i != path.Count(); ++i) {
+		app->render->DrawRectangle({ path[i].x * 16,path[i].y * 16,16,16 }, 255, 0, 0, 127, true);
+	}*/
 }
 
 void FlyEnemy::UpdateLogic()
@@ -224,8 +226,8 @@ void FlyEnemy::UpdateLogic()
 
 void FlyEnemy::Move()
 {
-	pos.x += maxSpeed * currentDirection.x;
-	pos.y += maxSpeed * currentDirection.y;
+	//pos.x += maxSpeed * currentDirection.x;
+	//pos.y += maxSpeed * currentDirection.y;
 
 	if(ReachedTile())
 	{

@@ -6,7 +6,7 @@ class PatrolEnemy : public Dynamic
 {
 public:
 
-	PatrolEnemy();
+	PatrolEnemy(iPoint pos);
 	~PatrolEnemy();
 	void Update(float dt) override;
 	void Draw(float dt)override;
@@ -21,5 +21,6 @@ private:
 	Animations moveAnimation;
 	Animations deathAnimation;
 	Animations* currentAnimation = nullptr;
+	float timeSinceSwap;
 
 };

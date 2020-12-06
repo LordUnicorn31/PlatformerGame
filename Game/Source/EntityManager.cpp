@@ -102,7 +102,7 @@ bool EntityManager::CleanUp()
 	return true;
 }
 
-Entity* EntityManager::CreateEntity(EntityType type) 
+Entity* EntityManager::CreateEntity(EntityType type, iPoint pos) 
 {
 	Entity* ret = nullptr;
 	
@@ -110,15 +110,15 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	{
 		
 		case EntityType::FLY_ENEMY: 
-			ret = new FlyEnemy();
+			ret = new FlyEnemy(pos);
 			ret->sprite = entityTexture;
 			break;
 		case EntityType::PATROL_ENEMY: 
-			ret = new PatrolEnemy();
+			ret = new PatrolEnemy(pos);
 			ret->sprite = entityTexture;
 			break;
 		case EntityType::WANDER_ENEMY:
-			ret = new WanderEnemy();
+			ret = new WanderEnemy(pos);
 			ret->sprite = entityTexture;
 			break;
 	}

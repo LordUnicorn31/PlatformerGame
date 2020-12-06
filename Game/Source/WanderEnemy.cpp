@@ -8,13 +8,12 @@ enum class WanderEnemyStates
 
 };
 
-WanderEnemy::WanderEnemy() : Dynamic(EntityType::WANDER_ENEMY)
+WanderEnemy::WanderEnemy(iPoint pos) : Dynamic(EntityType::WANDER_ENEMY)
 {
 	maxSpeed = 1.9f;
 	a = 0.8f;
 	terminalSpeed = 0.0f;
-	initialPosition = {80, 2992};
-	pos = initialPosition;
+	initialPosition = pos;
 	idleAnimation.PushBack({ 0, 96, 16, 16 });
 	moveAnimation.PushBack({ 16, 96, 16, 16 });
 	moveAnimation.PushBack({ 32, 96, 16, 16 });

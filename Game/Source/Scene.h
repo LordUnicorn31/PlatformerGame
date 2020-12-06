@@ -44,9 +44,12 @@ private:
 	SString mapName;
 	SString mapPath;
 	SString audioPath;
-	FlyEnemy* flyEnemy;
-	PatrolEnemy* patrolEnemy;
-	WanderEnemy* wanderEnemy;
+	iPoint mapBat;
+	iPoint mapZombie;
+	iPoint mapSkeleton;
+	PatrolEnemy* skeleton = nullptr;
+	FlyEnemy* bat = nullptr;
+	WanderEnemy* zombie = nullptr;
 };
 
 #endif // __SCENE_H__

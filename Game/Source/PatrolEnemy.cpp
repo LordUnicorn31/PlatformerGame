@@ -1,7 +1,7 @@
 #include "PatrolEnemy.h"
 #include "App.h"
 #include "Render.h"
-
+#include "Map.h"
 
 
 enum class PatrolEnemyState
@@ -9,18 +9,18 @@ enum class PatrolEnemyState
 
 };
 
-PatrolEnemy::PatrolEnemy() : Dynamic(EntityType::PATROL_ENEMY)
+PatrolEnemy::PatrolEnemy(iPoint pos) : Dynamic(EntityType::PATROL_ENEMY)
 {
-	maxSpeed = 1.6f;
+	maxSpeed = 1.0f;
 	a = 0.5f;
 	terminalSpeed = 0.0f;
-	initialPosition = {64,2992};
-	pos = initialPosition;
+	initialPosition = pos;
 	idleAnimation.PushBack({ 0, 80, 16, 16 });
 	moveAnimation.PushBack({ 16, 80, 16, 16 });
 	moveAnimation.PushBack({ 32, 80, 16, 16 });
 	deathAnimation.PushBack({ 0, 80, 16, 16 });
 	deathAnimation.PushBack({ 80, 80, 16, 16 });
+	timeSinceSwap = 0.0f;
 }
 
 PatrolEnemy::~PatrolEnemy(){}
@@ -28,23 +28,33 @@ PatrolEnemy::~PatrolEnemy(){}
 void PatrolEnemy::Update(float dt)
 {
 	//Idle animation by definition
+	timeSinceSwap += dt * 1000;
 	currentAnimation = &idleAnimation;
+	iPoint mapPos = Map::WorldToMap(pos.x, pos.y);
+	if ((timeSinceSwap > 8.3333f) && Map::GetTileProperty((mapPos.y * Map::GetMapWidth() + mapPos.x), "Swap")) 
+	{
+		maxSpeed = -maxSpeed;
+		timeSinceSwap = 0.0f;
+	}
 	Draw(dt);
 }
 
 void PatrolEnemy::Draw(float dt)
 {
-	app->render->DrawTexture(this->sprite, pos.x, pos.y, &currentAnimation->GetCurrentFrame(dt), 1.0f);
+	if(maxSpeed > 0)
+		app->render->DrawTexture(this->sprite, pos.x, pos.y, &currentAnimation->GetCurrentFrame(dt), 1.0f);
+	else
+		app->render->DrawTexture(this->sprite, pos.x, pos.y, &currentAnimation->GetCurrentFrame(dt), 1.0f,SDL_FLIP_HORIZONTAL);
 }
 
 void PatrolEnemy::UpdateLogic()
 {
-	// Move()
+	Move();
 }
 
 void PatrolEnemy::Move()
 {
-
+	pos.x += maxSpeed;
 }
 
 void PatrolEnemy::Die()

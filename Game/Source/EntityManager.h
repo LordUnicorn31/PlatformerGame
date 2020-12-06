@@ -24,7 +24,7 @@ public:
 	void UpdateAll(float dt, bool doLogic);
 	bool CleanUp();
 
-	Entity* CreateEntity(EntityType type);
+	Entity* CreateEntity(EntityType type, iPoint pos);
 	void DestroyEntity(Entity* entity);
 
 	const List<Entity*> GetEntities()const;
