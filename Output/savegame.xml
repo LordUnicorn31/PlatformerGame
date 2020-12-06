@@ -6,7 +6,7 @@
 	<scene />
 	<castleScene />
 	<player>
-		<position x="943" y="2880" />
+		<position x="20" y="2720" />
 	</player>
 	<transitions />
 	<sceneLose />
@@ -15,6 +15,6 @@
 	<audio />
 	<EntityManager />
 	<renderer>
-		<camera x="-583" y="-2640" />
+		<camera x="0" y="-2640" />
 	</renderer>
 </game_state>

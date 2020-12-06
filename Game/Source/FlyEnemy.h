@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "Animation.h"
 
 class FlyEnemy : public Dynamic {
 public:
@@ -14,5 +15,8 @@ private:
 	bool inRadius();
 	int attackRadius;
 	iPoint initialPosition;
-	//Animation...
+	Animations idleAnimation;
+	Animations moveAnimation;
+	Animations deathAnimation;
+	Animations* currentAnimation = nullptr;
 };

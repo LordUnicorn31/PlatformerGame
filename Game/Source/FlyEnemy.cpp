@@ -3,6 +3,7 @@
 #include "Pathfinding.h"
 #include "Map.h"
 #include "Player.h"
+#include "Render.h"
 
 enum class FlyEnemyState {
 
@@ -15,6 +16,11 @@ FlyEnemy::FlyEnemy(iPoint initialPos): Dynamic(EntityType::FLY_ENEMY)
 	terminalSpeed = 0.0f;
 	pos = initialPos;
 	initialPosition = initialPos;
+	idleAnimation.PushBack({ 192, 131, 16, 8 });
+	moveAnimation.PushBack({ 192, 131, 16, 8 });
+	moveAnimation.PushBack({ 208, 131, 16, 8 });
+	deathAnimation.PushBack({ 192, 131, 16, 8 });
+	deathAnimation.PushBack({ 80, 80,  16, 8 });
 	//attackRadius = 
 }
 
@@ -22,6 +28,8 @@ FlyEnemy::~FlyEnemy(){}
 
 void FlyEnemy::Update(float dt)
 {
+	currentAnimation = &idleAnimation;
+
 	if (inRadius()) 
 	{
 		//s'ha de timejar
@@ -37,6 +45,7 @@ bool FlyEnemy::inRadius()
 
 void FlyEnemy::Draw(float dt)
 {
+	app->render->DrawTexture(this->sprite, initialPosition.x, initialPosition.y, &currentAnimation->GetCurrentFrame(dt), 1.0f);
 }
 
 void FlyEnemy::UpdateLogic()

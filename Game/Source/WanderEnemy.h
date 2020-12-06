@@ -1,5 +1,6 @@
 #pragma once
 #include "Entity.h"
+#include "Animation.h"
 
 class WanderEnemy : public Dynamic
 {
@@ -17,5 +18,9 @@ private:
 	virtual void Die()override;
 	bool Limits();
 	iPoint initialPosition;
+	Animations idleAnimation;
+	Animations moveAnimation;
+	Animations deathAnimation;
+	Animations* currentAnimation = nullptr;
 
 };

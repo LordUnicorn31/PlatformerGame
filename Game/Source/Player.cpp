@@ -58,6 +58,12 @@ bool Player::Awake(pugi::xml_node& playerNode)
 	texturePath.create(playerNode.child_value("texture"));
 	textureRect = { playerNode.child("textureRect").attribute("x").as_int(), playerNode.child("textureRect").attribute("y").as_int(), playerNode.child("textureRect").attribute("w").as_int(), playerNode.child("textureRect").attribute("h").as_int() };
 	initialPos = iPoint(playerNode.child("position").attribute("x").as_int(), playerNode.child("position").attribute("y").as_int());
+	checkpoint1x = int(playerNode.child("checkpointpos1x").attribute("x").as_int());
+	checkpoint1y = int(playerNode.child("checkpointpos1y").attribute("y").as_int());
+	checkpoint2x = int(playerNode.child("checkpointpos2x").attribute("x").as_int());
+	checkpoint2y = int(playerNode.child("checkpointpos2y").attribute("y").as_int());
+	checkpoint3x = int(playerNode.child("checkpointpos3x").attribute("x").as_int());
+	checkpoint3y = int(playerNode.child("checkpointpos3y").attribute("y").as_int());
 	return true;
 }
 
@@ -223,12 +229,35 @@ bool Player::Update(float dt)
 		app->SaveGame();
 		app->audio->PlayFx(checkpointSound);
 	}
+	
 
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-		app->transitions->FadeToBlack(app->scene, app->castleScene);
+	/*if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		app->transitions->FadeToBlack(app->scene, app->castleScene);*/
 
 	if (speed.y != 0 && !onLadder)
 		currentAnimation = &jumpAnimation;
+
+	//DEBUG Checkpoints map 1.
+	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
+	{
+		iPoint checkpoint1 = Map::MapToWorld(checkpoint1x, checkpoint1y);
+
+		position = checkpoint1;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+	{
+		iPoint checkpoint2 = Map::MapToWorld(checkpoint2x, checkpoint2y);
+
+		position = checkpoint2;
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	{
+		iPoint checkpoint3 = Map::MapToWorld(checkpoint3x, checkpoint3y);
+
+		position = checkpoint3;
+	}
 
 	
 	Draw(dt);
