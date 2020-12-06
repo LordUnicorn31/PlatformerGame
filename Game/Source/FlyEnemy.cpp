@@ -25,7 +25,7 @@ void FlyEnemy::Update(float dt)
 	if (inRadius()) 
 	{
 		//s'ha de timejar
-		Pathfinding::CreatePath(pos, app->player->GetPosition());
+		Pathfinding::FindPath(pos, app->player->GetPosition(),3);
 	}
 
 }

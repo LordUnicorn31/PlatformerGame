@@ -2,6 +2,7 @@
 #define __DYNARRAY_H__
 
 #include "Defs.h"
+#include <assert.h>
 
 #define DYN_ARRAY_BLOCK_SIZE 16
 
@@ -124,6 +125,14 @@ public:
 		}
 
 		return true;
+	}
+
+	void RemoveAt(unsigned int index) 
+	{
+		for(int i = index; i < (numElements - 1); i++)
+		{
+			data[i] = data[i + 1];
+		}
 	}
 
 	VALUE* At(unsigned int index)

@@ -100,6 +100,9 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Animation.h" />
+    <ClInclude Include="Source\PriorityQueue.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
