@@ -6,7 +6,7 @@ class PatrolEnemy : public Dynamic
 {
 public:
 
-	PatrolEnemy(iPoint initialPos);
+	PatrolEnemy();
 	~PatrolEnemy();
 	void Update(float dt) override;
 	void Draw(float dt)override;

@@ -27,7 +27,7 @@ public:
 	void DestroyEntity(Entity* entity);
 
 	const List<Entity*> GetEntities()const;
-
+	SString texturePath;
 
 private:
 	bool newgame;
@@ -40,5 +40,5 @@ private:
 	float accumulatedTime;
 	float updateMsCycle;
 	SDL_Texture* entityTexture;
-	SString texturePath;
+	
 };

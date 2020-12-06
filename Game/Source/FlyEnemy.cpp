@@ -1,27 +1,29 @@
 #include "App.h"
 #include "FlyEnemy.h"
 #include "Pathfinding.h"
-#include "Map.h"
 #include "Player.h"
 #include "Render.h"
+
+
 
 enum class FlyEnemyState {
 
 };
 
-FlyEnemy::FlyEnemy(iPoint initialPos): Dynamic(EntityType::FLY_ENEMY)
+FlyEnemy::FlyEnemy() : Dynamic(EntityType::FLY_ENEMY)
 {
 	a = 0.7f;
 	maxSpeed = 2.0f;
 	terminalSpeed = 0.0f;
-	pos = initialPos;
-	initialPosition = initialPos;
+	// Random initial position.
+	initialPosition = { 54, 2992 };
+	pos = initialPosition;
 	idleAnimation.PushBack({ 192, 131, 16, 8 });
 	moveAnimation.PushBack({ 192, 131, 16, 8 });
 	moveAnimation.PushBack({ 208, 131, 16, 8 });
 	deathAnimation.PushBack({ 192, 131, 16, 8 });
 	deathAnimation.PushBack({ 80, 80,  16, 8 });
-	//attackRadius = 
+	// attackradius
 }
 
 FlyEnemy::~FlyEnemy(){}
@@ -33,8 +35,10 @@ void FlyEnemy::Update(float dt)
 	if (inRadius()) 
 	{
 		//s'ha de timejar
-		Pathfinding::CreatePath(pos, app->player->GetPosition());
+		/*Pathfinding::CreatePath(pos, app->player->GetPosition());*/
 	}
+	
+	Draw(dt);
 
 }
 
@@ -45,7 +49,7 @@ bool FlyEnemy::inRadius()
 
 void FlyEnemy::Draw(float dt)
 {
-	app->render->DrawTexture(this->sprite, initialPosition.x, initialPosition.y, &currentAnimation->GetCurrentFrame(dt), 1.0f);
+	app->render->DrawTexture(this->sprite, pos.x, pos.y, &currentAnimation->GetCurrentFrame(dt), 1.0f);
 }
 
 void FlyEnemy::UpdateLogic()

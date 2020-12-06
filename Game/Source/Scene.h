@@ -2,6 +2,9 @@
 #define __SCENE_H__
 
 #include "Module.h"
+#include "FlyEnemy.h"
+#include "PatrolEnemy.h"
+#include "WanderEnemy.h"
 
 struct SDL_Texture;
 
@@ -41,6 +44,9 @@ private:
 	SString mapName;
 	SString mapPath;
 	SString audioPath;
+	FlyEnemy* flyEnemy;
+	PatrolEnemy* patrolEnemy;
+	WanderEnemy* wanderEnemy;
 };
 
 #endif // __SCENE_H__

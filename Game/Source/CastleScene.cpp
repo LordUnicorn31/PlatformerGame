@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Transitions.h"
 #include "SceneLose.h"
+#include "EntityManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -47,6 +48,11 @@ bool CastleScene::Start()
 	app->audio->PlayMusic(audioPath.GetString());
 	Map::Load(mapPath.GetString(),mapName.GetString());
 	app->player->Enable();
+	app->entity->Enable();
+
+	flyEnemy = (FlyEnemy*)app->entity->CreateEntity(EntityType::FLY_ENEMY);
+	patrolEnemy = (PatrolEnemy*)app->entity->CreateEntity(EntityType::PATROL_ENEMY);
+	wanderEnemy = (WanderEnemy*)app->entity->CreateEntity(EntityType::WANDER_ENEMY);
 	/*ResetPos();*/
 	return true;
 }
@@ -124,6 +130,8 @@ bool CastleScene::CleanUp()
 	Map::UnLoad();
 	app->audio->UnloadMusic();
 	app->player->Disable();
+	app->entity->Disable();
+
 	return true;
 }
 

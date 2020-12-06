@@ -9,6 +9,10 @@
 #include "Player.h"
 #include "Transitions.h"
 #include "CastleScene.h"
+#include "EntityManager.h"
+#include "FlyEnemy.h"
+#include "PatrolEnemy.h"
+#include "WanderEnemy.h"
 
 
 #include "Defs.h"
@@ -43,10 +47,18 @@ void Scene::Init()
 
 // Called before the first frame
 bool Scene::Start()
-{
+{   
+	app->entity->Enable();
 	app->audio->PlayMusic(audioPath.GetString());
 	Map::Load(mapPath.GetString(),mapName.GetString());
 	app->player->Enable();
+	
+
+	flyEnemy = (FlyEnemy*)app->entity->CreateEntity(EntityType::FLY_ENEMY);
+	patrolEnemy = (PatrolEnemy*)app->entity->CreateEntity(EntityType::PATROL_ENEMY);
+	wanderEnemy = (WanderEnemy*)app->entity->CreateEntity(EntityType::WANDER_ENEMY);
+
+
 	return true;
 }
 
@@ -84,6 +96,7 @@ bool Scene::Update(float dt)
 
 	Map::Draw();
 	
+	
 	//app->render->DrawTexture(img, 380, 100);
 
 
@@ -115,9 +128,11 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
-	Map::UnLoad();
+	
 	app->audio->UnloadMusic();
 	app->player->Disable();
+	app->entity->Disable();
+	Map::UnLoad();
 	return true;
 }
 

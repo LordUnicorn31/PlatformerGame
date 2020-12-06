@@ -2,18 +2,20 @@
 #include "App.h"
 #include "Render.h"
 
+
+
 enum class PatrolEnemyState
 {
 
 };
 
-PatrolEnemy::PatrolEnemy(iPoint initialPos) : Dynamic(EntityType::PATROL_ENEMY)
+PatrolEnemy::PatrolEnemy() : Dynamic(EntityType::PATROL_ENEMY)
 {
 	maxSpeed = 1.6f;
 	a = 0.5f;
 	terminalSpeed = 0.0f;
-	pos = initialPos;
-	initialPosition = initialPos;
+	initialPosition = {64,2992};
+	pos = initialPosition;
 	idleAnimation.PushBack({ 0, 80, 16, 16 });
 	moveAnimation.PushBack({ 16, 80, 16, 16 });
 	moveAnimation.PushBack({ 32, 80, 16, 16 });
@@ -27,16 +29,17 @@ void PatrolEnemy::Update(float dt)
 {
 	//Idle animation by definition
 	currentAnimation = &idleAnimation;
+	Draw(dt);
 }
 
 void PatrolEnemy::Draw(float dt)
 {
-	app->render->DrawTexture(this->sprite, initialPosition.x, initialPosition.y, &currentAnimation->GetCurrentFrame(dt), 1.0f);
+	app->render->DrawTexture(this->sprite, pos.x, pos.y, &currentAnimation->GetCurrentFrame(dt), 1.0f);
 }
 
 void PatrolEnemy::UpdateLogic()
 {
-
+	// Move()
 }
 
 void PatrolEnemy::Move()

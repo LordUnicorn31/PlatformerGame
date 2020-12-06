@@ -1,17 +1,19 @@
 #pragma once
 #include "Entity.h"
 #include "Animation.h"
+#include "EntityManager.h"
+
 
 class FlyEnemy : public Dynamic {
 public:
-	FlyEnemy(iPoint initialPos);
+	FlyEnemy();
 	~FlyEnemy();
 	void Update(float dt) override;
 	void Draw(float dt)override;
 	void UpdateLogic()override;
 private:
-	void Move()override;
-	virtual void Die()override;
+	void Move();
+	virtual void Die();
 	bool inRadius();
 	int attackRadius;
 	iPoint initialPosition;
@@ -19,4 +21,5 @@ private:
 	Animations moveAnimation;
 	Animations deathAnimation;
 	Animations* currentAnimation = nullptr;
+	
 };

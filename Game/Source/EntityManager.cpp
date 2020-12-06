@@ -11,6 +11,8 @@
 #include "String.h"
 #include "Scene.h"
 #include "Audio.h"
+#include "FlyEnemy.h"
+#include "PatrolEnemy.h"
 
 EntityManager::EntityManager()  
 {
@@ -18,6 +20,7 @@ EntityManager::EntityManager()
 	doLogic = false;
 	accumulatedTime = 0.0f;
 	updateMsCycle = 16.66666666f; //A 60 fps
+	newgame = true;
 }
 
 EntityManager::~EntityManager() 
@@ -40,12 +43,12 @@ bool EntityManager::Awake(pugi::xml_node& entityNode)
 
 bool EntityManager::Start() 
 {
-	/*//Load the initial entities
+	//Load the initial entities
 	if (newgame) 
 	{
-
-	}*/
-	entityTexture = app->tex->Load(texturePath.GetString());
+		entityTexture = app->tex->Load(texturePath.GetString());
+	}
+	
 	//initialize player position
 
 	return true;
@@ -58,6 +61,8 @@ bool EntityManager::Update(float dt)
 
 	if (accumulatedTime >= updateMsCycle) 
 		doLogic = true;
+
+	UpdateAll(dt, doLogic);
 
 	if (doLogic == true)
 	{
@@ -92,19 +97,43 @@ void EntityManager::UpdateAll(float dt, bool DoLogic)
 
 bool EntityManager::CleanUp() 
 {
-	app->tex->UnLoad(entityTexture);
+	/*app->tex->UnLoad(entityTexture);
+	entityTexture = nullptr;*/
 	return true;
 }
 
 Entity* EntityManager::CreateEntity(EntityType type) 
 {
+	Entity* ret = nullptr;
+	
+	switch (type)
+	{
+		
+		case EntityType::FLY_ENEMY: 
+			ret = new FlyEnemy();
+			ret->sprite = entityTexture;
+			break;
+		case EntityType::PATROL_ENEMY: 
+			ret = new PatrolEnemy();
+			ret->sprite = entityTexture;
+			break;
+		case EntityType::WANDER_ENEMY:
+			ret = new WanderEnemy();
+			ret->sprite = entityTexture;
+			break;
+	}
 
-	return nullptr;
+	if (ret != nullptr) entities.add(ret);
+
+	return ret;
 }
 
 void EntityManager::DestroyEntity(Entity* entity) 
 {
-	
+	if (entities.find(entity) != -1)
+		entities.del(entities.At(entities.find(entity)));
+	else
+		LOG("Entity to delete not found");
 }
 
 bool EntityManager::Load(pugi::xml_node& entitynode) 

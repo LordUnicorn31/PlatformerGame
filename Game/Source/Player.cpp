@@ -40,7 +40,7 @@ Player::Player() : Module()
 	idleAnimation.PushBack({ 0, 16, 16, 16 });
 	runAnimation.PushBack({ 16, 16, 16, 16 });
 	runAnimation.PushBack({ 32, 16, 16, 16 });
-	runAnimation.speed = 5.0f;
+	runAnimation.speed = 6.0f;
 	climbAnimation.PushBack({ 48, 16, 16, 16 });
 	climbAnimation.PushBack({ 291, 16, 16, 16 });
 	climbAnimation.speed = 6.0f;

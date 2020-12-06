@@ -2,6 +2,9 @@
 #define __CASTLESCENE_H__
 
 #include "Module.h"
+#include "FlyEnemy.h"
+#include "PatrolEnemy.h"
+#include "WanderEnemy.h"
 
 struct SDL_Texture;
 
@@ -41,6 +44,9 @@ private:
 	SString audioPath;
 	SString mapPath;
 	bool onDeath;
+	FlyEnemy* flyEnemy;
+	PatrolEnemy* patrolEnemy;
+	WanderEnemy* wanderEnemy;
 };
 
 #endif // __CASTLESCENE_H__

@@ -6,7 +6,7 @@ class WanderEnemy : public Dynamic
 {
 public:
 
-	WanderEnemy(iPoint initialPos);
+	WanderEnemy();
 	~WanderEnemy();
 	void Update(float dt) override;
 	void Draw(float dt)override;
