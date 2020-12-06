@@ -1,237 +1,183 @@
 #include "Pathfinding.h"
+#include <string.h>
 
-bool Pathfinding::IFindPath(iPoint& start, iPoint& end, short maxCharacterJumpHeight, int characterHeight, int characterWidth) {
+PathNode::PathNode() : g(-1), h(-1), pos(-1, -1), parent(NULL)
+{}
 
-	while (touchedLocations.size() > 0)
+PathNode::PathNode(int g, int h, const iPoint & pos, const PathNode * parent) : g(g), h(h), pos(pos), parent(parent)
+{}
+
+PathNode::PathNode(const PathNode & node) : g(node.g), h(node.h), pos(node.pos), parent(node.parent)
+{}
+
+uint PathNode::FindWalkableAdjacents(PathList & listToFill) const
+{
+	iPoint cell;
+	uint before = listToFill.list.count();
+
+	// north
+	cell.create(pos.x, pos.y + 1);
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
+
+	// south
+	cell.create(pos.x, pos.y - 1);
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
+
+	// east
+	cell.create(pos.x + 1, pos.y);
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
+
+	// west
+	cell.create(pos.x - 1, pos.y);
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
+
+	//diagonals
+	cell.create(pos.x + 1, pos.y + 1);
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
+
+	cell.create(pos.x + 1, pos.y - 1);
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
+
+	cell.create(pos.x - 1, pos.y + 1);
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
+
+	cell.create(pos.x - 1, pos.y - 1);
+	if (Pathfinding::IsWalkable(cell))
+		listToFill.list.add(PathNode(-1, -1, cell, this));
+
+	return listToFill.list.count();
+}
+
+int PathNode::Score() const
+{
+	return g + h;
+}
+
+int PathNode::CalculateF(const iPoint& destination)
+{
+	g = parent->g + 1;
+	h = pos.DistanceTo(destination);
+
+	return g + h;
+}
+
+ListItem<PathNode>* PathList::Find(const iPoint& point) const
+{
+	ListItem<PathNode>* item = list.start;
+	while (item)
 	{
-		int deleteIndex = touchedLocations.top();
-		touchedLocations.pop();
-		nodes[deleteIndex].clear();
+		if (item->data.pos == point)
+			return item;
+		item = item->next;
 	}
+	return NULL;
+}
 
-	if (costGrid[end.x][ end.y] == 0)
-		return false;
+ListItem<PathNode>* PathList::GetNodeLowestScore() const
+{
+	ListItem<PathNode>* ret = NULL;
+	int min = 65535;
 
-	found = false;
-	//stop = false;
-	//stopped = false
-	closedNodeCounter = 0;
-	openNodeValue += 2;
-	closedNodeValue += 2;
-	open.Clear();
-	//TODO: a males puc declarar la priority aqui
-	//open.clear();
-	//close.clear();
-	location.xy = start.y * gridWidth + start.x;
-	location.z = 0;
-	endLocation = end.y * gridWidth + end.x;
-
-	PathNode firstNode;
-	firstNode.g = 0;
-	firstNode.f = hEstimate;
-	firstNode.px = (unsigned short)start.x;
-	firstNode.py = (unsigned short)start.y;
-	firstNode.pz = 0;
-	firstNode.status = openNodeValue;
-
-	if (costGrid[start.x][start.y - 1] == 0)
-		firstNode.jumpLength = 0;
-	else
-		firstNode.jumpLength = (short)(maxCharacterJumpHeight * 2);
-
-	nodes[location.xy].add(firstNode);
-	touchedLocations.push(location.xy);
-
-	open.Push(location);
-	while (open.Count() > 0)//&& != stop)
+	ListItem<PathNode>* item = list.end;
+	while (item)
 	{
-		location = open.Pop();
-
-		if (nodes[location.xy][location.z].status == closedNodeValue)
-			continue;
-
-		locationX = (unsigned short)(location.xy % gridWidth);
-		locationY = (unsigned short)(location.xy / gridWidth);
-
-		if (location.xy == endLocation)
+		if (item->data.Score() < min)
 		{
-			nodes[location.xy][location.z].status = closedNodeValue;
-			found = true;
+			min = item->data.Score();
+			ret = item;
+		}
+		item = item->prev;
+	}
+	return ret;
+}
+
+void Pathfinding::ISetMap(unsigned int width, unsigned int height, unsigned char* data)
+{
+	this->width = width;
+	this->height = height;
+
+	RELEASE_ARRAY(map);
+	map = new uchar[width * height];
+	memcpy(map, data, width * height);
+}
+
+int Pathfinding::ICreatePath(const iPoint& origin, const iPoint& destination)
+{
+	int ret = -1;
+	// TODO 1: if origin or destination are not walkable, return -1
+	if (!(IsWalkable(origin) && IsWalkable(destination) && origin != destination))
+		return ret;
+	// TODO 2: Create two lists: open, close
+	// Add the origin tile to open
+	// Iterate while we have tile in the open list
+	PathList open;
+	PathList closed;
+	open.list.add(PathNode(0, 0, origin, nullptr));
+	while (open.list.count() > 0) {
+		// TODO 3: Move the lowest score cell from open list to the closed list
+		ListItem<PathNode>* lowest = open.GetNodeLowestScore();
+		ListItem<PathNode>* node = closed.list.add(lowest->data);
+		open.list.del(lowest);
+		// TODO 4: If we just added the destination, we are done!
+		// Backtrack to create the final path
+		// Use the Pathnode::parent and Flip() the path when you are finish
+		if (node->data.pos == destination) {
+			lastPath.Clear();
+			const PathNode* path_node = &node->data;
+			while (path_node) {
+				lastPath.PushBack(path_node->pos);
+				path_node = path_node->parent;
+			}
+			lastPath.Flip();
+			ret = lastPath.Count();
 			break;
 		}
-
-		/*if (mCloseNodeCounter > mSearchLimit)
-		{
-			mStopped = true;
-			return null;
-		}*/
-
-		/*if (mPunishChangeDirection)
-			mHoriz = (mLocationX - mCalcGrid[mLocation].PX);*/
-
-			//calculate neighbours
-		for (int i = 0; i < (diagonals ? 8 : 4); i++)
-		{
-			newLocationX = (unsigned short)(locationX + directions[i][0]);
-			newLocationY = (unsigned short)(locationY + directions[i][1]);
-			newLocation = newLocationY * gridWidth + newLocationX;
-
-			//check if we are inside the map bounderies
-			if (newLocationX >= gridX || newLocationY >= gridY)
+		// TODO 5: Fill a list of all adjancent nodes
+		PathList adjacent;
+		node->data.FindWalkableAdjacents(adjacent);
+		// TODO 6: Iterate adjancent nodes:
+		ListItem<PathNode>* item = adjacent.list.start;
+		for (; item; item = item->next) {
+			// ignore nodes in the closed list
+			if (closed.Find(item->data.pos) != NULL)
 				continue;
-
-			//check if the tile is walkable (if character bigger than 1 we had to check if the cahracter fits)
-			if (costGrid[newLocationX][newLocationY] == 0) //TODO: maybe problems
-				continue;
-
-			bool onGround = false;
-			bool atCeiling = false;
-
-			//if (mMap.IsGround(newLocationX, newLocationY - 1)) 
-			if (costGrid[newLocationX][newLocationY - 1] == 0)
-				onGround = true;
-			else if (costGrid[newLocationX][newLocationY + characterHeight] == 0)
-				atCeiling = true;
-
-			int jumpLength = nodes[location.xy][location.z].jumpLength;
-			short newJumpLength = jumpLength;
-
-			if (atCeiling)
-			{
-				if (newLocationX != locationX)
-					newJumpLength = (short)MAX(maxCharacterJumpHeight * 2 + 1, jumpLength + 1);
-				else
-					newJumpLength = (short)MAX(maxCharacterJumpHeight * 2, jumpLength + 2);
+			// If it is NOT found, calculate its F and add it to the open list
+			item->data.CalculateF(destination);
+			if (open.Find(item->data.pos) == NULL)
+				open.list.add(item->data);
+			else {
+				// If it is already in the open list, check if it is a better path (compare G)
+				// If it is a better path, Update the parent
+				if (open.Find(item->data.pos)->data.g > item->data.g)
+					open.Find(item->data.pos)->data.parent = item->data.parent;
 			}
-			else if (onGround)
-				newJumpLength = 0;
-			else if (newLocationY > locationY)
-			{
-				if (jumpLength < 2) //first jump is always two block up instead of one up and optionally one to either right or left
-					newJumpLength = 3;
-				else  if (jumpLength % 2 == 0)
-					newJumpLength = (short)(jumpLength + 2);
-				else
-					newJumpLength = (short)(jumpLength + 1);
-			}
-			else if (newLocationY < locationY)
-			{
-				if (jumpLength % 2 == 0)
-					newJumpLength = (short)MAX(maxCharacterJumpHeight * 2, jumpLength + 2);
-				else
-					newJumpLength = (short)MAX(maxCharacterJumpHeight * 2, jumpLength + 1);
-			}
-			else if (!onGround && newLocationX != locationX)
-				newJumpLength = (short)(jumpLength + 1);
-
-			if (jumpLength >= 0 && jumpLength % 2 != 0 && locationX != newLocationX)
-				continue;
-
-			//if we're falling and succeor's height is bigger than ours, skip that successor
-			if (jumpLength >= maxCharacterJumpHeight * 2 && newLocationY > locationY)
-				continue;
-
-			if (newJumpLength >= maxCharacterJumpHeight * 2 + 6 && newLocationX != locationX && (newJumpLength - (maxCharacterJumpHeight * 2 + 6)) % 8 != 3)
-				continue;
-
-			/*if (diagonalsAdditionalCost && i > 3)
-				newG = grid[location].g + (int)(costGrid[newLocationX, newLocationY] * 2.41);
-			else
-				newG = grid[location].g + costGrid[newLocationX, newLocationY];*/
-			newG = nodes[location.xy][location.z].g + costGrid[newLocationX][newLocationY] + newJumpLength / 4;
-
-			if (nodes[newLocation].count() > 0)
-			{
-				//32767 = short MaxValue
-				int lowestJump = 32767;
-				bool couldMoveSideways = false;
-				for (int j = 0; j < nodes[newLocation].count(); ++j)
-				{
-					if (nodes[newLocation][j].jumpLength < lowestJump)
-						lowestJump = nodes[newLocation][j].jumpLength;
-
-					if (nodes[newLocation][j].jumpLength % 2 == 0 && nodes[newLocation][j].jumpLength < maxCharacterJumpHeight * 2 + 6)
-						couldMoveSideways = true;
-				}
-
-				if (lowestJump <= newJumpLength && (newJumpLength % 2 != 0 || newJumpLength >= maxCharacterJumpHeight * 2 + 6 || couldMoveSideways))
-					continue;
-			}
-
-			switch (formula) //TODO: poder treure el switch quan hagi trobat la millor i simplement posar la heuristica que va millor
-			{
-			case HeuristicFormula::Manhattan:
-				h = hEstimate * (abs(newLocationX - end.x) + abs(newLocationY - end.y)); //TODO: en el codi original es multiplica per hestimate que es 2 al principi ??
-				break;
-			case HeuristicFormula::Euclidean:
-				h = (int)(hEstimate * sqrt(((newLocationX - end.x) * (newLocationX - end.x))) + sqrt(((newLocationY - end.y) * (newLocationY - end.y))));
-				break;
-			case HeuristicFormula::EuclideanNoSqt:
-				h = (int)(hEstimate * ((newLocationX - end.x) * (newLocationX - end.x)) + ((newLocationY - end.y) * (newLocationY - end.y)));
-				break;
-			}
-
-			PathNode newNode;
-			newNode.jumpLength = newJumpLength;
-			newNode.px = locationX;
-			newNode.py = locationY;
-			newNode.pz = (unsigned short)location.z;
-			newNode.g = newG;
-			newNode.f = newG + h;
-			newNode.status = openNodeValue;
-
-			if (nodes[newLocation].count() == 0)
-				touchedLocations.push(newLocation);
-
-			nodes[newLocation].add(newNode);
-			open.Push(Location(newLocation, nodes[newLocation].count() - 1));
 		}
-		//Adding the current node to the "closed list"
-		/*closedNodeCounter++;
-		grid[location].status = closedNodeValue;*/
 	}
-	//Get the time
 
-	if (found)
-	{
-		close.clear();
-		int posX = end.x;
-		int posY = end.y;
+	return ret;
+}
 
-		PathNode fPrevNodeTmp;
-		PathNode fNodeTmp = nodes[endLocation][0];
+bool Pathfinding::ICheckBoundaries(const iPoint& pos) const
+{
+	return (pos.x >= 0 && pos.x <= (int)width &&
+		pos.y >= 0 && pos.y <= (int)height);
+}
 
-		iPoint fNode = end;
-		iPoint fPrevNode = end;
+ /*Pathfinding::IGetTileAt(const iPoint& pos)
+{
+	if (CheckBoundaries(pos))
+		return map[(pos.y * width) + pos.x];
 
-		unsigned short loc = (fNodeTmp.py * gridWidth) + fNodeTmp.px;
-
-		while (fNode.x != fNodeTmp.px || fNode.y != fNodeTmp.py)
-		{
-			PathNode fNextNodeTmp = nodes[loc][fNodeTmp.pz];
-
-			if ((close.count() == 0)
-				|| (fNextNodeTmp.jumpLength != 0 && fNodeTmp.jumpLength == 0)
-				|| (fNodeTmp.jumpLength == 3 && fPrevNodeTmp.jumpLength != 0)
-				|| (fNodeTmp.jumpLength == 0 && fPrevNodeTmp.jumpLength != 0)
-				|| (fNode.y > close[close.count() - 1].y && fNode.y > fNodeTmp.py)
-				|| ((costGrid[fNode.x - 1][fNode.y] == 0 || costGrid[fNode.x + 1][fNode.y] == 0)
-					&& fNode.y != close[close.count() - 1].y && fNode.x != close[close.count() - 1].x))
-				close.add(fNode);
-
-			fPrevNode = fNode;
-			posX = fNodeTmp.px;
-			posY = fNodeTmp.py;
-			fPrevNodeTmp = fNodeTmp;
-			fNodeTmp = fNextNodeTmp;
-			loc = (fNodeTmp.py * gridWidth) + fNodeTmp.px;
-			fNode = iPoint(posX, posY);
-		}
-
-		close.add(fNode);
-
-		//mStopped = true;
-
-		return true;
-	}
+	return INVALID_WALK_CODE;
+}*/
+bool Pathfinding::IIsWalkable(const iPoint& pos) const
+{
+	return map[(pos.y * width) + pos.x];
 }

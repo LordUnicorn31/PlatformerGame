@@ -148,7 +148,6 @@ Xcopy $(SolutionDir)Build\$(Configuration)\Bin\Game.exe $(SolutionDir)Output /s 
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\PatrolEnemy.h" />
     <ClInclude Include="Source\PerfTimer.h" />
-    <ClInclude Include="Source\PriorityQueue.h" />
     <ClInclude Include="Source\SceneLose.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Scene.h" />
