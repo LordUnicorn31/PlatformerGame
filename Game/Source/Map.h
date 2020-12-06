@@ -3,6 +3,7 @@
 #include "DynArray.h"
 #include "Point.h"
 #include <vector>
+#include "SString.h"
 
 class SDL_Texture;
 

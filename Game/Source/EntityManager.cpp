@@ -57,7 +57,7 @@ bool EntityManager::Start()
 
 bool EntityManager::Update(float dt)
 {
-	accumulatedTime += dt;
+	accumulatedTime += dt * 1000.0f;
 
 	if (accumulatedTime >= updateMsCycle) 
 		doLogic = true;
@@ -83,8 +83,8 @@ void EntityManager::UpdateAll(float dt, bool DoLogic)
 			it->data->UpdateLogic();
 		it->data->Draw(dt);
 	}
-	ListItem<Entity*>* i = entities.start;
-	/*for (i; i != entities.end; it = it->next) {
+	/*ListItem<Entity*>* i = entities.start;
+	for (i; i != entities.end; it = it->next) {
 		if (i->data->todie) {
 			Entity* todestroy = i->data;
 			++i;

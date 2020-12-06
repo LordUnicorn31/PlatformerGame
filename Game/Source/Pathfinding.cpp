@@ -1,5 +1,6 @@
 #include "Pathfinding.h"
 #include <string.h>
+#include "Map.h"
 
 PathNode::PathNode() : g(-1), h(-1), pos(-1, -1), parent(NULL)
 {}
@@ -98,6 +99,16 @@ ListItem<PathNode>* PathList::GetNodeLowestScore() const
 	return ret;
 }
 
+/*void Pathfinding::ISetMap(unsigned int width, unsigned int height, unsigned char* data)
+{
+	this->width = width;
+	this->height = height;
+
+	RELEASE_ARRAY(map);
+	map = new uchar[width * height];
+	memcpy(map, data, width * height);
+}*/
+
 void Pathfinding::ISetMap(unsigned int width, unsigned int height, unsigned char* data)
 {
 	this->width = width;
@@ -112,7 +123,7 @@ int Pathfinding::ICreatePath(const iPoint& origin, const iPoint& destination)
 {
 	int ret = -1;
 	// TODO 1: if origin or destination are not walkable, return -1
-	if (!(IsWalkable(origin) && IsWalkable(destination) && origin != destination))
+	if (!(IIsWalkable(origin) && IIsWalkable(destination) && origin != destination))
 		return ret;
 	// TODO 2: Create two lists: open, close
 	// Add the origin tile to open
@@ -164,10 +175,18 @@ int Pathfinding::ICreatePath(const iPoint& origin, const iPoint& destination)
 	return ret;
 }
 
-bool Pathfinding::ICheckBoundaries(const iPoint& pos) const
+bool Pathfinding::CheckBoundaries(const iPoint& pos) const
 {
-	return (pos.x >= 0 && pos.x <= (int)width &&
-		pos.y >= 0 && pos.y <= (int)height);
+	return (pos.x >= 0 && pos.x <= (int)Map::GetMapWidth() &&
+		pos.y >= 0 && pos.y <= (int)Map::GetMapHeight());
+}
+
+uchar Pathfinding::GetTileAt(const iPoint& pos) const
+{
+	if (CheckBoundaries(pos))
+		return map[(pos.y * width) + pos.x];
+
+	return INVALID_WALK_CODE;
 }
 
  /*Pathfinding::IGetTileAt(const iPoint& pos)
@@ -179,5 +198,6 @@ bool Pathfinding::ICheckBoundaries(const iPoint& pos) const
 }*/
 bool Pathfinding::IIsWalkable(const iPoint& pos) const
 {
-	return map[(pos.y * width) + pos.x];
+	uchar t = GetTileAt(pos);
+	return (t != INVALID_WALK_CODE && t > 0);
 }

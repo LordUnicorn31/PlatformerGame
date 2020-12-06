@@ -20,7 +20,7 @@
   <player>
     <texture>Assets/Textures/entities.png</texture>
     <textureRect x="0" y="16" w="16" h="16"/>
-    <position x="20" y="2720"/>
+    <position x="100" y="2720"/>
     <checkpointpos1x x="32"/>
     <checkpointpos1y y="194"/>
     <checkpointpos2x x="183"/>

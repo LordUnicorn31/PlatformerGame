@@ -6,6 +6,7 @@
 #include "Log.h"
 #include "List.h"
 #include "SString.h"
+#include "Pathfinding.h"
 
 #ifdef OPTICKPROFILE
 #include "optick.h"
@@ -52,8 +53,10 @@ bool Map::ILoad(const char* mapPath, const char* fileName)
 		SString layerName = layer.attribute("name").as_string();
 		SString navigation = "navigation";
 
-		if (layerName == navigation)
+		if (layerName == navigation) 
+		{
 			continue;
+		}
 		
 		pugi::xml_node layerData = layer.child("data");
 
@@ -219,6 +222,22 @@ bool Map::ILoad(const char* mapPath, const char* fileName)
 	layersData.clear();
 	mapFile.reset();
 	mapLoaded = true;
+
+	int index;
+	uchar* navigationMap = new uchar[width * height];
+	memset(navigationMap, (uchar)1, width * height);
+	
+	for (int y = 0; y < height; ++y) 
+	{
+		for (int x = 0; x < width; ++x) 
+		{
+			index = y * width + x;
+			if (GetTileProperty(index, "Blocked"))
+				navigationMap[index] = (uchar)0;
+		}
+	}
+	Pathfinding::SetMap(width, height, navigationMap);
+	delete[] navigationMap;
 
 	return true;
 }
