@@ -35,11 +35,23 @@
     <mapname name="forest.tmx"/>
     <audio path ="Assets/Audio/Music/forest_music.ogg"/>
     <mapfolder name = "Assets/Maps/" />
+    <batposx x ="92" />
+    <batposy y="176" />
+    <zombieposx x ="177"/>
+    <zombieposy y ="182"/>
+    <skeletonposx x ="85"/>
+    <skeletonposy y ="189"/>
   </scene>
   <castleScene>
     <mapname name="castle.tmx"/>
     <audio path ="Assets/Audio/Music/castle_music.ogg"/>
     <mapfolder name ="Assets/Maps/" />
+    <batposx x ="47" />
+    <batposy y="176" />
+    <zombieposx x ="61"/>
+    <zombieposy y ="162"/>
+    <skeletonposx x ="47"/>
+    <skeletonposy y ="205"/>
   </castleScene>
   <sceneLogo>
     <texture path="Assets/Textures/logo_image.png"/>
