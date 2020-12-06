@@ -23,10 +23,13 @@ You are Elyes, a skin-changer and your goal is to defeat the evil force ruling i
  
   ### Debug Keys
   
- - F1: Restart first level.
- - F3: Restart current level.
+ - F1: Restart first level / Get back to the first level.
+ - F3: Restart second level / Get back to the second level.
  - F5: Save the game.
  - F6: Load the game.
+ - F7: Teleport to checkpoint 1.
+ - F8: Teleport to checkpoint 2.
+ - F9: Teleport to checkpoint 3.
 
 ## Developers
 
