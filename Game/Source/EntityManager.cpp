@@ -20,7 +20,7 @@ EntityManager::EntityManager()
 	doLogic = false;
 	accumulatedTime = 0.0f;
 	updateMsCycle = 16.66666666f; //A 60 fps
-	newgame = true;
+	newGame = true;
 }
 
 EntityManager::~EntityManager() 
@@ -44,7 +44,7 @@ bool EntityManager::Awake(pugi::xml_node& entityNode)
 bool EntityManager::Start() 
 {
 	//Load the initial entities
-	if (newgame) 
+	if (newGame) 
 	{
 		entityTexture = app->tex->Load(texturePath.GetString());
 	}

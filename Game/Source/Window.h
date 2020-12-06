@@ -44,7 +44,7 @@ public:
 	int width;
 	int height;
 	int scale;
-	bool fullscreen;
+	bool fullScreen;
 };
 
 #endif // __WINDOW_H__

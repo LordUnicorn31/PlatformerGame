@@ -18,8 +18,8 @@ public:
 	bool Start();
 	bool Update(float dt);
 	bool CleanUp();
-	bool FadeToBlack(Module* Module_off, Module* Module_on, float time = 2.0f);
-	bool Slide(Module* Module_off, Module* Module_on, float time = 2.0f);
+	bool FadeToBlack(Module* ModuleOff, Module* ModuleOn, float time = 2.0f);
+	bool Slide(Module* ModuleOff, Module* ModuleOn, float time = 2.0f);
 	bool IsFading() const;
 
 
@@ -29,16 +29,16 @@ private:
 	Module* moduleOn;
 
 
-	enum class fade_step
+	enum class FadeStep
 	{
-		none,
-		fadetoblack,
-		fadefromblack,
-		slidein,
-		slidechange,
-		slideout
+		NONE,
+		FADE_TO_BLACK,
+		FADE_FROM_BLACK,
+		SLIDE_IN,
+		SLIDE_CHANGE,
+		SLIDE_OUT
 	}
-	current_step = fade_step::none;
+	current_step = FadeStep::NONE;
 
 	Uint32 startTime = 0;
 	Uint32 totalTime = 0;

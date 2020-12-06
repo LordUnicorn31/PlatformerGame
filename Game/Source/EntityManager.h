@@ -10,7 +10,8 @@ struct SDL_Texture;
 enum class EntityType : unsigned char;
 enum class Enemy : unsigned char;
 
-class EntityManager :public Module {
+class EntityManager :public Module 
+{
 public:
 
 	EntityManager();
@@ -30,7 +31,7 @@ public:
 	SString texturePath;
 
 private:
-	bool newgame;
+	bool newGame;
 
 	bool Load(pugi::xml_node&);
 	bool Save(pugi::xml_node&);

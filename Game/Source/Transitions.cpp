@@ -28,7 +28,7 @@ bool Transitions::Start()
 // Update: draw background
 bool Transitions::Update(float dt)
 {
-	if (current_step == fade_step::none)
+	if (current_step == FadeStep::NONE)
 		return true;
 
 	Uint32 now = SDL_GetTicks() - startTime;
@@ -36,7 +36,7 @@ bool Transitions::Update(float dt)
 
 	switch (current_step)
 	{
-	case fade_step::fadetoblack:
+	case FadeStep::FADE_TO_BLACK:
 	{
 		if (now >= totalTime)
 		{
@@ -44,21 +44,21 @@ bool Transitions::Update(float dt)
 			moduleOn->Enable();
 			totalTime += totalTime;
 			startTime = SDL_GetTicks();
-			current_step = fade_step::fadefromblack;
+			current_step = FadeStep::FADE_FROM_BLACK;
 		}
 	} break;
 
-	case fade_step::fadefromblack:
+	case FadeStep::FADE_FROM_BLACK:
 	{
 
 		normalized = 1.0f - normalized;
 
 		if (now >= totalTime)
-			current_step = fade_step::none;
+			current_step = FadeStep::NONE;
 
 	} break;
 
-	case fade_step::slidein:
+	case FadeStep::SLIDE_IN:
 
 		normalized = 1.0f;
 		if (screen.x >= 0)
@@ -68,12 +68,12 @@ bool Transitions::Update(float dt)
 
 		if (now >= totalTime)
 		{
-			current_step = fade_step::slidechange;
+			current_step = FadeStep::SLIDE_CHANGE;
 		}
 
 		break;
 
-	case fade_step::slidechange:
+	case FadeStep::SLIDE_CHANGE:
 
 		normalized = 1.0f;
 		screen.x;
@@ -81,16 +81,16 @@ bool Transitions::Update(float dt)
 		moduleOn->Enable();
 		totalTime += totalTime;
 		startTime = SDL_GetTicks();
-		current_step = fade_step::slideout;
+		current_step = FadeStep::SLIDE_OUT;
 
 		break;
 
-	case fade_step::slideout:
+	case FadeStep::SLIDE_OUT:
 
 		normalized = 1.0f;
 		screen.x += (int)(((float)(screen.w) / (float)totalTime) * dt * (float)now * 2);
 		if (now >= totalTime) {
-			current_step = fade_step::none;
+			current_step = FadeStep::NONE;
 		}
 
 		break;
@@ -106,10 +106,10 @@ bool Transitions::Update(float dt)
 bool Transitions::FadeToBlack(Module* Module_off, Module* Module_on, float time)
 {
 	bool ret = false;
-	if (current_step == fade_step::none)
+	if (current_step == FadeStep::NONE)
 	{
 		screen.x = 0;
-		current_step = fade_step::fadetoblack;
+		current_step = FadeStep::FADE_TO_BLACK;
 		startTime = SDL_GetTicks();
 		totalTime = (Uint32)(time * 0.5f * 1000.0f);
 		moduleOff = Module_off;
@@ -124,10 +124,10 @@ bool Transitions::Slide(Module* Module_off, Module* Module_on, float time)
 {
 	bool ret = false;
 
-	if (current_step == fade_step::none)
+	if (current_step == FadeStep::NONE)
 	{
 		screen.x -= app->win->width;
-		current_step = fade_step::slidein;
+		current_step = FadeStep::SLIDE_IN;
 		startTime = SDL_GetTicks();
 		totalTime = (Uint32)(time * 0.5 * 1000.0f);
 		moduleOff = Module_off;
@@ -141,7 +141,7 @@ bool Transitions::Slide(Module* Module_off, Module* Module_on, float time)
 
 bool Transitions::IsFading() const
 {
-	return current_step != fade_step::none;
+	return current_step != FadeStep::NONE;
 }
 
 bool Transitions::CleanUp() {

@@ -71,19 +71,7 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	/*Camera For DEBUG purposes
-	if(app->render->camera.y >= -3200 && app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y -= 10*2;
 
-	if(app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y += 10*2;
-
-	if(app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && -app->render->camera.x + app->win->width <= 6400)
-		app->render->camera.x -= 10*2;
-
-	if(app->render->camera.x <= 0 && app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x += 10*2;
-	*/
 	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		app->win->FullScreen();
 
@@ -96,9 +84,6 @@ bool Scene::Update(float dt)
 
 	Map::Draw();
 	
-	
-	//app->render->DrawTexture(img, 380, 100);
-
 
 	// DEBUG KEYS
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)

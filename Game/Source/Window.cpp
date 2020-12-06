@@ -35,16 +35,16 @@ bool Window::Awake(pugi::xml_node& config)
 		// Create window
 		// TODO 6: Load all required configurations from config.xml
 		Uint32 flags = SDL_WINDOW_SHOWN;
-		bool fullscreen = config.child("fullscreen").attribute("value").as_bool(false);
+		bool fullScreen = config.child("fullscreen").attribute("value").as_bool(false);
 		bool borderless = config.child("borderless").attribute("value").as_bool(false);
 		bool resizable = config.child("resizable").attribute("value").as_bool(false);
-		bool fullscreen_window = config.child("fullscreen_window").attribute("value").as_bool(false);
+		bool fullscreenWindow = config.child("fullscreen_window").attribute("value").as_bool(false);
 
 		width = config.child("resolution").attribute("width").as_int(640);
 		height = config.child("resolution").attribute("height").as_int(480);
 		scale = config.child("resolution").attribute("scale").as_int(1);
 
-		if(fullscreen == true)
+		if(fullScreen == true)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN;
 		}
@@ -59,7 +59,7 @@ bool Window::Awake(pugi::xml_node& config)
 			flags |= SDL_WINDOW_RESIZABLE;
 		}
 
-		if(fullscreen_window == true)
+		if(fullscreenWindow == true)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 		}
@@ -98,10 +98,10 @@ bool Window::CleanUp()
 }
 
 // Set new window title
-void Window::SetTitle(const char* new_title)
+void Window::SetTitle(const char* newTitle)
 {
 	//title.create(new_title);
-	SDL_SetWindowTitle(window, new_title);
+	SDL_SetWindowTitle(window, newTitle);
 }
 
 void Window::GetWindowSize(uint& width, uint& height) const
@@ -112,15 +112,15 @@ void Window::GetWindowSize(uint& width, uint& height) const
 
 void Window::FullScreen()
 {
-	if (fullscreen == false) {
+	if (fullScreen == false) {
 		Uint32 flags = SDL_WINDOW_SHOWN;
 		flags = SDL_WINDOW_FULLSCREEN;
 		SDL_SetWindowFullscreen(window, flags);
-		fullscreen = true;
+		fullScreen = true;
 	}
 	else {
 		SDL_SetWindowFullscreen(window, 0);
-		fullscreen = false;
+		fullScreen = false;
 	}
 
 

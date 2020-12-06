@@ -4,7 +4,8 @@
 #include "EntityManager.h"
 
 
-class FlyEnemy : public Dynamic {
+class FlyEnemy : public Dynamic 
+{
 public:
 	FlyEnemy();
 	~FlyEnemy();

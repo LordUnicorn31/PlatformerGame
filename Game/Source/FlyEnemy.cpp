@@ -6,7 +6,8 @@
 
 
 
-enum class FlyEnemyState {
+enum class FlyEnemyState 
+{
 
 };
 

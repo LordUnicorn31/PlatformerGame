@@ -232,8 +232,8 @@ void App::FinishUpdate()
 		lastSecFrameCount = 0;
 	}
 
-	avgFps = float(frameCount) / startupTime.ReadSec();
-	secondstartUp = startupTime.ReadSec();
+	avgFps = float(frameCount) / startUpTime.ReadSec();
+	secondStartUp = startUpTime.ReadSec();
 	lastFrame = frameTime.Read();
 	frameLast = prevLastSecFrameCount;
 
@@ -260,7 +260,8 @@ bool App::PreUpdate()
 	{
 		pModule = item->data;
 
-		if(pModule->active == false || !pModule->isEnabled()) {
+		if(pModule->active == false || !pModule->isEnabled()) 
+		{
 			continue;
 		}
 
@@ -286,7 +287,8 @@ bool App::DoUpdate()
 	{
 		pModule = item->data;
 
-		if(pModule->active == false || !pModule->isEnabled()) {
+		if(pModule->active == false || !pModule->isEnabled()) 
+		{
 			continue;
 		}
 
@@ -311,7 +313,8 @@ bool App::PostUpdate()
 	{
 		pModule = item->data;
 
-		if(pModule->active == false || !pModule->isEnabled()) {
+		if(pModule->active == false || !pModule->isEnabled()) 
+		{
 			continue;
 		}
 
@@ -337,7 +340,8 @@ bool App::LoadGameNow()
 		root = data.child("game_state");
 
 		ListItem<Module*>* it = modules.start;
-		for (it; it != NULL && ret == true; it = it->next) {
+		for (it; it != NULL && ret == true; it = it->next) 
+		{
 			pugi::xml_node ModuleNode = root.child( it->data->name.GetString());
 			ret = it->data->Load(ModuleNode);
 		}
@@ -368,7 +372,8 @@ bool App::SaveGameNow() const
 	root = data.append_child("game_state");
 
 	ListItem<Module*>* it = modules.start;
-	for (it; it != NULL && ret == true; it = it->next) {
+	for (it; it != NULL && ret == true; it = it->next) 
+	{
 		pugi::xml_node ModuleNode = root.append_child(it->data->name.GetString());
 		ret = it->data->Save(ModuleNode);
 	}

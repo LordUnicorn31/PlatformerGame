@@ -4,7 +4,8 @@
 
 struct SDL_Texture;
 
-enum class EntityType : unsigned char {
+enum class EntityType : unsigned char 
+{
 	PLAYER,
 	PATROL_ENEMY,
 	WANDER_ENEMY,
@@ -12,7 +13,8 @@ enum class EntityType : unsigned char {
 	ITEM,
 };
 
-class Entity {
+class Entity 
+{
 public:
 	Entity(EntityType type);
 	virtual ~Entity();
@@ -28,20 +30,16 @@ public:
 	virtual void UpdateLogic();
 };
 
-class Dynamic : public Entity {
+class Dynamic : public Entity 
+{
 protected:
 	Dynamic(EntityType type);
 	~Dynamic() {};
 	virtual void Move() {};
 	virtual void Die() {};
-	//Collider* myCollider;
-	//Collider* combatCollider;
 	float maxSpeed;
 	fPoint targetSpeed;
 	float terminalSpeed;
 	float a;
 };
 
-/*class Static : public Entity {
-
-};*/

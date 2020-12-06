@@ -125,13 +125,13 @@ private:
 	Timer frameTime;
 	PerfTimer timer;
 	float avgFps;
-	float secondstartUp;
+	float secondStartUp;
 	uint32 lastFrame;
 	uint32 frameLast;
 	char title1[256];
 	float dt;
 	uint64 frameCount = 0;
-	Timer startupTime;
+	Timer startUpTime;
 	Timer lastSecFrameTime;
 	uint32 lastSecFrameCount = 0;
 	uint32 prevLastSecFrameCount = 0;
