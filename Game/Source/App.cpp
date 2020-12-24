@@ -29,7 +29,7 @@
 #endif // OPTICKPROFILE
 
 // Constructor
-App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("savegame.xml")
+App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("save_game.xml")
 {
 	PERF_START(timer);
 	wantToSave = wantToLoad = false;
