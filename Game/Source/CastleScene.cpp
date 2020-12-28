@@ -58,12 +58,12 @@ bool CastleScene::Start()
 	app->player->Enable();
 	app->entity->Enable();
 
-	/*iPoint batPos = Map::MapToWorld(mapBat.x, mapBat.y);
+	iPoint batPos = Map::MapToWorld(mapBat.x, mapBat.y);
 	iPoint skeletonPos = Map::MapToWorld(mapSkeleton.x, mapSkeleton.y);
 	iPoint zombiePos = Map::MapToWorld(mapZombie.x, mapZombie.y);
 	bat = (FlyEnemy*)app->entity->CreateEntity(EntityType::FLY_ENEMY,batPos);
 	skeleton = (PatrolEnemy*)app->entity->CreateEntity(EntityType::PATROL_ENEMY,skeletonPos);
-	zombie = (WanderEnemy*)app->entity->CreateEntity(EntityType::WANDER_ENEMY,zombiePos);*/
+	zombie = (WanderEnemy*)app->entity->CreateEntity(EntityType::WANDER_ENEMY,zombiePos);
 	/*ResetPos();*/
 	return true;
 }

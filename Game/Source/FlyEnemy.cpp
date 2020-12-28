@@ -15,13 +15,13 @@ enum class FlyEnemyState : unsigned char
 	RETURN
 };
 
-FlyEnemy::FlyEnemy(iPoint pos) : Dynamic(EntityType::FLY_ENEMY)
+FlyEnemy::FlyEnemy(iPoint pos) : Dynamic(EntityType::FLY_ENEMY, pos)
 {
 	a = 0.7f;
 	maxSpeed = 1.0f;
 	terminalSpeed = 0.0f;
-	// Random initial position.
 	initialPosition = pos;
+	
 	idleAnimation.PushBack({ 192, 131, 16, 8 });
 	moveAnimation.PushBack({ 192, 131, 16, 8 });
 	moveAnimation.PushBack({ 208, 131, 16, 8 });
@@ -87,7 +87,7 @@ void FlyEnemy::Update(float dt)
 
 bool FlyEnemy::inRadius(iPoint pos)
 {
-	return ((pos.x - initialPosition.x) ^ 2 + (pos.y - initialPosition.y) ^ 2) < (attackRadius ^ 2);
+	return attackRadius >= initialPosition.DistanceTo(pos);
 }
 
 void FlyEnemy::calculateNewPath(iPoint destination, float dt)
@@ -206,9 +206,11 @@ bool FlyEnemy::ReachedTile()
 void FlyEnemy::Draw(float dt)
 {
 	app->render->DrawTexture(this->sprite, pos.x, pos.y, &currentAnimation->GetCurrentFrame(dt), 1.0f);
-	/*for (int i = 0; i != path.Count(); ++i) {
-		app->render->DrawRectangle({ path[i].x * 16,path[i].y * 16,16,16 }, 255, 0, 0, 127, true);
-	}*/
+	if (inRadius(app->player->GetPosition())) {
+		for (int i = 0; i != path.Count(); ++i) {
+			app->render->DrawRectangle({ path[i].x * 16,path[i].y * 16,16,16 }, 255, 0, 0, 127, true);
+		}
+	}
 }
 
 void FlyEnemy::UpdateLogic()

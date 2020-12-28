@@ -16,7 +16,7 @@ enum class EntityType : unsigned char
 class Entity 
 {
 public:
-	Entity(EntityType type);
+	Entity(EntityType type, iPoint initialPos);
 	virtual ~Entity();
 	EntityType etype;
 	iPoint pos;
@@ -33,7 +33,7 @@ public:
 class Dynamic : public Entity 
 {
 protected:
-	Dynamic(EntityType type);
+	Dynamic(EntityType type, iPoint initialPos);
 	~Dynamic() {};
 	virtual void Move() {};
 	virtual void Die() {};

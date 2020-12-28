@@ -1,6 +1,6 @@
 #include "Entity.h"
 
-Entity::Entity(EntityType type) : etype(type), width(16), height(16) {}
+Entity::Entity(EntityType type, iPoint initialPos) : etype(type), pos(initialPos), width(16), height(16) {}
 
 Entity::~Entity() 
 {
@@ -22,7 +22,7 @@ void Entity::UpdateLogic()
 
 }
 
-Dynamic::Dynamic(EntityType type) :Entity(type), targetSpeed({0,0}) 
+Dynamic::Dynamic(EntityType type, iPoint initialPos) :Entity(type, initialPos), targetSpeed({0,0}) 
 {
 
 }

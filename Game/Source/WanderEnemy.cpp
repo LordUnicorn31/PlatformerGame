@@ -8,7 +8,7 @@ enum class WanderEnemyStates
 
 };
 
-WanderEnemy::WanderEnemy(iPoint pos) : Dynamic(EntityType::WANDER_ENEMY)
+WanderEnemy::WanderEnemy(iPoint pos) : Dynamic(EntityType::WANDER_ENEMY, pos)
 {
 	maxSpeed = 1.9f;
 	a = 0.8f;

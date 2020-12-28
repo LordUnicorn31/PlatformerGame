@@ -9,7 +9,7 @@ enum class PatrolEnemyState
 
 };
 
-PatrolEnemy::PatrolEnemy(iPoint pos) : Dynamic(EntityType::PATROL_ENEMY)
+PatrolEnemy::PatrolEnemy(iPoint pos) : Dynamic(EntityType::PATROL_ENEMY, pos)
 {
 	maxSpeed = 1.0f;
 	a = 0.5f;
@@ -18,6 +18,7 @@ PatrolEnemy::PatrolEnemy(iPoint pos) : Dynamic(EntityType::PATROL_ENEMY)
 	idleAnimation.PushBack({ 0, 80, 16, 16 });
 	moveAnimation.PushBack({ 16, 80, 16, 16 });
 	moveAnimation.PushBack({ 32, 80, 16, 16 });
+	moveAnimation.speed = 2.0f;
 	deathAnimation.PushBack({ 0, 80, 16, 16 });
 	deathAnimation.PushBack({ 80, 80, 16, 16 });
 	timeSinceSwap = 0.0f;
@@ -28,14 +29,15 @@ PatrolEnemy::~PatrolEnemy(){}
 void PatrolEnemy::Update(float dt)
 {
 	//Idle animation by definition
-	timeSinceSwap += dt * 1000;
-	currentAnimation = &idleAnimation;
-	iPoint mapPos = Map::WorldToMap(pos.x, pos.y);
+	//timeSinceSwap += dt * 1000;
+	//iPoint mapPos = Map::WorldToMap(pos.x, pos.y);
+	/*//TODO: problema amb el time ()
 	if ((timeSinceSwap > 8.3333f) && Map::GetTileProperty((mapPos.y * Map::GetMapWidth() + mapPos.x), "Swap")) 
 	{
 		maxSpeed = -maxSpeed;
 		timeSinceSwap = 0.0f;
-	}
+	}*/
+	currentAnimation = &moveAnimation;
 	Draw(dt);
 }
 
@@ -49,6 +51,9 @@ void PatrolEnemy::Draw(float dt)
 
 void PatrolEnemy::UpdateLogic()
 {
+	iPoint mapPos = Map::WorldToMap(pos.x, pos.y);
+	if (Map::GetTileProperty((mapPos.y * Map::GetMapWidth() + mapPos.x), "Swap"))
+		maxSpeed = -maxSpeed;
 	Move();
 }
 

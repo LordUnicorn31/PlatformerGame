@@ -27,7 +27,7 @@ private:
 	uchar GetTileAt(const iPoint& pos) const;
 	bool IIsWalkable(const iPoint& pos) const;
 
-	Pathfinding() {};
+	Pathfinding():width(0), height(0), map(0) {};
 
 	uint width;
 	uint height;

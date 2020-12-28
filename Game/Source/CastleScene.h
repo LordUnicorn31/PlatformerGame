@@ -37,8 +37,6 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	// Camera movement
-
 private:
 	SString mapName;
 	SString audioPath;

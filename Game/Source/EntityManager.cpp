@@ -20,7 +20,6 @@ EntityManager::EntityManager()
 	doLogic = false;
 	accumulatedTime = 0.0f;
 	updateMsCycle = 16.66666666f; //A 60 fps
-	newGame = true;
 }
 
 EntityManager::~EntityManager() 
@@ -44,12 +43,7 @@ bool EntityManager::Awake(pugi::xml_node& entityNode)
 bool EntityManager::Start() 
 {
 	//Load the initial entities
-	if (newGame) 
-	{
-		entityTexture = app->tex->Load(texturePath.GetString());
-	}
-	
-	//initialize player position
+	entityTexture = app->tex->Load(texturePath.GetString());
 
 	return true;
 }
@@ -97,8 +91,12 @@ void EntityManager::UpdateAll(float dt, bool DoLogic)
 
 bool EntityManager::CleanUp() 
 {
-	/*app->tex->UnLoad(entityTexture);
-	entityTexture = nullptr;*/
+	//Dlete all entities
+	entities.clear();
+
+	//Unload the entity texture
+	app->tex->UnLoad(entityTexture);
+	entityTexture = nullptr;
 	return true;
 }
 
@@ -130,19 +128,22 @@ Entity* EntityManager::CreateEntity(EntityType type, iPoint pos)
 
 void EntityManager::DestroyEntity(Entity* entity) 
 {
-	if (entities.find(entity) != -1)
-		entities.del(entities.At(entities.find(entity)));
+	int listIdx = entities.find(entity);
+	if (listIdx != -1)
+		entities.del(entities.At(listIdx));
 	else
 		LOG("Entity to delete not found");
 }
 
 bool EntityManager::Load(pugi::xml_node& entitynode) 
 {
+	//TODO: entities load
 	return true;
 }
 
 bool EntityManager::Save(pugi::xml_node& managernode) 
 {
+	//TODO: entities save
 	return true;
 }
 
