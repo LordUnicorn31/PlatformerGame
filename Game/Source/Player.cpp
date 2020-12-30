@@ -43,6 +43,7 @@ Player::Player() : Module()
 	runAnimation.speed = 6.0f;
 	climbAnimation.PushBack({ 48, 16, 16, 16 });
 	climbAnimation.PushBack({ 291, 16, 16, 16 });
+	//If change the climbAnimation speed remember to change it to on the move ladder function
 	climbAnimation.speed = 6.0f;
 	jumpAnimation.PushBack({ 16, 16, 16, 16 });
 	
@@ -481,7 +482,11 @@ void Player::MoveLadder()
 			}
 		}
 	}
-		
+
+	if (moving)
+		climbAnimation.speed = 6.0f;
+	else
+		climbAnimation.speed = 0.0f;
 }
 
 bool Player::Load(pugi::xml_node& playerNode)
