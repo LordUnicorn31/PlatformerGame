@@ -19,8 +19,8 @@ private:
 	void Move()override;
 	virtual void Die();
 	bool inRadius(iPoint pos);
-	void calculateNewPath(iPoint destination, float dt);
-	void calculateNewPathNow(iPoint destination);
+	void CalculateNewPath(iPoint destination, float dt);
+	void CalculateNewPathNow(iPoint destination);
 	bool CalculateCurentDirection();
 	bool ReachedTile();
 	int attackRadius;

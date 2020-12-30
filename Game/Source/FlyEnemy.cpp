@@ -47,7 +47,7 @@ void FlyEnemy::Update(float dt)
 		currentAnimation = &idleAnimation;
 		if (inRadius(app->player->GetPosition()))
 		{
-			calculateNewPathNow(app->player->GetPosition());
+			CalculateNewPathNow(app->player->GetPosition());
 			currentState = FlyEnemyState::ATTACK;
 			break;
 		}
@@ -56,18 +56,17 @@ void FlyEnemy::Update(float dt)
 		currentAnimation = &moveAnimation;
 		if (!inRadius(app->player->GetPosition()) && !inRadius(pos))
 		{
-			calculateNewPathNow(initialPosition);
+			CalculateNewPathNow(initialPosition);
 			currentState = FlyEnemyState::RETURN;
 			break;
 		}
-		calculateNewPath(app->player->GetPosition(),dt);
-		//Mourem cap aquell path
+		CalculateNewPath(app->player->GetPosition(),dt);
 		break;
 	case FlyEnemyState::RETURN:
 		currentAnimation = &moveAnimation;
 		if (inRadius(app->player->GetPosition()))
 		{
-			calculateNewPathNow(app->player->GetPosition());
+			CalculateNewPathNow(app->player->GetPosition());
 			currentState = FlyEnemyState::ATTACK;
 			break;
 		}
@@ -76,7 +75,6 @@ void FlyEnemy::Update(float dt)
 			currentState = FlyEnemyState::NONE;
 			break;
 		}
-		calculateNewPath(initialPosition,dt);
 		break;
 	}
 	
@@ -90,7 +88,7 @@ bool FlyEnemy::inRadius(iPoint pos)
 	return attackRadius >= initialPosition.DistanceTo(pos);
 }
 
-void FlyEnemy::calculateNewPath(iPoint destination, float dt)
+void FlyEnemy::CalculateNewPath(iPoint destination, float dt)
 {
 	accumulatedTime += dt * 1000.0f;
 	if (accumulatedTime > updatePathms) 
@@ -104,7 +102,7 @@ void FlyEnemy::calculateNewPath(iPoint destination, float dt)
 	}
 }
 
-void FlyEnemy::calculateNewPathNow(iPoint destination)
+void FlyEnemy::	CalculateNewPathNow(iPoint destination)
 {
 	Pathfinding::CreatePath(Map::WorldToMap(pos.x, pos.y), Map::WorldToMap(destination.x, destination.y));
 	path = *Pathfinding::GetLastPath();
@@ -123,7 +121,7 @@ bool FlyEnemy::CalculateCurentDirection()
 	iPoint mapPosition = Map::WorldToMap(pos.x, pos.y);
 	path.Pop(destinationTile);
 	currentDirection.x = destinationTile.x - mapPosition.x;
-	currentDirection.y = mapPosition.y - destinationTile.y;
+	currentDirection.y = destinationTile.y - mapPosition.y;
 	return true;
 }
 
@@ -228,8 +226,8 @@ void FlyEnemy::UpdateLogic()
 
 void FlyEnemy::Move()
 {
-	//pos.x += maxSpeed * currentDirection.x;
-	//pos.y += maxSpeed * currentDirection.y;
+	pos.x += maxSpeed * currentDirection.x;
+	pos.y += maxSpeed * currentDirection.y;
 
 	if(ReachedTile())
 	{

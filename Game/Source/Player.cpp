@@ -201,7 +201,6 @@ bool Player::Update(float dt)
 			Move();
 		}
 
-		position;
 		acumulatedMs = 0.0f;
 		doLogic = false;
 		app->render->CameraMovement();//Problem: if we dont put the camera movement here the player gets drawn double
