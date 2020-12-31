@@ -40,6 +40,9 @@
     <ClCompile Include="Source\WanderEnemy.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Coin.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -100,6 +103,9 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Animation.h" />
+    <ClInclude Include="Source\Coin.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

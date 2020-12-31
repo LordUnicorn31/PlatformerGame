@@ -13,6 +13,7 @@
 #include "FlyEnemy.h"
 #include "PatrolEnemy.h"
 #include "WanderEnemy.h"
+#include "Coin.h"
 
 
 #include "Defs.h"
@@ -42,6 +43,9 @@ bool Scene::Awake(pugi::xml_node& config)
 	mapZombie.y = config.child("zombieposy").attribute("y").as_int();
 	mapSkeleton.x = config.child("skeletonposx").attribute("x").as_int();
 	mapSkeleton.y = config.child("skeletonposy").attribute("y").as_int();
+	mapCoin.x = config.child("coinposx").attribute("x").as_int();
+	mapCoin.y = config.child("coinposy").attribute("y").as_int();
+
 	SDL_ShowCursor(SDL_DISABLE);
 	return ret;
 }
@@ -66,9 +70,11 @@ bool Scene::Start()
 	iPoint batPos = Map::MapToWorld(mapBat.x, mapBat.y);
 	iPoint skeletonPos = Map::MapToWorld(mapSkeleton.x, mapSkeleton.y);
 	iPoint zombiePos = Map::MapToWorld(mapZombie.x, mapZombie.y);
+	iPoint coinPos = Map::MapToWorld(mapCoin.x, mapCoin.y);
 	bat = (FlyEnemy*)app->entity->CreateEntity(EntityType::FLY_ENEMY, batPos);
 	skeleton = (PatrolEnemy*)app->entity->CreateEntity(EntityType::PATROL_ENEMY, skeletonPos);
 	zombie = (WanderEnemy*)app->entity->CreateEntity(EntityType::WANDER_ENEMY, zombiePos);
+	coin = (Coin*)app->entity->CreateEntity(EntityType::ITEM, coinPos);
 
 
 	return true;

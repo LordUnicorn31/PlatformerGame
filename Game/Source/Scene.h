@@ -5,6 +5,7 @@
 #include "FlyEnemy.h"
 #include "PatrolEnemy.h"
 #include "WanderEnemy.h"
+#include "Coin.h"
 
 struct SDL_Texture;
 
@@ -47,9 +48,11 @@ private:
 	iPoint mapBat;
 	iPoint mapZombie;
 	iPoint mapSkeleton;
+	iPoint mapCoin;
 	PatrolEnemy* skeleton = nullptr;
 	FlyEnemy* bat = nullptr;
 	WanderEnemy* zombie = nullptr;
+	Coin* coin = nullptr;
 };
 
 #endif // __SCENE_H__

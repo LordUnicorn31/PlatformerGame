@@ -13,6 +13,7 @@
 #include "Audio.h"
 #include "FlyEnemy.h"
 #include "PatrolEnemy.h"
+#include "Coin.h"
 
 EntityManager::EntityManager()  
 {
@@ -117,6 +118,10 @@ Entity* EntityManager::CreateEntity(EntityType type, iPoint pos)
 			break;
 		case EntityType::WANDER_ENEMY:
 			ret = new WanderEnemy(pos);
+			ret->sprite = entityTexture;
+			break;
+		case EntityType::ITEM:
+			ret = new Coin(pos);
 			ret->sprite = entityTexture;
 			break;
 	}

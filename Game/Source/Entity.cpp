@@ -26,3 +26,8 @@ Dynamic::Dynamic(EntityType type, iPoint initialPos) :Entity(type, initialPos), 
 {
 
 }
+
+Static::Static(EntityType type, iPoint initialPos) : Entity(type, initialPos)
+{
+
+}

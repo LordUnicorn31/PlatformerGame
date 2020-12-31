@@ -41,6 +41,8 @@
     <zombieposy y ="182"/>
     <skeletonposx x ="85"/>
     <skeletonposy y ="189"/>
+    <coinposx x ="9"/>
+    <coinposy y="188"/>
   </scene>
   <castleScene>
     <mapname name="castle.tmx"/>

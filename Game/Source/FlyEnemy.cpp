@@ -23,6 +23,7 @@ FlyEnemy::FlyEnemy(iPoint pos) : Dynamic(EntityType::FLY_ENEMY, pos)
 	initialPosition = pos;
 	
 	idleAnimation.PushBack({ 192, 131, 16, 8 });
+	idleAnimation.PushBack({ 208, 131, 16, 8 });
 	moveAnimation.PushBack({ 192, 131, 16, 8 });
 	moveAnimation.PushBack({ 208, 131, 16, 8 });
 	deathAnimation.PushBack({ 192, 131, 16, 8 });

@@ -43,3 +43,10 @@ protected:
 	float a;
 };
 
+class Static : public Entity
+{
+protected:
+	Static(EntityType type, iPoint initialPos);
+	~Static() {};
+};
+
