@@ -54,6 +54,8 @@
     <zombieposy y ="162"/>
     <skeletonposx x ="47"/>
     <skeletonposy y ="205"/>
+    <chestx x ="11"/>
+    <chesty y ="196"/>
   </castleScene>
   <sceneLogo>
     <texture path="Assets/Textures/logo_image.png"/>

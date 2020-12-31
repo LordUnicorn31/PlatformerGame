@@ -3,7 +3,7 @@
 #include "Render.h"
 #include "Map.h"
 
-Coin::Coin(iPoint pos) : Static(EntityType::ITEM, pos)
+Coin::Coin(iPoint pos) : Static(EntityType::COIN, pos)
 {
 	initialPosition = pos;
 	spinCoin.PushBack({ 50, 755, 10, 10 });

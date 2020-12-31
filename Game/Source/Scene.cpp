@@ -14,6 +14,7 @@
 #include "PatrolEnemy.h"
 #include "WanderEnemy.h"
 #include "Coin.h"
+#include "Chest.h"
 
 
 #include "Defs.h"
@@ -45,6 +46,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	mapSkeleton.y = config.child("skeletonposy").attribute("y").as_int();
 	mapCoin.x = config.child("coinposx").attribute("x").as_int();
 	mapCoin.y = config.child("coinposy").attribute("y").as_int();
+	mapChest.x = 11;
+	mapChest.y = 196;
 
 	SDL_ShowCursor(SDL_DISABLE);
 	return ret;
@@ -71,10 +74,12 @@ bool Scene::Start()
 	iPoint skeletonPos = Map::MapToWorld(mapSkeleton.x, mapSkeleton.y);
 	iPoint zombiePos = Map::MapToWorld(mapZombie.x, mapZombie.y);
 	iPoint coinPos = Map::MapToWorld(mapCoin.x, mapCoin.y);
+	iPoint chestPos = Map::MapToWorld(mapChest.x, mapChest.y);
 	bat = (FlyEnemy*)app->entity->CreateEntity(EntityType::FLY_ENEMY, batPos);
 	skeleton = (PatrolEnemy*)app->entity->CreateEntity(EntityType::PATROL_ENEMY, skeletonPos);
 	zombie = (WanderEnemy*)app->entity->CreateEntity(EntityType::WANDER_ENEMY, zombiePos);
-	coin = (Coin*)app->entity->CreateEntity(EntityType::ITEM, coinPos);
+	coin = (Coin*)app->entity->CreateEntity(EntityType::COIN, coinPos);
+	chest = (Chest*)app->entity->CreateEntity(EntityType::CHEST, chestPos);
 
 
 	return true;

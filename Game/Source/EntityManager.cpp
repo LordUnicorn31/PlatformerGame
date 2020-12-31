@@ -14,6 +14,7 @@
 #include "FlyEnemy.h"
 #include "PatrolEnemy.h"
 #include "Coin.h"
+#include "Chest.h"
 
 EntityManager::EntityManager()  
 {
@@ -120,8 +121,12 @@ Entity* EntityManager::CreateEntity(EntityType type, iPoint pos)
 			ret = new WanderEnemy(pos);
 			ret->sprite = entityTexture;
 			break;
-		case EntityType::ITEM:
+		case EntityType::COIN:
 			ret = new Coin(pos);
+			ret->sprite = entityTexture;
+			break;
+		case EntityType::CHEST:
+			ret = new Chest(pos);
 			ret->sprite = entityTexture;
 			break;
 	}

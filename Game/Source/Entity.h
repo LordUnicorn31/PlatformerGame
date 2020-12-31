@@ -10,7 +10,8 @@ enum class EntityType : unsigned char
 	PATROL_ENEMY,
 	WANDER_ENEMY,
 	FLY_ENEMY,
-	ITEM,
+	COIN,
+	CHEST
 };
 
 class Entity 

@@ -43,6 +43,9 @@
     <ClCompile Include="Source\Coin.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Chest.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -104,6 +107,9 @@
     </ClInclude>
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Coin.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Chest.h">
       <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
