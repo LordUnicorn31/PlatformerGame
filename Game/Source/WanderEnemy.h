@@ -2,6 +2,8 @@
 #include "Entity.h"
 #include "Animation.h"
 
+enum class WanderEnemyStates : unsigned char;
+
 class WanderEnemy : public Dynamic
 {
 public:
@@ -17,10 +19,13 @@ private:
 	void Move()override;
 	virtual void Die()override;
 	bool Limits();
+	bool CheckRadius(iPoint pos);
 	iPoint initialPosition;
 	Animations idleAnimation;
 	Animations moveAnimation;
 	Animations deathAnimation;
 	Animations* currentAnimation = nullptr;
+	WanderEnemyStates currentState;
+	int radius;
 
 };
