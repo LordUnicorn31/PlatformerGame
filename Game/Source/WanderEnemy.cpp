@@ -72,7 +72,7 @@ void WanderEnemy::UpdateLogic()
 		iPoint mapPos = Map::WorldToMap(pos.x, pos.y);
 		if (Map::GetTileProperty((mapPos.y * Map::GetMapWidth() + mapPos.x), "Swap"))
 		{ 
-			maxSpeed = -maxSpeed;
+			maxSpeed = 0;
 			
 		}
 
@@ -83,6 +83,10 @@ void WanderEnemy::UpdateLogic()
 
 void WanderEnemy::Move()
 {
+	/*while (app->player->GetPosition().x < pos.x) -maxSpeed;
+
+	while (app->player->GetPosition().x > pos.x) maxSpeed;*/
+
 	pos.x += maxSpeed;
 }
 
