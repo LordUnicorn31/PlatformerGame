@@ -48,6 +48,7 @@ Player::Player() : Module()
 	climbAnimation.speed = 6.0f;
 	jumpAnimation.PushBack({ 16, 16, 16, 16 });
 	
+	
 }
 
 Player::~Player() 
@@ -60,8 +61,10 @@ bool Player::Awake(pugi::xml_node& playerNode)
 	texturePath.create(playerNode.child_value("texture"));
 	coinTextPath.create(playerNode.child_value("cointexture"));
 	textureRect = { playerNode.child("textureRect").attribute("x").as_int(), playerNode.child("textureRect").attribute("y").as_int(), playerNode.child("textureRect").attribute("w").as_int(), playerNode.child("textureRect").attribute("h").as_int() };
+	heartRect = { playerNode.child("heartRect").attribute("x").as_int(), playerNode.child("heartRect").attribute("y").as_int(), playerNode.child("heartRect").attribute("w").as_int(), playerNode.child("heartRect").attribute("h").as_int() };
 	initialPos = iPoint(playerNode.child("position").attribute("x").as_int(), playerNode.child("position").attribute("y").as_int());
-	coinPos = iPoint(playerNode.child("position").attribute("x").as_int(), playerNode.child("position").attribute("y").as_int());
+	coinPos = iPoint(playerNode.child("coinposition").attribute("x").as_int(), playerNode.child("coinposition").attribute("y").as_int());
+	heartPos = iPoint(playerNode.child("heartposition").attribute("x").as_int(), playerNode.child("heartposition").attribute("y").as_int());
 	checkpoint1x = int(playerNode.child("checkpointpos1x").attribute("x").as_int());
 	checkpoint1y = int(playerNode.child("checkpointpos1y").attribute("y").as_int());
 	checkpoint2x = int(playerNode.child("checkpointpos2x").attribute("x").as_int());
@@ -85,6 +88,7 @@ bool Player::Start()
 	checkpointSound = app->audio->LoadFx("Assets/audio/fx/checkpoint.wav");
 	position = initialPos;
 	coinTexture = app->tex->Load(coinTextPath.GetString());
+	heartTexture = app->tex->Load(texturePath.GetString());
 	
 	return true;
 }
@@ -209,9 +213,11 @@ bool Player::Update(float dt)
 		acumulatedMs = 0.0f;
 		doLogic = false;
 		app->render->CameraMovement();//Problem: if we dont put the camera movement here the player gets drawn double
+		CoinMovement();
+		HeartMovement();
 	}
 
-	CoinMovement();
+	
 
 	if (onDeath)
 	{
@@ -297,6 +303,8 @@ void Player::Draw(float dt)
 		app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(dt), 1.0f);
 
 	app->render->DrawTexture(coinTexture, coinPos.x, coinPos.y);
+
+	app->render->DrawTexture(heartTexture, heartPos.x, heartPos.y, &heartRect);
 
 	
 }
@@ -871,3 +879,28 @@ void Player::CoinMovement()
 
 	}
 }
+
+void Player::HeartMovement()
+{
+	if (position.x <= (Map::GetMapWidth() * Map::GetTileWidth()) - (app->win->width / 2))
+	{
+		heartPos.x = (app->player->GetPosition().x - app->render->camera.w / 2) + 8;
+
+	}
+	if (heartPos.x < 8)
+	{
+		heartPos.x = 8;
+
+	}
+
+	heartPos.y = (app->player->GetPosition().y - app->render->camera.h / 2) + 40;
+
+
+	if (heartPos.y < 0)
+	{
+		heartPos.y = 0;
+
+	}
+}
+
+

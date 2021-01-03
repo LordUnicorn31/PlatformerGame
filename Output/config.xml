@@ -21,8 +21,10 @@
     <texture>Assets/Textures/entities.png</texture>
     <cointexture>Assets/Textures/coin.png</cointexture>
     <textureRect x="0" y="16" w="16" h="16"/>
+    <heartRect x="16" y="881" w="16" h="12"/>
     <position x="20" y="2720"/>
     <coinposition x="20" y="2760"/>
+    <heartposition x="8" y="2790"/>
     <checkpointpos1x x="32"/>
     <checkpointpos1y y="194"/>
     <checkpointpos2x x="183"/>

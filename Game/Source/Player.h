@@ -48,13 +48,18 @@ private:
 	bool Load(pugi::xml_node& playerNode);
 	bool Save(pugi::xml_node& playerNode) const;
 	void CoinMovement();
+	void HeartMovement();
+	
 	
 
 	SDL_Rect textureRect;
+	SDL_Rect heartRect;
 	SDL_Texture* texture;
 	SDL_Texture* coinTexture;
+	SDL_Texture* heartTexture;
 	iPoint position; //unsigned int?
 	iPoint coinPos;
+	iPoint heartPos;
 	uint width;
 	uint height;
 	fPoint speed;
@@ -80,6 +85,7 @@ private:
 	int checkpoint2y;
 	int checkpoint3x;
 	int checkpoint3y;
+	
 	
 	
 
