@@ -265,16 +265,20 @@ void Render::CameraMovement()
 	if (app->player->GetPosition().x <= (Map::GetMapWidth() * Map::GetTileWidth())- (app->win->width / 2))
 	{
 		camera.x = -(app->player->GetPosition().x - camera.w / 2);
+		
 	}
 	if (camera.x > 0)
 	{
 		camera.x = 0;
+		
 	}
 
-	app->render->camera.y = -(app->player->GetPosition().y - camera.h / 2);
+	camera.y = -(app->player->GetPosition().y - camera.h / 2);
+	
 
 	if (camera.y > 0)
 	{
 		camera.y = 0;
+		
 	}
 }

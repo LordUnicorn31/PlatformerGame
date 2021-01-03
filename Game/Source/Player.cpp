@@ -11,6 +11,7 @@
 #include "SceneLose.h"
 #include "CastleScene.h"
 #include "Animation.h"
+#include "Window.h"
 
 #ifdef OPTICKPROFILE
 #include "optick.h"
@@ -57,8 +58,10 @@ Player::~Player()
 bool Player::Awake(pugi::xml_node& playerNode)
 {
 	texturePath.create(playerNode.child_value("texture"));
+	coinTextPath.create(playerNode.child_value("cointexture"));
 	textureRect = { playerNode.child("textureRect").attribute("x").as_int(), playerNode.child("textureRect").attribute("y").as_int(), playerNode.child("textureRect").attribute("w").as_int(), playerNode.child("textureRect").attribute("h").as_int() };
 	initialPos = iPoint(playerNode.child("position").attribute("x").as_int(), playerNode.child("position").attribute("y").as_int());
+	coinPos = iPoint(playerNode.child("position").attribute("x").as_int(), playerNode.child("position").attribute("y").as_int());
 	checkpoint1x = int(playerNode.child("checkpointpos1x").attribute("x").as_int());
 	checkpoint1y = int(playerNode.child("checkpointpos1y").attribute("y").as_int());
 	checkpoint2x = int(playerNode.child("checkpointpos2x").attribute("x").as_int());
@@ -81,6 +84,7 @@ bool Player::Start()
 	jumpSound = app->audio->LoadFx("Assets/audio/fx/jump.wav");
 	checkpointSound = app->audio->LoadFx("Assets/audio/fx/checkpoint.wav");
 	position = initialPos;
+	coinTexture = app->tex->Load(coinTextPath.GetString());
 	
 	return true;
 }
@@ -207,6 +211,8 @@ bool Player::Update(float dt)
 		app->render->CameraMovement();//Problem: if we dont put the camera movement here the player gets drawn double
 	}
 
+	CoinMovement();
+
 	if (onDeath)
 	{
 		//Die(); Respawn
@@ -267,6 +273,7 @@ bool Player::Update(float dt)
 bool Player::CleanUp()
 {
 	app->tex->UnLoad(texture);
+	app->tex->UnLoad(coinTexture);
 	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
 
@@ -288,6 +295,8 @@ void Player::Draw(float dt)
 		app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(dt), 1.0f, SDL_FLIP_HORIZONTAL);
 	else
 		app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(dt), 1.0f);
+
+	app->render->DrawTexture(coinTexture, coinPos.x, coinPos.y);
 
 	
 }
@@ -838,4 +847,27 @@ void Player::Die()
 
 	position = initialPos;
 
+}
+
+void Player::CoinMovement()
+{
+	if (position.x <= (Map::GetMapWidth() * Map::GetTileWidth()) - (app->win->width / 2))
+	{
+		coinPos.x = (app->player->GetPosition().x - app->render->camera.w / 2);
+
+	}
+	if (coinPos.x < 0)
+	{
+		coinPos.x = 0;
+
+	}
+
+	coinPos.y = (app->player->GetPosition().y - app->render->camera.h / 2);
+
+
+	if (coinPos.y < 0)
+	{
+		coinPos.y = 0;
+
+	}
 }

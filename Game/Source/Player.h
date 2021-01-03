@@ -47,11 +47,14 @@ private:
 	void MoveLadder();
 	bool Load(pugi::xml_node& playerNode);
 	bool Save(pugi::xml_node& playerNode) const;
+	void CoinMovement();
 	
 
 	SDL_Rect textureRect;
 	SDL_Texture* texture;
+	SDL_Texture* coinTexture;
 	iPoint position; //unsigned int?
+	iPoint coinPos;
 	uint width;
 	uint height;
 	fPoint speed;
@@ -63,6 +66,7 @@ private:
 	bool onLadder;
 	float ladderSpeed;
 	SString texturePath;
+	SString coinTextPath;
 	float acumulatedMs;
 	float updateMsCycle;
 	bool doLogic;
