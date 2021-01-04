@@ -51,6 +51,8 @@ Player::Player() : Module()
 	climbAnimation.speed = 6.0f;
 	jumpAnimation.PushBack({ 16, 16, 16, 16 });
 	
+	white = { 255,255,255 };
+
 	
 }
 
@@ -68,6 +70,7 @@ bool Player::Awake(pugi::xml_node& playerNode)
 	initialPos = iPoint(playerNode.child("position").attribute("x").as_int(), playerNode.child("position").attribute("y").as_int());
 	coinPos = iPoint(playerNode.child("coinposition").attribute("x").as_int(), playerNode.child("coinposition").attribute("y").as_int());
 	heartPos = iPoint(playerNode.child("heartposition").attribute("x").as_int(), playerNode.child("heartposition").attribute("y").as_int());
+	heartCounterPos = { 40,2790 };
 	checkpoint1x = int(playerNode.child("checkpointpos1x").attribute("x").as_int());
 	checkpoint1y = int(playerNode.child("checkpointpos1y").attribute("y").as_int());
 	checkpoint2x = int(playerNode.child("checkpointpos2x").attribute("x").as_int());
@@ -86,15 +89,22 @@ void Player::Init()
 
 bool Player::Start()
 {
+	TTF_Init();
+
 	texture = app->tex->Load(texturePath.GetString());
 	jumpSound = app->audio->LoadFx("Assets/audio/fx/jump.wav");
 	checkpointSound = app->audio->LoadFx("Assets/audio/fx/checkpoint.wav");
 	position = initialPos;
 	coinTexture = app->tex->Load(coinTextPath.GetString());
 	heartTexture = app->tex->Load(texturePath.GetString());
+
+	heartCounterTex = AddText("Assets/Textures/8bit.ttf", 20, "x03", white);
+	moveTut = AddText("Assets/Textures/8bit.ttf", 20, "PRESS W, A, S, D, TO MOVE", white);
+	
 	
 	return true;
 }
+
 
 float Sign(float num) //Problems: Where should we put this function
 {
@@ -218,6 +228,7 @@ bool Player::Update(float dt)
 		app->render->CameraMovement();//Problem: if we dont put the camera movement here the player gets drawn double
 		CoinMovement();
 		HeartMovement();
+		HeartCounterMovement();
 	}
 
 	
@@ -284,8 +295,11 @@ bool Player::CleanUp()
 	app->tex->UnLoad(texture);
 	app->tex->UnLoad(coinTexture);
 	app->tex->UnLoad(heartTexture);
+	app->tex->UnLoad(heartCounterTex);
+	app->tex->UnLoad(moveTut);
 	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
+	TTF_Quit();
 
 	return true;
 }
@@ -309,6 +323,10 @@ void Player::Draw(float dt)
 	app->render->DrawTexture(coinTexture, coinPos.x, coinPos.y);
 
 	app->render->DrawTexture(heartTexture, heartPos.x, heartPos.y, &heartRect);
+
+	app->render->DrawTexture(heartCounterTex, heartCounterPos.x, heartCounterPos.y);
+
+	app->render->DrawTexture(moveTut, 40, 2900);
 
 	
 }
@@ -907,6 +925,30 @@ void Player::HeartMovement()
 	}
 }
 
+
+void Player::HeartCounterMovement()
+{
+	if (position.x <= (Map::GetMapWidth() * Map::GetTileWidth()) - (app->win->width / 2))
+	{
+		heartCounterPos.x = (app->player->GetPosition().x - app->render->camera.w / 2) + 40;
+
+	}
+	if (heartCounterPos.x < 40)
+	{
+		heartCounterPos.x = 40;
+
+	}
+
+	heartCounterPos.y = (app->player->GetPosition().y - app->render->camera.h / 2) + 40;
+
+
+	if (heartCounterPos.y < 0)
+	{
+		heartCounterPos.y = 0;
+
+	}
+}
+
 void Player::Lives(Module* mod)
 {
 	if (OnDeath())
@@ -922,4 +964,16 @@ void Player::Lives(Module* mod)
 	}
 }
 
+
+// TEMPORARY UI FUNCTIONS
+
+SDL_Texture* Player::AddText(const char* file, int size, const char* text, SDL_Color color)
+{
+	SDL_Texture* texture = NULL;
+	TTF_Font* font = TTF_OpenFont(file, 10);
+	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, color);
+	texture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
+
+	return texture;
+}
 

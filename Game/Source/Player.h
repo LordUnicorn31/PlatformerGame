@@ -3,10 +3,12 @@
 #include "Module.h"
 #include "Entity.h"
 #include "Animation.h"
+#include "SDL2_ttf-2.0.15/SDL_ttf.h"
 
 class SDL_Rect;
 class SDL_Texture;
 class SString;
+struct SDL_Color;
 
 
 class Player : public Module{ //public Entity ??
@@ -50,6 +52,8 @@ private:
 	bool Save(pugi::xml_node& playerNode) const;
 	void CoinMovement();
 	void HeartMovement();
+	SDL_Texture* AddText(const char* file, int size, const char* text, SDL_Color color);
+	void HeartCounterMovement();
 	
 	
 
@@ -61,6 +65,7 @@ private:
 	iPoint position; //unsigned int?
 	iPoint coinPos;
 	iPoint heartPos;
+	iPoint heartCounterPos;
 	int lives;
 	int fullLives;
 	uint width;
@@ -99,5 +104,12 @@ private:
 	Animations deathAnimation;
 	Animations attackAnimation;
 	Animations* currentAnimation = nullptr;
+
+
+	
+	SDL_Color white;
+	SDL_Texture* heartCounterTex;
+	char numLives;
+	SDL_Texture* moveTut;
 	
 };
