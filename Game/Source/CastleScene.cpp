@@ -87,7 +87,7 @@ bool CastleScene::Update(float dt)
 		app->SaveGame();
 
 	Map::Draw();
-
+	app->player->Lives(this);
 
 
 	// DEBUG KEYS

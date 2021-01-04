@@ -22,6 +22,7 @@ public:
 	void Die();
 	iPoint GetPosition() const;
 	bool OnDeath();
+	void Lives(Module* mod);
 	/*
 	fPoint targetSpeed; //Si volem posar aceleracio
 	float a; //Si volem posar acceleracio
@@ -60,6 +61,8 @@ private:
 	iPoint position; //unsigned int?
 	iPoint coinPos;
 	iPoint heartPos;
+	int lives;
+	int fullLives;
 	uint width;
 	uint height;
 	fPoint speed;

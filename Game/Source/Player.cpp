@@ -12,6 +12,7 @@
 #include "CastleScene.h"
 #include "Animation.h"
 #include "Window.h"
+#include "SceneTitle.h"
 
 #ifdef OPTICKPROFILE
 #include "optick.h"
@@ -28,6 +29,8 @@ Player::Player() : Module()
 	terminalSpeed = 10.0f;
 	width = 16;
 	height = 16;
+	fullLives = 3;
+	lives = fullLives;
 	onLadder = false;
 	//groundA = 1.0f;
 	//airA = 0.1f;
@@ -280,6 +283,7 @@ bool Player::CleanUp()
 {
 	app->tex->UnLoad(texture);
 	app->tex->UnLoad(coinTexture);
+	app->tex->UnLoad(heartTexture);
 	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
 
@@ -900,6 +904,21 @@ void Player::HeartMovement()
 	{
 		heartPos.y = 0;
 
+	}
+}
+
+void Player::Lives(Module* mod)
+{
+	if (OnDeath())
+	{
+		--lives;
+	}
+
+	if (lives <= 0)
+	{
+		app->transitions->FadeToBlack(mod, app->loseScene);
+
+		lives = fullLives;
 	}
 }
 

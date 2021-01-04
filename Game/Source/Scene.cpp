@@ -106,7 +106,7 @@ bool Scene::Update(float dt)
 	
 
 	Map::Draw();
-	
+	app->player->Lives(this);
 
 	// DEBUG KEYS
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
