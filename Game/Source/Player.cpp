@@ -13,6 +13,7 @@
 #include "Animation.h"
 #include "Window.h"
 #include "SceneTitle.h"
+#include "Text.h"
 
 #ifdef OPTICKPROFILE
 #include "optick.h"
@@ -70,7 +71,7 @@ bool Player::Awake(pugi::xml_node& playerNode)
 	initialPos = iPoint(playerNode.child("position").attribute("x").as_int(), playerNode.child("position").attribute("y").as_int());
 	coinPos = iPoint(playerNode.child("coinposition").attribute("x").as_int(), playerNode.child("coinposition").attribute("y").as_int());
 	heartPos = iPoint(playerNode.child("heartposition").attribute("x").as_int(), playerNode.child("heartposition").attribute("y").as_int());
-	heartCounterPos = { 40,2790 };
+	heartCounterPos = { 30,2790 };
 	checkpoint1x = int(playerNode.child("checkpointpos1x").attribute("x").as_int());
 	checkpoint1y = int(playerNode.child("checkpointpos1y").attribute("y").as_int());
 	checkpoint2x = int(playerNode.child("checkpointpos2x").attribute("x").as_int());
@@ -89,7 +90,7 @@ void Player::Init()
 
 bool Player::Start()
 {
-	TTF_Init();
+	text->Start();
 
 	texture = app->tex->Load(texturePath.GetString());
 	jumpSound = app->audio->LoadFx("Assets/audio/fx/jump.wav");
@@ -98,9 +99,8 @@ bool Player::Start()
 	coinTexture = app->tex->Load(coinTextPath.GetString());
 	heartTexture = app->tex->Load(texturePath.GetString());
 
-	heartCounterTex = AddText("Assets/Textures/8bit.ttf", 20, "x03", white);
-	moveTut = AddText("Assets/Textures/8bit.ttf", 20, "PRESS W, A, S, D, TO MOVE", white);
-	
+	heartCounterTex = text->AddText("Assets/Textures/8bit.ttf", 10, (const char*)lives, white);
+	moveTut = text->AddText("Assets/Textures/8bit.ttf", 20, "PRESS W, A, S, D, TO MOVE", white);
 	
 	return true;
 }
@@ -299,7 +299,7 @@ bool Player::CleanUp()
 	app->tex->UnLoad(moveTut);
 	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
-	TTF_Quit();
+	text->Clean();
 
 	return true;
 }
@@ -930,12 +930,12 @@ void Player::HeartCounterMovement()
 {
 	if (position.x <= (Map::GetMapWidth() * Map::GetTileWidth()) - (app->win->width / 2))
 	{
-		heartCounterPos.x = (app->player->GetPosition().x - app->render->camera.w / 2) + 40;
+		heartCounterPos.x = (app->player->GetPosition().x - app->render->camera.w / 2) + 30;
 
 	}
-	if (heartCounterPos.x < 40)
+	if (heartCounterPos.x < 30)
 	{
-		heartCounterPos.x = 40;
+		heartCounterPos.x = 30;
 
 	}
 
@@ -967,13 +967,5 @@ void Player::Lives(Module* mod)
 
 // TEMPORARY UI FUNCTIONS
 
-SDL_Texture* Player::AddText(const char* file, int size, const char* text, SDL_Color color)
-{
-	SDL_Texture* texture = NULL;
-	TTF_Font* font = TTF_OpenFont(file, 10);
-	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, color);
-	texture = SDL_CreateTextureFromSurface(app->render->renderer, textSurface);
 
-	return texture;
-}
 

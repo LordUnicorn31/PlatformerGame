@@ -9,6 +9,7 @@ class SDL_Rect;
 class SDL_Texture;
 class SString;
 struct SDL_Color;
+class Text;
 
 
 class Player : public Module{ //public Entity ??
@@ -52,7 +53,6 @@ private:
 	bool Save(pugi::xml_node& playerNode) const;
 	void CoinMovement();
 	void HeartMovement();
-	SDL_Texture* AddText(const char* file, int size, const char* text, SDL_Color color);
 	void HeartCounterMovement();
 	
 	
@@ -110,6 +110,9 @@ private:
 	SDL_Color white;
 	SDL_Texture* heartCounterTex;
 	char numLives;
+
+	Text* text;
 	SDL_Texture* moveTut;
+
 	
 };
