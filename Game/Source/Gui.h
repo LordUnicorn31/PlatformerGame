@@ -131,21 +131,6 @@ public:
 	Button_state currentState;
 };
 
-class UiEntityButton :public UiElement {
-public:
-	UiEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect selected, AviableEntities entity, EntityType etype, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule);
-	~UiEntityButton();
-	void Draw(SDL_Texture* atlas)override;
-	void Update(int dx, int dy)override;
-	bool selected;
-	AviableEntities entity;
-	EntityType entitytype;
-	SDL_Rect unhover;
-	SDL_Rect hover;
-	SDL_Rect click;
-	Button_state currentState;
-};
-
 class UiText :public UiElement {
 public:
 	UiText(int x, int y, const char* text, int size, SDL_Color color, bool interactuable, bool draggeable, bool useCamera, _TTF_Font* font = nullptr, UiElement* parent = nullptr, Module* elementmodule = nullptr);

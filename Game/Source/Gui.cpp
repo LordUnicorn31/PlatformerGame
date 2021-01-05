@@ -401,66 +401,6 @@ void UiButton::Draw(SDL_Texture* atlas) {
 	}
 }
 
-UiEntityButton::UiEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_selected, AviableEntities entity, EntityType etype, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule) : UiElement(x, y, source_unhover.w, source_unhover.h, interactuable, draggeable, useCamera, UiTypes::EButton, parent, elementmodule), unhover(source_unhover), hover(source_hover), click(source_selected), entity(entity), currentState(Button_state::unhovered), entitytype(etype), selected(false) {}
-
-UiEntityButton::~UiEntityButton() {}
-
-void UiEntityButton::Update(int dx, int dy) {
-	if (app->gui->focusedUi == this) {
-		if (selected)
-			currentState = Button_state::clicked;
-		else
-			currentState = Button_state::hovered;
-	}
-	else if (app->gui->UiUnderMouse() == this) {
-		if (selected)
-			currentState = Button_state::clicked;
-		else
-			currentState = Button_state::hovered;
-	}
-	else {
-		if (selected)
-			currentState = Button_state::clicked;
-		else
-			currentState = Button_state::unhovered;
-	}
-	if ((app->gui->MouseClick() || app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) && app->gui->focusedUi == this) {
-		selected = !selected;
-		if (selected) {
-			currentState = Button_state::clicked;
-			module->UiCallback(this);
-		}
-		else {
-			currentState = Button_state::unhovered;
-			app->gui->focusedUi = nullptr;
-		}
-	}
-	else if ((app->gui->MouseClick() || app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN) && app->gui->focusedUi != this) {
-		selected = false;
-		currentState = Button_state::unhovered;
-	}
-	if (draggable && app->gui->MouseClick() && app->gui->UiUnderMouse() == this && dx != 0 && dy != 0) {
-		SetLocalPos(GetLocalPos().x + dx, GetLocalPos().y + dy);
-		app->gui->DraggUiElements(this, dx, dy);
-	}
-}
-
-void UiEntityButton::Draw(SDL_Texture* atlas) {
-	if (parent == nullptr || !outofparent()) {
-		switch (currentState) {
-		case Button_state::unhovered:
-			app->render->DrawTexture(atlas, GetScreenPos().x, GetScreenPos().y, &unhover, 1.0f, SDL_FLIP_NONE, useCamera);
-			break;
-		case Button_state::hovered:
-			app->render->DrawTexture(atlas, GetScreenPos().x, GetScreenPos().y, &hover, 1.0f, SDL_FLIP_NONE, useCamera);
-			break;
-		case Button_state::clicked:
-			app->render->DrawTexture(atlas, GetScreenPos().x, GetScreenPos().y, &click, 1.0f, SDL_FLIP_NONE, useCamera);
-			break;
-		}
-	}
-}
-
 UiHUDBars::UiHUDBars(int x, int y, uint MaxValue, float* valueptr, bool usecamera, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule) : UiElement(x, y, bar.w, bar.h, interactuable, draggeable, usecamera, UiTypes::HUDBar, parent, elementmodule), border(border), fill(fill), fullBar(bar), value(valueptr), maxValue(MaxValue), currentBar(bar) {}
 
 UiHUDBars::~UiHUDBars() {}
