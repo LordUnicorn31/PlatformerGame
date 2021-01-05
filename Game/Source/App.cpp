@@ -60,7 +60,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(win);
 	AddModule(tex);
 	AddModule(font);
-	AddModule(gui);
 	AddModule(scene);
 	AddModule(castleScene);
 	AddModule(player);
@@ -68,6 +67,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(loseScene);
 	AddModule(sceneLogo);
 	AddModule(sceneTitle);
+	AddModule(gui);
 	AddModule(audio);
 	AddModule(entity);
 	

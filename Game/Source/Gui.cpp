@@ -224,13 +224,13 @@ UiElement* Gui::AddImage(int x, int y, SDL_Rect source_rect, bool interactuable,
 	return Image;
 }
 
-UiElement* Gui::AddText(int x, int y, const char* text, _TTF_Font* font, SDL_Color color, int size, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule) {
+UiElement* Gui::AddText(int x, int y, const char* text, _TTF_Font* font, UiElement* parent, SDL_Color color, int size, bool useCamera, bool interactuable, bool draggeable, Module* elementmodule) {
 	UiElement* Text = new UiText(x, y, text, size, color, interactuable, draggeable, useCamera, font, parent, elementmodule);
 	uiElementList.add(Text);
 	return Text;
 }
 
-UiElement* Gui::AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule) {
+UiElement* Gui::AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, Module* elementmodule, UiElement* parent, bool useCamera, bool interactuable, bool draggeable) {
 	UiElement* Button = new UiButton(x, y, source_unhover, source_hover, source_click, interactuable, draggeable, useCamera, parent, elementmodule);
 	uiElementList.add(Button);
 	return Button;

@@ -11,6 +11,7 @@
 #include "SceneLogo.h"
 #include "Player.h"
 #include "Window.h"
+#include "Gui.h";
 
 SceneTitle::SceneTitle() : Module()
 {
@@ -29,8 +30,8 @@ bool SceneTitle::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	texturePath.create(config.child("texture").attribute("path").as_string());
 	audioPath.create(config.child("audio").attribute("path").as_string());
-	bool ret = true;
-	return ret;
+
+	return true;
 }
 
 // Called before the first frame
@@ -39,6 +40,9 @@ bool SceneTitle::Start()
 	exitGame = false;
 	titleImage = app->tex->Load(texturePath.GetString());
     app->audio->PlayMusic(audioPath.GetString());
+
+	button = app->gui->AddButton(0, 0, { 0,456,43,33 }, { 0,419,43,33 }, { 47,418,43,34 }, this);
+	app->gui->AddText(0, 0, "Continue", nullptr, button);
 	return true;
 }
 
@@ -85,6 +89,7 @@ bool SceneTitle::CleanUp()
 {
 	LOG("Freeing scene");
 
+	app->gui->DeleteAllUiElements();
 	app->tex->UnLoad(titleImage);
 	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
@@ -99,5 +104,13 @@ void SceneTitle::Init()
 	enabled = false;
 
 	active = true;
+}
+
+void SceneTitle::UiCallback(UiElement* element)
+{
+	if (element == button) 
+	{
+		app->transitions->FadeToBlack(this, app->scene, 0.5f);
+	}
 }
 

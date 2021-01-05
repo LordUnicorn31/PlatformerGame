@@ -84,9 +84,9 @@ public:
 	//If the ui has a parent the x,y will be the local coordenates respect the parent
 	UiElement* AddImage(int x, int y, SDL_Rect source_rect, bool interactuable = true, bool draggeable = false, bool useCamera = false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
 	//If the ui has a parent the x,y will be the local coordenates respect the parent
-	UiElement* AddText(int x, int y, const char* text, _TTF_Font* font = nullptr, SDL_Color color = { 255, 255, 255, 255 }, int size = 12, bool interactuable = false, bool draggeable = false, bool useCamera = false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
+	UiElement* AddText(int x, int y, const char* text, _TTF_Font* font = nullptr, UiElement* parent = nullptr, SDL_Color color = { 255, 255, 255, 255 }, int size = 12, bool useCamera = false, bool interactuable = false, bool draggeable = false, Module* elementmodule = nullptr);
 	//If the ui has a parent the x,y will be the local coordenates respect the parent
-	UiElement* AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable = true, bool draggeable = false, bool useCamera = false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
+	UiElement* AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, Module* elementmodule = nullptr, UiElement* parent = nullptr, bool useCamera = false, bool interactuable = true, bool draggeable = false);
 	UiElement* AddHUDBar(int x, int y, int MaxValue, float* valueptr, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule);
 	UiElement* AddSlider(int x, int y, int value, int maxvalue, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule);
 	void DraggUiElements(UiElement* parent, int dx, int dy);

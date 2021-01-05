@@ -49,7 +49,7 @@
     <coinposy y="188"/>
   </scene>
   <gui>
-    <atlas atlasPath ="atlas.png"></atlas>
+    <atlas atlasPath ="Assets/Textures/ui_atlas.png"></atlas>
   </gui>
   <castleScene>
     <mapname name="castle.tmx"/>

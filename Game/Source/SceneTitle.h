@@ -33,11 +33,15 @@ public:
 
 	void Init();
 
+	void UiCallback(UiElement* element);
+
 private:
 	
 	SDL_Texture* titleImage;
 	bool exitGame;
 	SString texturePath;
 	SString audioPath;
+
+	UiElement* button;
 
 };
