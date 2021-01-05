@@ -49,6 +49,12 @@
     <ClCompile Include="Source\Text.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Gui.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Fonts.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -116,6 +122,12 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\Text.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Gui.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Fonts.h">
       <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>

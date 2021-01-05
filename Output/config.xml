@@ -48,6 +48,9 @@
     <coinposx x ="9"/>
     <coinposy y="188"/>
   </scene>
+  <gui>
+    <atlas atlasPath ="atlas.png"></atlas>
+  </gui>
   <castleScene>
     <mapname name="castle.tmx"/>
     <audio path ="Assets/Audio/Music/castle_music.ogg"/>

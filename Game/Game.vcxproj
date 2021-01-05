@@ -121,6 +121,8 @@ Xcopy $(SolutionDir)Build\$(Configuration)\Bin\Game.exe $(SolutionDir)Output /s 
     <ClCompile Include="Source\Coin.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
+    <ClCompile Include="Source\Fonts.cpp" />
+    <ClCompile Include="Source\Gui.cpp" />
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\Pathfinding.cpp" />
     <ClCompile Include="Source\PatrolEnemy.cpp" />
@@ -149,6 +151,8 @@ Xcopy $(SolutionDir)Build\$(Configuration)\Bin\Game.exe $(SolutionDir)Output /s 
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\FlyEnemy.h" />
+    <ClInclude Include="Source\Fonts.h" />
+    <ClInclude Include="Source\Gui.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Pathfinding.h" />
     <ClInclude Include="Source\PatrolEnemy.h" />

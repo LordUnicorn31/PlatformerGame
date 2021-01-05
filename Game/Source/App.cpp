@@ -14,6 +14,8 @@
 #include "SceneTitle.h"
 #include "CastleScene.h"
 #include "EntityManager.h"
+#include "Fonts.h"
+#include "Gui.h"
 
 
 #include "Defs.h"
@@ -40,6 +42,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	render = new Render();
 	tex = new Textures();
 	audio = new Audio();
+	font = new Fonts();
+	gui = new Gui();
 	scene = new Scene();
 	player = new Player();
 	transitions = new Transitions();
@@ -49,11 +53,14 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	castleScene = new CastleScene();
 	entity = new EntityManager();
 
+
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(input);
 	AddModule(win);
 	AddModule(tex);
+	AddModule(font);
+	AddModule(gui);
 	AddModule(scene);
 	AddModule(castleScene);
 	AddModule(player);

@@ -1,3 +1,4 @@
+#include "SDL2_ttf-2.0.15/SDL_ttf.h"
 #include "Text.h"
 #include "Render.h"
 #include "App.h"

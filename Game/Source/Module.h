@@ -6,6 +6,7 @@
 #include "PugiXml/src/pugixml.hpp"
 
 class App;
+class UiElement;
 
 class Module
 {
@@ -64,6 +65,10 @@ public:
 	virtual bool Save(pugi::xml_node&) const
 	{
 		return true;
+	}
+
+	virtual void UiCallback(UiElement* element) {
+
 	}
 
 	void Enable()

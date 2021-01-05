@@ -1,5 +1,4 @@
 #pragma once
-#include "SDL2_ttf-2.0.15/SDL_ttf.h"
 
 class Text
 {

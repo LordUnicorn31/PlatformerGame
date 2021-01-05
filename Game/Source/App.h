@@ -22,6 +22,8 @@ class SceneLogo;
 class SceneTitle;
 class CastleScene;
 class EntityManager;
+class Gui;
+class Fonts;
 
 class SString;
 
@@ -101,6 +103,8 @@ public:
 	SceneTitle* sceneTitle;
 	CastleScene* castleScene;
 	EntityManager* entity;
+	Gui* gui;
+	Fonts* font;
 
 private:
 
