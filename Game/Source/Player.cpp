@@ -99,7 +99,7 @@ bool Player::Start()
 	coinTexture = app->tex->Load(coinTextPath.GetString());
 	heartTexture = app->tex->Load(texturePath.GetString());
 
-	heartCounterTex = text->AddText("Assets/Textures/8bit.ttf", 10, (const char*)lives, white);
+	heartCounterTex = text->AddText("Assets/Textures/8bit.ttf", 10, "x03", white);
 	moveTut = text->AddText("Assets/Textures/8bit.ttf", 20, "PRESS W, A, S, D, TO MOVE", white);
 	
 	return true;
