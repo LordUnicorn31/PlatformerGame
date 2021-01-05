@@ -236,12 +236,6 @@ UiElement* Gui::AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source
 	return Button;
 }
 
-UiElement* Gui::AddEntityButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, AviableEntities entity, EntityType etype, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule) {
-	UiElement* EButton = new UiEntityButton(x, y, source_unhover, source_hover, source_click, entity, etype, interactuable, draggeable, useCamera, parent, elementmodule);
-	uiElementList.add(EButton);
-	return EButton;
-}
-
 UiElement* Gui::AddHUDBar(int x, int y, int MaxValue, float* valueptr, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule) {
 	UiElement* HUD = new UiHUDBars(x, y, MaxValue, valueptr, usecamera, bar, fill, border, interactuable, draggeable, parent, elementmodule);
 	uiElementList.add(HUD);
