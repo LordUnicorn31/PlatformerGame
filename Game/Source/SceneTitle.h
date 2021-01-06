@@ -50,5 +50,10 @@ private:
 	UiElement* optionsMenu;
 	UiElement* backButton;
 	UiElement* fullScreen;
+	UiElement* sliderBarFx;
+	UiElement* sliderBarMus;
+	UiElement* musicText;
+	UiElement* fxText;
+	UiElement* optionsText;
 
 };

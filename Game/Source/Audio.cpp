@@ -16,6 +16,9 @@ Audio::Audio() : Module()
 {
 	music = NULL;
 	name.create("audio");
+
+	currentMusicVolume = MIX_MAX_VOLUME;
+	currentFxVolume = MIX_MAX_VOLUME;
 }
 
 // Destructor
@@ -56,6 +59,36 @@ bool Audio::Awake(pugi::xml_node& config)
 	}
 
 	return ret;
+}
+
+void Audio::MusicVolume(int vol)
+{
+	if (vol > MIX_MAX_VOLUME)
+	{
+		vol = MIX_MAX_VOLUME;
+	}
+
+	else if (vol < 0)
+	{
+		vol = 0;
+	}
+
+	Mix_VolumeMusic(vol);
+	currentMusicVolume = vol;
+}
+
+void Audio::FxVolume(int vol)
+{
+	if (vol > MIX_MAX_VOLUME)
+	{
+		vol = MIX_MAX_VOLUME;
+	}
+
+	else if (vol < 0)
+	{
+		vol = 0;
+	}
+
 }
 
 // Called before quitting
@@ -194,4 +227,14 @@ void Audio::UnloadMusic()
 		Mix_FreeMusic(music);
 
 	music = NULL;
+}
+
+int Audio::GetMusicVolume()
+{
+	return currentMusicVolume;
+}
+
+int Audio::GetFxVolume()
+{
+	return currentFxVolume;
 }

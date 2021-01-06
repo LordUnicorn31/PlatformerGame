@@ -38,6 +38,16 @@ public:
 	//Unload Music 
 	void UnloadMusic();
 
+	//Music Volume Control
+	void MusicVolume(int vol);
+
+	//FX Volume Control
+	void FxVolume(int vol);
+
+	int GetMusicVolume();
+
+	int GetFxVolume();
+
 private:
 
 	_Mix_Music* music;

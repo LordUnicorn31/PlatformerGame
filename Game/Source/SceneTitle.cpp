@@ -13,6 +13,9 @@
 #include "Window.h"
 #include "Gui.h";
 
+#include "SDL2-2.0.10/include/SDL.h"
+#include "SDL2_mixer-2.0.4/SDL_mixer.h"
+
 SceneTitle::SceneTitle() : Module()
 {
 	name = "sceneTitle";
@@ -132,15 +135,34 @@ void SceneTitle::UiCallback(UiElement* element)
 
 	if (element == optionsButton)
 	{
-		/*optionsMenu = app->gui->AddImage(400, 250, { 20,540,446,465 }, true, false, false, nullptr, this);
+		optionsMenu = app->gui->AddImage(400, 200, { 20,540,446,465 }, true, false, false, nullptr, this);
 		backButton = app->gui->AddButton(30, 40, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, this, optionsMenu);
-		fullScreen = app->gui->AddButton(100, 250, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, optionsMenu);
-		sliderbarFx = app->gui->AddSlider(115, 100, app->audio->GetFxVolume(), MIX_MAX_VOLUME, true, false, false, optionsMenu, this);
-		sliderbarMus = app->gui->AddSlider(115, 175, app->audio->GetMusicVolume(), MIX_MAX_VOLUME, true, false, false, optionsMenu, this);
-		app->gui->AddText(55, 25, "FULLSCREEN", nullptr, { 255,255,255 }, 42, false, false, false, fullScreen);
-		app->gui->AddText(150, 35, "OPTIONS MENU", nullptr, { 236,178,0 }, 42, false, false, false, optionsMenu);
-		app->gui->AddText(70, 100, "FX", nullptr, { 236,178,0 }, 42, false, false, false, optionsMenu);
-		app->gui->AddText(50, 175, "MUSIC", nullptr, { 236,178,0 }, 42, false, false, false, optionsMenu);*/
+		sliderBarFx = app->gui->AddSlider(115, 100, app->audio->GetFxVolume(), MIX_MAX_VOLUME, true, false, false, optionsMenu, this);
+		sliderBarMus = app->gui->AddSlider(115, 175, app->audio->GetMusicVolume(), MIX_MAX_VOLUME, true, false, false, optionsMenu, this);
+		optionsText = app->gui->AddText(130, 35, "OPTIONS MENU", nullptr, optionsMenu, { 255,255,255 }, 42, false, false, false);
+		fxText = app->gui->AddText(70, 95, "FX", nullptr, optionsMenu, { 255,255,255 }, 42, false, false, false);
+		musicText = app->gui->AddText(25, 170, "MUSIC", nullptr, optionsMenu, { 255,255,255 }, 42, false, false, false);
+	}
+
+	if (element == backButton) {
+		/*app->audio->PlayFx(buttonFx);*/
+		app->gui->RemoveUiElement(optionsMenu);
+		app->gui->RemoveUiElement(sliderBarMus);
+		app->gui->RemoveUiElement(sliderBarFx);
+		app->gui->RemoveUiElement(optionsText);
+		app->gui->RemoveUiElement(fxText);
+		app->gui->RemoveUiElement(musicText);
+		
+	}
+	if (element == fullScreen) {
+		/*app->audio->PlayFx(buttonFx);*/
+		app->win->FullScreen();
+	}
+	if (element == sliderBarFx) {
+		app->audio->FxVolume(((UiSlider*)element)->value);
+	}
+	if (element == sliderBarMus) {
+		app->audio->MusicVolume(((UiSlider*)element)->value);
 	}
 }
 
