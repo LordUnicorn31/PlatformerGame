@@ -13,7 +13,7 @@
 #endif // OPTICKPROFILER
 
 
-bool Map::ILoad(const char* mapPath, const char* fileName)
+bool Map::SLoad(const char* mapPath, const char* fileName)
 {
 	SString tmp(mapPath);
 	tmp += fileName;
@@ -242,7 +242,7 @@ bool Map::ILoad(const char* mapPath, const char* fileName)
 	return true;
 }
 
-bool Map::IUnLoad() 
+bool Map::SUnLoad() 
 {
 	for (int i = 0; i < textures.Count(); i++)
 	{
@@ -285,7 +285,7 @@ bool Map::IGetTileProperty(int id, const char* iName)
 	return false;
 }
 
-void Map::IDraw() 
+void Map::SDraw() 
 {
 #ifdef OPTICKPROFILE
 	OPTICK_EVENT();

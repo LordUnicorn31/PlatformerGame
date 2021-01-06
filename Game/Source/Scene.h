@@ -54,11 +54,13 @@ private:
 	iPoint mapSkeleton;
 	iPoint mapCoin;
 	iPoint mapChest;
+
 	PatrolEnemy* skeleton = nullptr;
 	FlyEnemy* bat = nullptr;
 	WanderEnemy* zombie = nullptr;
 	Coin* coin = nullptr;
 	Chest* chest = nullptr;
+
 	UiElement* pauseButton;
 	UiElement* pauseWindow;
 	UiElement* continueButton;

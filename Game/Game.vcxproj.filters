@@ -15,7 +15,6 @@
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp">
       <Filter>External\PuguiXml</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Transitions.cpp" />
     <ClCompile Include="Source\SceneLogo.cpp" />
@@ -55,6 +54,7 @@
     <ClCompile Include="Source\Fonts.cpp">
       <Filter>UI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -89,7 +89,6 @@
     <ClInclude Include="Source\External\PugiXml\src\pugixml.hpp">
       <Filter>External\PuguiXml</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\Transitions.h" />
     <ClInclude Include="Source\SceneLogo.h" />
@@ -130,6 +129,7 @@
     <ClInclude Include="Source\Fonts.h">
       <Filter>UI</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Player.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

@@ -39,9 +39,9 @@ public:
 		static Map instance;
 		return instance;
 	}
-	static void Draw() { return Get().IDraw(); }
-	static bool Load(const char* mapPath,const char* mapName) { return Get().ILoad(mapPath,mapName); }
-	static bool UnLoad() { return Get().IUnLoad(); }
+	static void Draw() { return Get().SDraw(); }
+	static bool Load(const char* mapPath,const char* mapName) { return Get().SLoad(mapPath,mapName); }
+	static bool UnLoad() { return Get().SUnLoad(); }
 	static iPoint MapToWorld(int x, int y) { return Get().IMapToWorld(x,y); }
 	static iPoint WorldToMap(int x, int y) { return Get().IWorldToMap(x, y); }
 	static bool GetTileProperty(int id, const char* name) { return Get().IGetTileProperty(id, name); }
@@ -53,9 +53,9 @@ public:
 	static bool MapLoaded() { return Get().mapLoaded; }
 
 private:
-	void IDraw();
-	bool ILoad(const char* mapPath, const char* fileName);
-	bool IUnLoad();
+	void SDraw();
+	bool SLoad(const char* mapPath, const char* fileName);
+	bool SUnLoad();
 	iPoint IMapToWorld(int x, int y) const;
 	iPoint IWorldToMap(int x, int y) const;
 	bool IGetTileProperty(int id, const char* name);
