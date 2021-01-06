@@ -85,7 +85,6 @@ private:
 	// Load / Save
 	bool LoadGameNow();
 	bool SaveGameNow() const;
-	bool freeze;
 
 public:
 
@@ -105,6 +104,8 @@ public:
 	EntityManager* entity;
 	Gui* gui;
 	Fonts* font;
+
+	bool freeze;
 
 private:
 

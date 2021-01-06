@@ -102,7 +102,6 @@ bool SceneTitle::CleanUp()
 	app->tex->UnLoad(titleImage);
 	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
-	app->tex->UnLoad(app->render->mouseText);
 	titleImage = nullptr;
 
 
@@ -135,7 +134,7 @@ void SceneTitle::UiCallback(UiElement* element)
 
 	if (element == optionsButton)
 	{
-		optionsMenu = app->gui->AddImage(400, 200, { 20,540,446,465 }, true, false, false, nullptr, this);
+		optionsMenu = app->gui->AddImage(417, 200, { 20,540,446,465 }, true, false, false, nullptr, this);
 		backButton = app->gui->AddButton(30, 40, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, this, optionsMenu);
 		sliderBarFx = app->gui->AddSlider(115, 100, app->audio->GetFxVolume(), MIX_MAX_VOLUME, true, false, false, optionsMenu, this);
 		sliderBarMus = app->gui->AddSlider(115, 175, app->audio->GetMusicVolume(), MIX_MAX_VOLUME, true, false, false, optionsMenu, this);

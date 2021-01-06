@@ -301,7 +301,7 @@ void Render::RenderMouse()
 	int x;
 	int y;
 	app->input->GetMousePosition(x, y);
-	if (app->input->GetMouseButtonDown(1))
+	if (app->input->GetMouseButtonDown(1) == KEY_REPEAT)
 	{
 		DrawTexture(mouseText, x, y, &mouseRect2, false);
 	}

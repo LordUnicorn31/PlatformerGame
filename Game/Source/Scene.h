@@ -7,6 +7,7 @@
 #include "WanderEnemy.h"
 #include "Coin.h"
 #include "Chest.h"
+#include "Gui.h"
 
 struct SDL_Texture;
 
@@ -40,6 +41,8 @@ public:
 	bool CleanUp();
 
 	// Camera movement
+
+	void UiCallback(UiElement* element);
 	
 
 private:
@@ -56,6 +59,18 @@ private:
 	WanderEnemy* zombie = nullptr;
 	Coin* coin = nullptr;
 	Chest* chest = nullptr;
+	UiElement* pauseButton;
+	UiElement* pauseWindow;
+	UiElement* continueButton;
+	UiElement* saveButton;
+	UiElement* titleButton;
+	UiElement* optionsButton;
+	UiElement* exitButton;
+
+	UiElement* optionsMenu;
+	UiElement* backButton;
+	UiElement* musSlider;
+	UiElement* fxSlider;
 };
 
 #endif // __SCENE_H__
