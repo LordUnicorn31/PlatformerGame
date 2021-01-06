@@ -71,6 +71,12 @@ private:
 	UiElement* backButton;
 	UiElement* musSlider;
 	UiElement* fxSlider;
+
+	UiElement* optionsText;
+	UiElement* fxText;
+	UiElement* musicText;
+
+	bool exitGame;
 };
 
 #endif // __SCENE_H__

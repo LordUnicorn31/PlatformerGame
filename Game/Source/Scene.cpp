@@ -66,6 +66,7 @@ void Scene::Init()
 // Called before the first frame
 bool Scene::Start()
 {   
+	exitGame = false;
 	pauseButton = app->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, this, nullptr, false, true, false);
  	app->entity->Enable();
 	app->audio->PlayMusic(audioPath.GetString());
@@ -133,7 +134,10 @@ bool Scene::PostUpdate()
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 	app->render->RenderMouse();
-
+	if (exitGame) {
+		ret = false;
+		exitGame = false;
+	}
 	return ret;
 }
 
@@ -166,8 +170,8 @@ void Scene::UiCallback(UiElement* element)
 				app->gui->AddText(80, 25, "SAVE", NULL, saveButton, { 255, 255, 255, 255 }, 32, false, false, false);
 				optionsButton = app->gui->AddButton(120, 280, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
 				app->gui->AddText(60, 25, "OPTIONS", NULL, optionsButton, { 255, 255, 255, 255 }, 32, false, false, false);
-				titleButton = app->gui->AddButton(120, 370, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
-				app->gui->AddText(45, 25, "EXIT GAME", NULL, titleButton, { 255, 255, 255, 255 }, 32, false, false, false);
+				exitButton = app->gui->AddButton(120, 370, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
+				app->gui->AddText(45, 25, "EXIT GAME", NULL, exitButton, { 255, 255, 255, 255 }, 32, false, false, false);
 				app->freeze = true;
 
 			}
@@ -175,17 +179,21 @@ void Scene::UiCallback(UiElement* element)
 			{
 				app->freeze = false;
 				app->gui->RemoveUiElement(pauseWindow);
+				app->gui->RemoveUiElement(continueButton);
+				app->gui->RemoveUiElement(saveButton);
+				app->gui->RemoveUiElement(optionsButton);
+				app->gui->RemoveUiElement(exitButton);
 				pauseWindow = nullptr;
 				/*app->audio->PlayMusic("Resources/audio/music/game.ogg", 0.0f);*/
 
 			}
 		}
 	}
-	if (element == titleButton) 
+	if (element == exitButton) 
 	{
 		//Create The Funtionality
 		/*app->audio->PlayFx(buttonFx);*/
-		app->transitions->FadeToBlack(this, app->sceneTitle);
+		exitGame = true;
 
 	}
 	if (element == continueButton) 
@@ -215,18 +223,22 @@ void Scene::UiCallback(UiElement* element)
 	if (element == optionsButton) 
 	{
 		/*app->audio->PlayFx(buttonFx);*/
-		optionsMenu = app->gui->AddImage(417, 250, { 20,540,446,465 }, true, false, false, nullptr, this);
-		backButton = app->gui->AddButton(30, 20, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, this, optionsMenu, true, false, false);
+		optionsMenu = app->gui->AddImage(437, 177, { 20,540,446,465 }, true, false, false, nullptr, this);
+		backButton = app->gui->AddButton(30, 20, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, this, optionsMenu, false, true, false);
 		/*musSlider = app->gui->AddSlider(115, 200, app->audio->GetMusicVolume(), MIX_MAX_VOLUME, true, false, false, optionsMenu, this);
 		fxSlider = app->gui->AddSlider(115, 100, app->audio->GetFxVolume(), MIX_MAX_VOLUME, true, false, false, optionsMenu, this);*/
 		/*app->gui->AddText(55, 25, "FULLSCREEN", app->font->smallFont, { 255,255,255 }, 42, false, false, false, fullScreen);*/
-		app->gui->AddText(150, 20, "OPTIONS MENU", nullptr, optionsMenu, {255, 255, 255}, 42, false, false, false);
-		app->gui->AddText(70, 100, "FX", nullptr, optionsMenu, { 255, 255, 255 }, 42, false, false, false);
-		app->gui->AddText(50, 200, "MUSIC", nullptr, optionsMenu, { 255, 255, 255 }, 42, false, false, false);
+		optionsText = app->gui->AddText(135, 20, "OPTIONS MENU", nullptr, optionsMenu, {255, 255, 255}, 42, false, false, false);
+		fxText = app->gui->AddText(70, 100, "FX", nullptr, optionsMenu, { 255, 255, 255 }, 42, false, false, false);
+		musicText = app->gui->AddText(50, 200, "MUSIC", nullptr, optionsMenu, { 255, 255, 255 }, 42, false, false, false);
 	}
 	if (element == backButton) 
 	{
 		app->gui->RemoveUiElement(optionsMenu);
+		app->gui->RemoveUiElement(backButton);
+		app->gui->RemoveUiElement(optionsText);
+		app->gui->RemoveUiElement(fxText);
+		app->gui->RemoveUiElement(musicText);
 		/*app->audio->PlayFx(buttonFx);*/
 	}
 	if (element == musSlider) 
