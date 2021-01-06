@@ -1,8 +1,10 @@
 #include "App.h"
 #include "Window.h"
 #include "Render.h"
+#include "Textures.h"
 #include "Player.h"
 #include "Map.h"
+#include "Input.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -32,6 +34,8 @@ bool Render::Awake(pugi::xml_node& config)
 {
 	LOG("Create SDL rendering context");
 	bool ret = true;
+
+	/*texturePath.create(rendererNode.child_value("texture"));*/
 
 	Uint32 flags = SDL_RENDERER_ACCELERATED;
 	vSync = config.child("vsync").attribute("value").as_bool(true);
@@ -65,6 +69,7 @@ bool Render::Start()
 	LOG("render start");
 	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
+	mouseText = app->tex->Load("Assets/Textures/pointer.png");
 	return true;
 }
 
@@ -289,4 +294,17 @@ void Render::CameraMovement()
 		camera.y = 0;
 		
 	}
+}
+
+void Render::RenderMouse()
+{
+	int x;
+	int y;
+	app->input->GetMousePosition(x, y);
+	if (app->input->GetMouseButtonDown(1))
+	{
+		DrawTexture(mouseText, x, y, &mouseRect2, false);
+	}
+	else
+		DrawTexture(mouseText, x, y, &mouseRect, false);
 }

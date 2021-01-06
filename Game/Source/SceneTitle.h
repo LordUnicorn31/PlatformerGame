@@ -42,10 +42,13 @@ private:
 	SString texturePath;
 	SString audioPath;
 
-	UiElement* button;
 	UiElement* newGameButton;
 	UiElement* continueButton;
 	UiElement* optionsButton;
 	UiElement* exitButton;
+
+	UiElement* optionsMenu;
+	UiElement* backButton;
+	UiElement* fullScreen;
 
 };

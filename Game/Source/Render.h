@@ -47,6 +47,9 @@ public:
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 
+	void RenderMouse();
+	
+
 public:
 
 	SDL_Renderer* renderer;
@@ -54,6 +57,10 @@ public:
 	SDL_Rect viewport;
 	SDL_Color background;
 	bool vSync;
+	SDL_Texture* mouseText;
+	SString texturePath;
+	SDL_Rect mouseRect{ 0,0,19,19 };
+	SDL_Rect mouseRect2{ 19,0,19,19 };
 };
 
 #endif // __RENDER_H__
