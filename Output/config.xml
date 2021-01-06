@@ -11,7 +11,7 @@
   </renderer>
 
   <window>
-    <resolution width="720" height="480" scale="1"/>
+    <resolution width="1280" height="720" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>
     <resizable value="false"/>
@@ -49,7 +49,7 @@
     <coinposy y="188"/>
   </scene>
   <gui>
-    <atlas atlasPath ="Assets/Textures/ui_atlas.png"></atlas>
+    <atlas atlasPath ="Assets/Textures/atlas.png"></atlas>
   </gui>
   <castleScene>
     <mapname name="castle.tmx"/>

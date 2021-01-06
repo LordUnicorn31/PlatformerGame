@@ -41,8 +41,14 @@ bool SceneTitle::Start()
 	titleImage = app->tex->Load(texturePath.GetString());
     app->audio->PlayMusic(audioPath.GetString());
 
-	button = app->gui->AddButton(0, 0, { 0,456,43,33 }, { 0,419,43,33 }, { 47,418,43,34 }, this);
-	app->gui->AddText(0, 0, "Continue", nullptr, button);
+	newGameButton = app->gui->AddButton((int)525.5f, 340, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 },this);
+	app->gui->AddText(15, 16, "NEW GAME", nullptr, newGameButton, { 255,255,255 }, 32, false, false, false);
+	continueButton = app->gui->AddButton((int)525.5f, 420, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
+	app->gui->AddText(20, 16, "CONTINUE", nullptr, continueButton, { 255,255,255 }, 32, false, false, false);
+	optionsButton = app->gui->AddButton((int)525.5f, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
+	app->gui->AddText(20, 16, "OPTIONS", nullptr, optionsButton, { 255,255,255 }, 32, false, false, false);
+	exitButton = app->gui->AddButton((int)525.5f, 580, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
+	app->gui->AddText(20, 16, "EXIT", nullptr, exitButton, { 255,255,255 }, 32, false, false, false);
 	return true;
 }
 
