@@ -38,7 +38,7 @@ void PatrolEnemy::Update(float dt)
 		timeSinceSwap = 0.0f;
 	}*/
 	currentAnimation = &moveAnimation;
-	Draw(dt);
+	//Draw(dt);
 }
 
 void PatrolEnemy::Draw(float dt)

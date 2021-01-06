@@ -79,7 +79,7 @@ void FlyEnemy::Update(float dt)
 		break;
 	}
 	
-	Draw(dt);
+	//Draw(dt);
 }
 
 

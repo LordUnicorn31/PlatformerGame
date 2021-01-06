@@ -52,7 +52,7 @@ void WanderEnemy::Update(float dt)
 		}
 	}
 
-	Draw(dt);
+	//Draw(dt);
 }
 
 void WanderEnemy::Draw(float dt)
