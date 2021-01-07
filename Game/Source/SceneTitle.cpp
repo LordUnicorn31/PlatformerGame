@@ -49,8 +49,8 @@ bool SceneTitle::Start()
 	app->gui->AddText(60, 22, "OPTIONS", nullptr, optionsButton, { 255,255,255 }, 32, false, false, false);
 	exitButton = app->gui->AddButton((int)525.5f, 580, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
 	app->gui->AddText(80, 22, "EXIT", nullptr, exitButton, { 255,255,255 }, 32, false, false, false);
-	fullScreenCheck = app->gui->AddCheckBox(900, 600, { 987, 808, 30, 30 }, { 1028, 808, 30, 30 }, this);
-	vsyncCheck = app->gui->AddCheckBox(900, 630, { 987, 808, 30, 30 }, { 1028, 808, 30, 30 }, this);
+	fullScreenCheck = app->gui->AddCheckBox(900, 580, { 987, 808, 30, 30 }, { 1028, 808, 30, 30 }, this);
+	vsyncCheck = app->gui->AddCheckBox(900, 610, { 987, 808, 30, 30 }, { 1028, 808, 30, 30 }, this);
 	return true;
 }
 

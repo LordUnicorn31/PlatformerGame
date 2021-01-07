@@ -250,11 +250,13 @@ bool Player::Update(float dt)
 		app->transitions->FadeToBlack(app->castleScene, app->loseScene);
 	}
 
-	if (onSave)
+	if (onSave && checkPoint)
 	{
 		app->SaveGame();
 		app->audio->PlayFx(checkpointSound);
+		checkPoint = !checkPoint;
 	}
+	if (!onSave) checkPoint = true;
 	
 
 	/*if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)

@@ -114,5 +114,7 @@ private:
 	Text* text;
 	SDL_Texture* moveTut;
 
+	bool checkPoint = true;
+
 	
 };
