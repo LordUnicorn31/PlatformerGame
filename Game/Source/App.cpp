@@ -63,13 +63,13 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(scene);
 	AddModule(castleScene);
 	AddModule(player);
+	AddModule(entity);
 	AddModule(transitions);
 	AddModule(loseScene);
 	AddModule(sceneLogo);
 	AddModule(sceneTitle);
 	AddModule(gui);
 	AddModule(audio);
-	AddModule(entity);
 	
 
 	// render last to swap buffer
@@ -101,14 +101,13 @@ void App::AddModule(Module* module)
 	modules.add(module);
 }
 
-// Called before render is available
+
 bool App::Awake()
 {
 	PERF_START(timer);
-	// TODO 3: Load config.xml file using load_file() method from the xml_document class.
+
 	bool ret = LoadConfig();
 
-	// TODO 4: Read the title from the config file
 	pugi::xml_node configApp;
 	configApp = config.child("app");
 	title.create(configApp.child("title").child_value());
@@ -127,10 +126,6 @@ bool App::Awake()
 
 		while(item != NULL && ret == true)
 		{
-			// TODO 5: Add a new argument to the Awake method to receive a pointer to an xml node.
-			// If the section with the module name exists in config.xml, fill the pointer with the valid xml_node
-			// that can be used to read all variables for that module.
-			// Send nullptr if the node does not exist in config.xml
 			ret = item->data->Awake(config.child(item->data->name.GetString()));
 			item = item->next;
 		}
