@@ -236,6 +236,13 @@ UiElement* Gui::AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source
 	return Button;
 }
 
+UiElement* Gui::AddCheckBox(int x, int y, SDL_Rect uncheck, SDL_Rect check, Module* elementModule, UiElement* parent, bool useCamera, bool interactuable, bool draggable)
+{
+	UiElement* CheckBox = new UiCheckBox(x, y, uncheck, check, interactuable, draggable, useCamera, parent, elementModule);
+	uiElementList.add(CheckBox);
+	return CheckBox;
+}
+
 UiElement* Gui::AddHUDBar(int x, int y, int MaxValue, float* valueptr, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule) {
 	UiElement* HUD = new UiHUDBars(x, y, MaxValue, valueptr, usecamera, bar, fill, border, interactuable, draggeable, parent, elementmodule);
 	uiElementList.add(HUD);
@@ -354,6 +361,34 @@ void UiText::ChangeColor(SDL_Color newcolor) {
 	color = newcolor;
 	texture = app->font->Print(message.GetString(), color, fontType);
 }
+
+UiCheckBox::UiCheckBox(int x, int y, SDL_Rect uncheck, SDL_Rect check, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementModule) :UiElement(x, y, uncheck.w, uncheck.h, interactuable, draggeable, useCamera, UiTypes::CheckBox, parent, elementModule), unchecked(uncheck), checked(check), currentState(CheckBoxState::UNCHECKED) {}
+UiCheckBox::~UiCheckBox() {}
+
+void UiCheckBox::Update(int dx, int dy)
+{
+	currentState = CheckBoxState::UNCHECKED;
+
+	if (app->gui->MouseClick() && app->gui->focusedUi == this)
+	{
+		currentState = CheckBoxState::CHECKED;
+	}
+}
+
+void UiCheckBox::Draw(SDL_Texture* atlas)
+{
+	if (parent == nullptr || !outofparent()) {
+		switch (currentState) {
+		case CheckBoxState::UNCHECKED:
+			app->render->DrawTexture(atlas, GetScreenPos().x, GetScreenPos().y, &unchecked, 1.0f, SDL_FLIP_NONE, useCamera);
+			break;
+		case CheckBoxState::CHECKED:
+			app->render->DrawTexture(atlas, GetScreenPos().x, GetScreenPos().y, &checked, 1.0f, SDL_FLIP_NONE, useCamera);
+			break;
+		}
+	}
+}
+
 
 UiButton::UiButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule) :UiElement(x, y, source_unhover.w, source_unhover.h, interactuable, draggeable, useCamera, UiTypes::Button, parent, elementmodule), unhover(source_unhover), hover(source_hover), click(source_click), currentState(Button_state::unhovered) {}
 UiButton::~UiButton() {}

@@ -23,7 +23,8 @@ enum class UiTypes {
 	Button,
 	EButton,
 	HUDBar,
-	Slider
+	Slider,
+	CheckBox
 };
 
 class UiElement {
@@ -89,6 +90,7 @@ public:
 	UiElement* AddButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, Module* elementmodule = nullptr, UiElement* parent = nullptr, bool useCamera = false, bool interactuable = true, bool draggeable = false);
 	UiElement* AddHUDBar(int x, int y, int MaxValue, float* valueptr, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule);
 	UiElement* AddSlider(int x, int y, int value, int maxvalue, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule);
+	UiElement* AddCheckBox(int x, int y, SDL_Rect uncheck, SDL_Rect check, Module* elementModule = nullptr, UiElement* parent = nullptr, bool useCamera = false, bool interactuable = true, bool draggable = false);
 	void DraggUiElements(UiElement* parent, int dx, int dy);
 	UiElement* UiUnderMouse();
 	bool MouseClick();
@@ -118,6 +120,12 @@ enum class Button_state {
 	clicked
 };
 
+enum class CheckBoxState
+{
+	UNCHECKED,
+	CHECKED,
+};
+
 class UiButton :public UiElement {
 public:
 	UiButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule);
@@ -128,6 +136,18 @@ public:
 	SDL_Rect hover;
 	SDL_Rect click;
 	Button_state currentState;
+};
+
+class UiCheckBox :public UiElement
+{
+public:
+	UiCheckBox(int x, int y, SDL_Rect uncheck, SDL_Rect check, bool interactuable, bool draggable, bool useCamera, UiElement* parent, Module* elementModule);
+	~UiCheckBox();
+	void Draw(SDL_Texture* atlas)override;
+	void Update(int dx, int dy)override;
+	SDL_Rect checked;
+	SDL_Rect unchecked;
+	CheckBoxState currentState;
 };
 
 class UiText :public UiElement {

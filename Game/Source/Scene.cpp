@@ -200,12 +200,12 @@ void Scene::UiCallback(UiElement* element)
 		/*app->audio->PlayFx(buttonFx);*/
 		optionsMenu = app->gui->AddImage(437, 177, { 20,540,446,465 }, true, false, false, nullptr, this);
 		backButton = app->gui->AddButton(30, 20, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, this, optionsMenu, false, true, false);
-		/*musSlider = app->gui->AddSlider(115, 200, app->audio->GetMusicVolume(), MIX_MAX_VOLUME, true, false, false, optionsMenu, this);
-		fxSlider = app->gui->AddSlider(115, 100, app->audio->GetFxVolume(), MIX_MAX_VOLUME, true, false, false, optionsMenu, this);*/
+		musSlider = app->gui->AddSlider(115, 200, app->audio->GetMusicVolume(), MAX_VOLUME, true, false, false, optionsMenu, this);
+		fxSlider = app->gui->AddSlider(115, 100, app->audio->GetFxVolume(), MAX_VOLUME, true, false, false, optionsMenu, this);
 		/*app->gui->AddText(55, 25, "FULLSCREEN", app->font->smallFont, { 255,255,255 }, 42, false, false, false, fullScreen);*/
 		optionsText = app->gui->AddText(135, 20, "OPTIONS MENU", nullptr, optionsMenu, {255, 255, 255}, 42, false, false, false);
-		fxText = app->gui->AddText(70, 100, "FX", nullptr, optionsMenu, { 255, 255, 255 }, 42, false, false, false);
-		musicText = app->gui->AddText(50, 200, "MUSIC", nullptr, optionsMenu, { 255, 255, 255 }, 42, false, false, false);
+		fxText = app->gui->AddText(70, 95, "FX", nullptr, optionsMenu, { 255, 255, 255 }, 42, false, false, false);
+		musicText = app->gui->AddText(25, 200, "MUSIC", nullptr, optionsMenu, { 255, 255, 255 }, 42, false, false, false);
 	}
 	if (element == backButton) 
 	{
@@ -214,6 +214,8 @@ void Scene::UiCallback(UiElement* element)
 		app->gui->RemoveUiElement(optionsText);
 		app->gui->RemoveUiElement(fxText);
 		app->gui->RemoveUiElement(musicText);
+		app->gui->RemoveUiElement(musSlider);
+		app->gui->RemoveUiElement(fxSlider);
 		/*app->audio->PlayFx(buttonFx);*/
 	}
 	if (element == musSlider) 
