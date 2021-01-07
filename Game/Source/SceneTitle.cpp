@@ -13,9 +13,6 @@
 #include "Window.h"
 #include "Gui.h";
 
-#include "SDL2-2.0.10/include/SDL.h"
-#include "SDL2_mixer-2.0.4/SDL_mixer.h"
-
 SceneTitle::SceneTitle() : Module()
 {
 	name = "sceneTitle";
@@ -136,8 +133,8 @@ void SceneTitle::UiCallback(UiElement* element)
 	{
 		optionsMenu = app->gui->AddImage(417, 200, { 20,540,446,465 }, true, false, false, nullptr, this);
 		backButton = app->gui->AddButton(30, 40, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, this, optionsMenu);
-		sliderBarFx = app->gui->AddSlider(115, 100, app->audio->GetFxVolume(), MIX_MAX_VOLUME, true, false, false, optionsMenu, this);
-		sliderBarMus = app->gui->AddSlider(115, 175, app->audio->GetMusicVolume(), MIX_MAX_VOLUME, true, false, false, optionsMenu, this);
+		sliderBarFx = app->gui->AddSlider(115, 100, app->audio->GetFxVolume(), MAX_VOLUME, true, false, false, optionsMenu, this);
+		sliderBarMus = app->gui->AddSlider(115, 175, app->audio->GetMusicVolume(), MAX_VOLUME, true, false, false, optionsMenu, this);
 		optionsText = app->gui->AddText(130, 35, "OPTIONS MENU", nullptr, optionsMenu, { 255,255,255 }, 42, false, false, false);
 		fxText = app->gui->AddText(70, 95, "FX", nullptr, optionsMenu, { 255,255,255 }, 42, false, false, false);
 		musicText = app->gui->AddText(25, 170, "MUSIC", nullptr, optionsMenu, { 255,255,255 }, 42, false, false, false);

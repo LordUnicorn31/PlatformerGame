@@ -17,8 +17,8 @@ Audio::Audio() : Module()
 	music = NULL;
 	name.create("audio");
 
-	currentMusicVolume = MIX_MAX_VOLUME;
-	currentFxVolume = MIX_MAX_VOLUME;
+	currentMusicVolume = MAX_VOLUME;
+	currentFxVolume = MAX_VOLUME;
 }
 
 // Destructor
