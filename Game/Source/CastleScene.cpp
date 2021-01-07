@@ -33,13 +33,6 @@ bool CastleScene::Awake(pugi::xml_node& config)
 	audioPath.create(config.child("audio").attribute("path").as_string());
 	mapPath.create(config.child("mapfolder").attribute("name").as_string());
 
-	mapBat.x = config.child("batposx").attribute("x").as_int();
-	mapBat.y = config.child("batposy").attribute("y").as_int();
-	mapZombie.x = config.child("zombieposx").attribute("x").as_int();
-	mapZombie.y = config.child("zombieposy").attribute("y").as_int();
-	mapSkeleton.x = config.child("skeletonposx").attribute("x").as_int();
-	mapSkeleton.y = config.child("skeletonposy").attribute("y").as_int();
-
 	SDL_ShowCursor(SDL_DISABLE);
 	return ret;
 }
@@ -54,17 +47,10 @@ void CastleScene::Init()
 bool CastleScene::Start()
 {
 	app->audio->PlayMusic(audioPath.GetString());
+	app->entity->Enable();
 	Map::Load(mapPath.GetString(),mapName.GetString());
 	app->player->Enable();
-	app->entity->Enable();
 
-	iPoint batPos = Map::MapToWorld(mapBat.x, mapBat.y);
-	iPoint skeletonPos = Map::MapToWorld(mapSkeleton.x, mapSkeleton.y);
-	iPoint zombiePos = Map::MapToWorld(mapZombie.x, mapZombie.y);
-	bat = (FlyEnemy*)app->entity->CreateEntity(EntityType::FLY_ENEMY,batPos);
-	skeleton = (PatrolEnemy*)app->entity->CreateEntity(EntityType::PATROL_ENEMY,skeletonPos);
-	zombie = (WanderEnemy*)app->entity->CreateEntity(EntityType::WANDER_ENEMY,zombiePos);
-	/*ResetPos();*/
 	return true;
 }
 

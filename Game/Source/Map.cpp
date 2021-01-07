@@ -7,6 +7,7 @@
 #include "List.h"
 #include "SString.h"
 #include "Pathfinding.h"
+#include "EntityManager.h"
 
 #ifdef OPTICKPROFILE
 #include "optick.h"
@@ -52,11 +53,10 @@ bool Map::SLoad(const char* mapPath, const char* fileName)
 	{
 		SString layerName = layer.attribute("name").as_string();
 		SString navigation = "navigation";
+		SString entities = "Entities";
 
 		if (layerName == navigation) 
-		{
 			continue;
-		}
 		
 		pugi::xml_node layerData = layer.child("data");
 
@@ -154,10 +154,15 @@ bool Map::SLoad(const char* mapPath, const char* fileName)
 				for(int x = 0; x < tempProperties.Count();++x)
 				{
 					SString propertyName = nodeProperties.attribute("name").as_string();
+					int propertyValue = nodeProperties.attribute("value").as_int();
 
 					SString tempName = tempProperties[x].property.name;
-					if( propertyName == tempName)
+					int tempValue = tempProperties[x].property.value;
+					if( propertyName == tempName && propertyValue == tempValue)
 					{
+						if (propertyName == SString("Type"))
+							LOG("A");
+
 						tempProperties[x].tilesetIds.push_back(propertyNode.attribute("id").as_int());
 						alreadyExists = true;
 						break;
@@ -168,12 +173,18 @@ bool Map::SLoad(const char* mapPath, const char* fileName)
 				{
 					TempProperty temp;
 					Property current;
-					temp.property.name = nodeProperties.attribute("name").as_string();
-					temp.property.value = nodeProperties.attribute("value").as_bool();
+					SString name = nodeProperties.attribute("name").as_string();
+
+					if (name == SString("Type"))
+						LOG("A");
+
+					temp.property.name = name;
+
+					temp.property.value = nodeProperties.attribute("value").as_int();
 					temp.tilesetIds.push_back(propertyNode.attribute("id").as_int());
 
-					current.name = nodeProperties.attribute("name").as_string();
-					current.value = propertyNode.attribute("id").as_int();
+					current.name = name;
+					current.value = nodeProperties.attribute("value").as_int();
 
 					tempProperties.PushBack(temp);
 					properties.PushBack(current);
@@ -189,23 +200,26 @@ bool Map::SLoad(const char* mapPath, const char* fileName)
 				int tilesetId =  gid - firstGid;
 				if (gid > 0 && ((firstGid -1) <= tilesetId <= lastGid)) 
 				{
-					//create a tile to render and push it
-					RenderInfo renderTile;
-					renderTile.x = margin + ((tileWidth + spacing) * (tilesetId % tilesWidth));
-					renderTile.y = margin + ((tileHeight + spacing) * (tilesetId / tilesWidth));
-					renderTile.textureId = numTilesets;
-					mapTiles[i].renderTiles.PushBack(renderTile);
-
 					//check if the tile has any property and push it
-					for (int k = 0; k < tempProperties.Count(); ++k) 
+					for (int k = 0; k < tempProperties.Count(); ++k)
 					{
 						for (int f = 0; f < tempProperties[k].tilesetIds.size(); ++f)
 						{
-							if (tempProperties[k].tilesetIds[f] == tilesetId) 
+							if (tempProperties[k].tilesetIds[f] == tilesetId)
 							{
 								mapTiles[i].propertyIDs.PushBack(k + prevLastId);
 							}
 						}
+					}
+					
+					//dont render as map entiti position tiles
+					if (!SGetTileProperty(i, "Type")) {
+						//create a tile to render and push it
+						RenderInfo renderTile;
+						renderTile.x = margin + ((tileWidth + spacing) * (tilesetId % tilesWidth));
+						renderTile.y = margin + ((tileHeight + spacing) * (tilesetId / tilesWidth));
+						renderTile.textureId = numTilesets;
+						mapTiles[i].renderTiles.PushBack(renderTile);
 					}
 				}
 			}
@@ -223,6 +237,21 @@ bool Map::SLoad(const char* mapPath, const char* fileName)
 	mapFile.reset();
 	mapLoaded = true;
 
+	//spawn map entities
+	int entityType;
+	for (int y = 0; y < height; ++y)
+	{
+		for (int x = 0; x < width; ++x)
+		{
+			entityType = GetTileProperty(y * width + x, "Type");
+			if (entityType)
+			{
+				app->entity->CreateEntity((EntityType)entityType, iPoint(x* tileWidth, y* tileHeight));
+			}
+		}
+	}
+
+	//navigation data
 	int index;
 	uchar* navigationMap = new uchar[width * height];
 	memset(navigationMap, (uchar)1, width * height);
@@ -262,17 +291,17 @@ bool Map::SUnLoad()
 	return true;
 }
 
-iPoint Map::IMapToWorld(int x, int y) const
+iPoint Map::SMapToWorld(int x, int y) const
 {
 	return iPoint(x * tileWidth, y * tileHeight);
 }
 
-iPoint Map::IWorldToMap(int x, int y) const
+iPoint Map::SWorldToMap(int x, int y) const
 {
 	return iPoint(x / tileWidth, y / tileHeight);
 }
 
-bool Map::IGetTileProperty(int id, const char* iName)
+int Map::SGetTileProperty(int id, const char* iName)
 {
 	for (int i = 0; i < mapTiles[id].propertyIDs.Count(); ++i)
 	{
@@ -282,7 +311,7 @@ bool Map::IGetTileProperty(int id, const char* iName)
 			return properties[mapTiles[id].propertyIDs[i]].value;
 		}
 	}
-	return false;
+	return 0;
 }
 
 void Map::SDraw() 
@@ -295,8 +324,8 @@ void Map::SDraw()
 	if (!mapLoaded)
 		return;
 
-	iPoint camSize(IWorldToMap(-app->render->camera.x + app->render->camera.w, -app->render->camera.y + app->render->camera.h));
-	iPoint camPos = IWorldToMap(-app->render->camera.x, -app->render->camera.y);
+	iPoint camSize(SWorldToMap(-app->render->camera.x + app->render->camera.w, -app->render->camera.y + app->render->camera.h));
+	iPoint camPos = SWorldToMap(-app->render->camera.x, -app->render->camera.y);
 
 	for (int y = camPos.y; y <= camSize.y; ++y)
 	{
@@ -310,7 +339,7 @@ void Map::SDraw()
 			int tileId = y * width + x;
 			for(int i = 0; i < mapTiles[tileId].renderTiles.Count(); i++)
 			{
-				iPoint pos = IMapToWorld(x, y);
+				iPoint pos = SMapToWorld(x, y);
 				SDL_Rect r = { mapTiles[tileId].renderTiles[i].x, mapTiles[tileId].renderTiles[i].y, tileWidth, tileHeight };
 				app->render->DrawTexture(textures[mapTiles[tileId].renderTiles[i].textureId], pos.x, pos.y, &r);
 			}

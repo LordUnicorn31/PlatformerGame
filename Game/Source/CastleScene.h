@@ -42,12 +42,6 @@ private:
 	SString audioPath;
 	SString mapPath;
 	bool onDeath;
-	iPoint mapBat;
-	iPoint mapZombie;
-	iPoint mapSkeleton;
-	PatrolEnemy* skeleton = nullptr;
-	FlyEnemy* bat = nullptr;
-	WanderEnemy* zombie = nullptr;
 };
 
 #endif // __CASTLESCENE_H__
