@@ -367,26 +367,37 @@ UiCheckBox::~UiCheckBox() {}
 
 void UiCheckBox::Update(int dx, int dy)
 {
-	currentState = CheckBoxState::UNCHECKED;
 
-	if (app->gui->MouseClick() && app->gui->focusedUi == this)
+
+	if (currentState == CheckBoxState::UNCHECKED && app->gui->MouseClick() && app->gui->focusedUi == this)
 	{
+		app->gui->focusedUi = nullptr;
 		currentState = CheckBoxState::CHECKED;
 	}
+	
+	else if (currentState == CheckBoxState::CHECKED && app->gui->MouseClick() && app->gui->focusedUi == this)
+	{
+		app->gui->focusedUi = nullptr;
+		currentState = CheckBoxState::UNCHECKED;
+	}
+
 }
 
 void UiCheckBox::Draw(SDL_Texture* atlas)
 {
-	if (parent == nullptr || !outofparent()) {
-		switch (currentState) {
-		case CheckBoxState::UNCHECKED:
+	if (parent == nullptr || !outofparent())
+	{ 
+		switch (currentState) 
+		{
+			case CheckBoxState::UNCHECKED:
 			app->render->DrawTexture(atlas, GetScreenPos().x, GetScreenPos().y, &unchecked, 1.0f, SDL_FLIP_NONE, useCamera);
 			break;
-		case CheckBoxState::CHECKED:
+			case CheckBoxState::CHECKED:
 			app->render->DrawTexture(atlas, GetScreenPos().x, GetScreenPos().y, &checked, 1.0f, SDL_FLIP_NONE, useCamera);
 			break;
 		}
 	}
+	
 }
 
 

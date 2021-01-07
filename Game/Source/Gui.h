@@ -124,6 +124,7 @@ enum class CheckBoxState
 {
 	UNCHECKED,
 	CHECKED,
+	HOVERED
 };
 
 class UiButton :public UiElement {

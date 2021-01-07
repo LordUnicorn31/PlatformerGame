@@ -55,5 +55,7 @@ private:
 	UiElement* musicText;
 	UiElement* fxText;
 	UiElement* optionsText;
+	UiElement* fullScreenCheck;
+	UiElement* vsyncCheck;
 
 };
