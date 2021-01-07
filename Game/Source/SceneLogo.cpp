@@ -60,7 +60,7 @@ bool SceneLogo::Update(float dt)
 	//app->render->DrawRectangle(rect, 150, 0, 0, (Uint8)r);
 
 	
-	app->render->DrawTexture(logoImage, 0, 0, NULL);
+	app->render->DrawTexture(logoImage, 0, 0, NULL, 1.0f, SDL_FLIP_NONE, false);
 
 
 	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)

@@ -63,7 +63,7 @@ bool SceneTitle::Update(float dt)
 {
 	bool ret = true;
 
-	app->render->DrawTexture(titleImage, 0, 0, NULL);
+	app->render->DrawTexture(titleImage, 0, 0, NULL, 1.0f, SDL_FLIP_NONE, false);
 
 	if (exitGame) {
 		ret = false;
@@ -71,6 +71,7 @@ bool SceneTitle::Update(float dt)
 	}
 	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		app->win->FullScreen();
+
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 	{
 		app->transitions->FadeToBlack(this, app->scene,0.5f);

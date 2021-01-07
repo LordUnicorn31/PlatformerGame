@@ -61,7 +61,7 @@ bool LoseScene::Update(float dt)
 	{
 		app->transitions->FadeToBlack(this, app->scene,0.5f);
 	}
-	app->render->DrawTexture(background, 0, 0, NULL, true);
+	app->render->DrawTexture(background, 0, 0, NULL, 1.0f, SDL_FLIP_NONE, false);
 
 	return ret;
 }
