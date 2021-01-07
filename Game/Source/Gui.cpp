@@ -48,7 +48,7 @@ bool Gui::Update(float dt) {
 	if (MouseClick() && UiUnderMouse() != nullptr && UiUnderMouse()->interactuable) 
 	{
 		focusedUi = UiUnderMouse();
-		if (focusedUi->module != nullptr && focusedUi->type != UiTypes::EButton) 
+		if (focusedUi->module != nullptr) 
 		{
 			focusedUi->module->UiCallback(focusedUi);
 		}
@@ -218,7 +218,7 @@ UiElement* Gui::FocusNextElement(UiElement* current_element) {
 	return nullptr;
 }
 
-UiElement* Gui::AddImage(int x, int y, SDL_Rect source_rect, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule) {
+UiElement* Gui::AddImage(int x, int y, SDL_Rect source_rect, Module* elementmodule, UiElement* parent, bool useCamera, bool interactuable, bool draggeable) {
 	UiElement* Image = new UiImage(x, y, source_rect, interactuable, draggeable, useCamera, parent, elementmodule);
 	uiElementList.add(Image);
 	return Image;
@@ -368,17 +368,12 @@ UiCheckBox::~UiCheckBox() {}
 void UiCheckBox::Update(int dx, int dy)
 {
 
-
-	if (currentState == CheckBoxState::UNCHECKED && app->gui->MouseClick() && app->gui->focusedUi == this)
+	if (app->gui->MouseClick() && app->gui->focusedUi == this)
 	{
-		app->gui->focusedUi = nullptr;
-		currentState = CheckBoxState::CHECKED;
-	}
-	
-	else if (currentState == CheckBoxState::CHECKED && app->gui->MouseClick() && app->gui->focusedUi == this)
-	{
-		app->gui->focusedUi = nullptr;
-		currentState = CheckBoxState::UNCHECKED;
+		if (currentState == CheckBoxState::CHECKED) 
+			currentState = CheckBoxState::UNCHECKED;
+		else if (currentState == CheckBoxState::UNCHECKED) 
+			currentState = CheckBoxState::CHECKED;
 	}
 
 }
@@ -413,11 +408,11 @@ void UiButton::Update(int dx, int dy) {
 		currentState = Button_state::unhovered;
 	if (app->gui->MouseClick() && app->gui->focusedUi == this) {
 		currentState = Button_state::clicked;
-		app->gui->focusedUi = nullptr;
+		//app->gui->focusedUi = nullptr;
 	}
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && app->gui->focusedUi == this) {
 		currentState = Button_state::clicked;
-		app->gui->focusedUi = nullptr;
+		//app->gui->focusedUi = nullptr;
 	}
 	if (draggable && app->gui->MouseClick() && app->gui->UiUnderMouse() == this && dx != 0 && dy != 0) {
 		SetLocalPos(GetLocalPos().x + dx, GetLocalPos().y + dy);
@@ -474,17 +469,18 @@ void UiSlider::Update(int dx, int dy) {
 	SDL_Rect MouseRect = { dx,dy,1,1 };
 	bool intersection = SDL_HasIntersection(&MouseRect, &SliderRect);
 
-	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && intersection) {
+	if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_DOWN && intersection) 
+	{
 		currentState = Button_state::clicked;
-		app->gui->focusedUi = this;
+		//app->gui->focusedUi = this;
 	}
-	else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) {
+	else if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP) 
+	{
 		if (intersection)
 			currentState = Button_state::hovered;
-		else
+		else 
 			currentState = Button_state::unhovered;
-
-		app->gui->focusedUi = nullptr;
+		//app->gui->focusedUi = nullptr;
 	}
 	if (currentState == Button_state::clicked) {
 		if (parent == nullptr)

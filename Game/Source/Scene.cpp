@@ -106,8 +106,9 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
-	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		pauseButton->module->UiCallback(pauseButton);
+		
 	app->render->RenderMouse();
 	if (exitGame) {
 		ret = false;
@@ -137,7 +138,7 @@ void Scene::UiCallback(UiElement* element)
 			if (pauseWindow == nullptr) 
 			{
 
-				pauseWindow = app->gui->AddImage(417, 150, { 0, 512, 483, 512 },false, false, false, nullptr, this);
+				pauseWindow = app->gui->AddImage(417, 150, { 0, 512, 483, 512 },this);
 				app->gui->AddText(200, 50, "PAUSE", NULL, pauseWindow, { 255, 255, 255, 255 }, 32, false, false, false);
 				continueButton = app->gui->AddButton(120, 110, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
 				app->gui->AddText(50, 25, "CONTINUE", NULL, continueButton, { 255, 255, 255, 255 }, 32, false, false, false);
@@ -198,7 +199,7 @@ void Scene::UiCallback(UiElement* element)
 	if (element == optionsButton) 
 	{
 		/*app->audio->PlayFx(buttonFx);*/
-		optionsMenu = app->gui->AddImage(437, 177, { 20,540,446,465 }, true, false, false, nullptr, this);
+		optionsMenu = app->gui->AddImage(437, 177, { 20,540,446,465 }, this);
 		backButton = app->gui->AddButton(30, 20, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, this, optionsMenu, false, true, false);
 		musSlider = app->gui->AddSlider(115, 200, app->audio->GetMusicVolume(), MAX_VOLUME, true, false, false, optionsMenu, this);
 		fxSlider = app->gui->AddSlider(115, 100, app->audio->GetFxVolume(), MAX_VOLUME, true, false, false, optionsMenu, this);

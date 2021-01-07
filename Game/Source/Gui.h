@@ -83,7 +83,7 @@ public:
 	void UpdateUi();
 	void DrawUi();
 	//If the ui has a parent the x,y will be the local coordenates respect the parent
-	UiElement* AddImage(int x, int y, SDL_Rect source_rect, bool interactuable = true, bool draggeable = false, bool useCamera = false, UiElement* parent = nullptr, Module* elementmodule = nullptr);
+	UiElement* AddImage(int x, int y, SDL_Rect source_rect, Module* elementmodule = nullptr, UiElement* parent = nullptr, bool useCamera = false, bool interactuable = false, bool draggeable = false);
 	//If the ui has a parent the x,y will be the local coordenates respect the parent
 	UiElement* AddText(int x, int y, const char* text, _TTF_Font* font = nullptr, UiElement* parent = nullptr, SDL_Color color = { 255, 255, 255, 255 }, int size = 12, bool useCamera = false, bool interactuable = false, bool draggeable = false, Module* elementmodule = nullptr);
 	//If the ui has a parent the x,y will be the local coordenates respect the parent

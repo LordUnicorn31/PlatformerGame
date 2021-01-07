@@ -49,8 +49,6 @@ bool SceneTitle::Start()
 	app->gui->AddText(60, 22, "OPTIONS", nullptr, optionsButton, { 255,255,255 }, 32, false, false, false);
 	exitButton = app->gui->AddButton((int)525.5f, 580, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
 	app->gui->AddText(80, 22, "EXIT", nullptr, exitButton, { 255,255,255 }, 32, false, false, false);
-	fullScreenCheck = app->gui->AddCheckBox(900, 580, { 987, 808, 30, 30 }, { 1028, 808, 30, 30 }, this);
-	vsyncCheck = app->gui->AddCheckBox(900, 610, { 987, 808, 30, 30 }, { 1028, 808, 30, 30 }, this);
 	return true;
 }
 
@@ -133,13 +131,15 @@ void SceneTitle::UiCallback(UiElement* element)
 
 	if (element == optionsButton)
 	{
-		optionsMenu = app->gui->AddImage(417, 200, { 20,540,446,465 }, true, false, false, nullptr, this);
+		optionsMenu = app->gui->AddImage(417, 200, { 20,540,446,465 }, this);
 		backButton = app->gui->AddButton(30, 40, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, this, optionsMenu);
 		sliderBarFx = app->gui->AddSlider(115, 100, app->audio->GetFxVolume(), MAX_VOLUME, true, false, false, optionsMenu, this);
 		sliderBarMus = app->gui->AddSlider(115, 175, app->audio->GetMusicVolume(), MAX_VOLUME, true, false, false, optionsMenu, this);
 		optionsText = app->gui->AddText(130, 35, "OPTIONS MENU", nullptr, optionsMenu, { 255,255,255 }, 42, false, false, false);
 		fxText = app->gui->AddText(70, 95, "FX", nullptr, optionsMenu, { 255,255,255 }, 42, false, false, false);
 		musicText = app->gui->AddText(25, 170, "MUSIC", nullptr, optionsMenu, { 255,255,255 }, 42, false, false, false);
+		fullScreenCheck = app->gui->AddCheckBox(0, 100, { 987, 808, 30, 30 }, { 1028, 808, 30, 30 }, this,optionsMenu);
+		vsyncCheck = app->gui->AddCheckBox(0, 131, { 987, 808, 30, 30 }, { 1028, 808, 30, 30 }, this, optionsMenu);
 	}
 
 	if (element == backButton) {

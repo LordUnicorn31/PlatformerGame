@@ -7,6 +7,7 @@
 #include "WanderEnemy.h"
 
 struct SDL_Texture;
+class UiElement;
 
 class CastleScene : public Module
 {
@@ -42,6 +43,8 @@ private:
 	SString audioPath;
 	SString mapPath;
 	bool onDeath;
+
+	UiElement* pauseButton;
 };
 
 #endif // __CASTLESCENE_H__

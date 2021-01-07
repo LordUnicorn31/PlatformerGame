@@ -51,6 +51,7 @@ bool CastleScene::Start()
 	Map::Load(mapPath.GetString(),mapName.GetString());
 	app->player->Enable();
 
+	pauseButton = nullptr;
 	return true;
 }
 
@@ -100,7 +101,7 @@ bool CastleScene::PostUpdate()
 	bool ret = true;
 
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		ret = false;
+		pauseButton->module->UiCallback(pauseButton);
 
 	return ret;
 }
