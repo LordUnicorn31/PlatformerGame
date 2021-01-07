@@ -4,6 +4,7 @@
 #include "Module.h"
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
+#define MAX_VOLUME 128
 
 struct _Mix_Music;
 struct Mix_Chunk;
