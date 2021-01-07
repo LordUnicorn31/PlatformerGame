@@ -15,7 +15,8 @@ struct RenderInfo
 struct Property
 {
 	SString name;
-	bool value;
+	int value;
+	int id;
 };
 
 struct TempProperty
@@ -42,9 +43,9 @@ public:
 	static void Draw() { return Get().SDraw(); }
 	static bool Load(const char* mapPath,const char* mapName) { return Get().SLoad(mapPath,mapName); }
 	static bool UnLoad() { return Get().SUnLoad(); }
-	static iPoint MapToWorld(int x, int y) { return Get().IMapToWorld(x,y); }
-	static iPoint WorldToMap(int x, int y) { return Get().IWorldToMap(x, y); }
-	static bool GetTileProperty(int id, const char* name) { return Get().IGetTileProperty(id, name); }
+	static iPoint MapToWorld(int x, int y) { return Get().SMapToWorld(x,y); }
+	static iPoint WorldToMap(int x, int y) { return Get().SWorldToMap(x, y); }
+	static int GetTileProperty(int id, const char* name) { return Get().SGetTileProperty(id, name); }
 	//TODO: getters are static?
 	static int GetMapWidth() { return Get().width; }
 	static int GetMapHeight() { return Get().height; }
@@ -56,9 +57,9 @@ private:
 	void SDraw();
 	bool SLoad(const char* mapPath, const char* fileName);
 	bool SUnLoad();
-	iPoint IMapToWorld(int x, int y) const;
-	iPoint IWorldToMap(int x, int y) const;
-	bool IGetTileProperty(int id, const char* name);
+	iPoint SMapToWorld(int x, int y) const;
+	iPoint SWorldToMap(int x, int y) const;
+	int SGetTileProperty(int id, const char* name);
 	//Draw collisions / walkability ?
 	Map() {};
 

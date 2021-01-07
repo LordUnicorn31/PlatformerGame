@@ -42,17 +42,6 @@ bool Scene::Awake(pugi::xml_node& config)
 	mapPath.create(config.child("mapfolder").attribute("name").as_string());
 	audioPath.create(config.child("audio").attribute("path").as_string());
 
-	mapBat.x = config.child("batposx").attribute("x").as_int();
-	mapBat.y = config.child("batposy").attribute("y").as_int();
-	mapZombie.x = config.child("zombieposx").attribute("x").as_int();
-	mapZombie.y = config.child("zombieposy").attribute("y").as_int();
-	mapSkeleton.x = config.child("skeletonposx").attribute("x").as_int();
-	mapSkeleton.y = config.child("skeletonposy").attribute("y").as_int();
-	mapCoin.x = config.child("coinposx").attribute("x").as_int();
-	mapCoin.y = config.child("coinposy").attribute("y").as_int();
-	mapChest.x = 11;
-	mapChest.y = 196;
-
 	SDL_ShowCursor(SDL_DISABLE);
 	return ret;
 }
@@ -68,24 +57,10 @@ bool Scene::Start()
 {   
 	exitGame = false;
 	pauseButton = app->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, this, nullptr, false, true, false);
- 	app->entity->Enable();
 	app->audio->PlayMusic(audioPath.GetString());
-
+	app->entity->Enable();
 	Map::Load(mapPath.GetString(),mapName.GetString());
 	app->player->Enable();
-	
-	iPoint batPos = Map::MapToWorld(mapBat.x, mapBat.y);
-	iPoint skeletonPos = Map::MapToWorld(mapSkeleton.x, mapSkeleton.y);
-	iPoint zombiePos = Map::MapToWorld(mapZombie.x, mapZombie.y);
-	iPoint coinPos = Map::MapToWorld(mapCoin.x, mapCoin.y);
-	iPoint chestPos = Map::MapToWorld(mapChest.x, mapChest.y);
-	bat = (FlyEnemy*)app->entity->CreateEntity(EntityType::FLY_ENEMY, batPos);
-	skeleton = (PatrolEnemy*)app->entity->CreateEntity(EntityType::PATROL_ENEMY, skeletonPos);
-	zombie = (WanderEnemy*)app->entity->CreateEntity(EntityType::WANDER_ENEMY, zombiePos);
-	coin = (Coin*)app->entity->CreateEntity(EntityType::COIN, coinPos);
-	chest = (Chest*)app->entity->CreateEntity(EntityType::CHEST, chestPos);
-	
-
 
 	return true;
 }
