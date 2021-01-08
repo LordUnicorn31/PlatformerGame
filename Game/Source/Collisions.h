@@ -5,9 +5,8 @@
 #define MAX_COLLIDERS 200
 
 #include "Module.h"
+
 class Entity;
-class Enemies;
-struct Particle;
 
 
 enum ColliderType
@@ -28,9 +27,10 @@ struct Collider
 	bool active = true;
 	ColliderType type;
 	Module* callback = nullptr;
+	Entity* entity = nullptr;
 	//Collider();
 
-	Collider(SDL_Rect rectangle, ColliderType type, Module* callback = nullptr) :rect(rectangle), type(type), callback(callback) 
+	Collider(SDL_Rect rectangle, ColliderType type, Module* callback = nullptr, Entity* iEntity = nullptr) :rect(rectangle), type(type), callback(callback), entity(iEntity)
 	{
 
 	}
@@ -55,7 +55,7 @@ public:
 	bool Update(float dt) override;
 	bool CleanUp() override;
 
-	Collider* AddCollider(SDL_Rect rect, ColliderType type, Module* callback = nullptr);
+	Collider* AddCollider(SDL_Rect rect, ColliderType type, Module* callback = nullptr, Entity* entity = nullptr);
 	void DebugDraw();
 
 private:

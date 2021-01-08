@@ -39,7 +39,7 @@ FlyEnemy::FlyEnemy(iPoint pos) : Dynamic(EntityType::FLY_ENEMY, pos)
 	currentDirection = { 0,0 };
 	destinationTile = { 0,0 };
 	attackRadius = ATTACK_RADIUS * Map::GetTileWidth();
-	entityCollider = app->collisions->AddCollider({ pos.x + 2, pos.y + 2, width - 2, height }, ColliderType::COLLIDER_ENEMY, app->entity);
+	entityCollider = app->collisions->AddCollider({ pos.x + 2, pos.y, width - 2, height - 7}, ColliderType::COLLIDER_ENEMY, app->entity);
 }
 
 FlyEnemy::~FlyEnemy(){}

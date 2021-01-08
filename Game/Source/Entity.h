@@ -30,6 +30,7 @@ public:
 public:
 	virtual void Draw(float dt);
 	virtual void Update(float dt);
+	virtual void Die() {};
 	virtual void UpdateLogic();
 protected:
 	void SetEntityCollider();
@@ -41,7 +42,6 @@ protected:
 	Dynamic(EntityType type, iPoint initialPos);
 	~Dynamic() {};
 	virtual void Move() {};
-	virtual void Die() {};
 	float maxSpeed;
 	fPoint targetSpeed;
 	float terminalSpeed;
