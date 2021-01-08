@@ -100,7 +100,7 @@ void Gui::RemoveUiElement(UiElement* element) {
 	{
 		for (int i = 0; i < uiElementList.count(); ++i) 
 		{
-			if (uiElementList[i]->parent == element)
+			if (uiElementList[i]->parent == element) 
 				RemoveUiElement(uiElementList[i]);
 		}
 		uiElementList.del(uiElementList.At(index));

@@ -101,8 +101,13 @@ bool CastleScene::PostUpdate()
 {
 	bool ret = true;
 
-	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
-		pauseButton->module->UiCallback(pauseButton);
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) 
+	{
+		if (optionsMenu == nullptr)
+			pauseButton->module->UiCallback(pauseButton);
+		else
+			backButton->module->UiCallback(backButton);
+	}
 
 	app->render->RenderMouse();
 
@@ -237,6 +242,7 @@ void CastleScene::UiCallback(UiElement* element)
 		app->gui->RemoveUiElement(fullScreenCheck);
 		app->gui->RemoveUiElement(vsyncCheck);
 		/*app->audio->PlayFx(buttonFx);*/
+		optionsMenu = nullptr;
 	}
 	if (element == musSlider)
 	{

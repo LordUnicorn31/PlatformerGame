@@ -68,10 +68,6 @@ public:
 		return true;
 	}
 
-	virtual void UiCallback(UiElement* element) {
-
-	}
-
 	void Enable()
 	{
 		if (enabled == false) 
@@ -95,11 +91,20 @@ public:
 		return enabled;
 	}
 
+	virtual void OnCollision(Collider*, Collider*) 
+	{
+
+	}
+
+	virtual void UiCallback(UiElement* element) 
+	{
+
+	}
+
 public:
 
 	SString name;
 	bool active;
-	virtual void OnCollision(Collider*, Collider*) {};
 protected:
 	bool enabled = true;
 
