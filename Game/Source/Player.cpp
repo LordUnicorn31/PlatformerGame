@@ -51,10 +51,7 @@ Player::Player() : Module()
 	//If change the climbAnimation speed remember to change it to on the move ladder function
 	climbAnimation.speed = 6.0f;
 	jumpAnimation.PushBack({ 16, 16, 16, 16 });
-	
-	white = { 255,255,255 };
 
-	
 }
 
 Player::~Player() 
@@ -67,11 +64,6 @@ bool Player::Awake(pugi::xml_node& playerNode)
 	texturePath.create(playerNode.child_value("texture"));
 	coinTextPath.create(playerNode.child_value("cointexture"));
 	textureRect = { playerNode.child("textureRect").attribute("x").as_int(), playerNode.child("textureRect").attribute("y").as_int(), playerNode.child("textureRect").attribute("w").as_int(), playerNode.child("textureRect").attribute("h").as_int() };
-	heartRect = { playerNode.child("heartRect").attribute("x").as_int(), playerNode.child("heartRect").attribute("y").as_int(), playerNode.child("heartRect").attribute("w").as_int(), playerNode.child("heartRect").attribute("h").as_int() };
-	initialPos = iPoint(playerNode.child("position").attribute("x").as_int(), playerNode.child("position").attribute("y").as_int());
-	coinPos = iPoint(playerNode.child("coinposition").attribute("x").as_int(), playerNode.child("coinposition").attribute("y").as_int());
-	heartPos = iPoint(playerNode.child("heartposition").attribute("x").as_int(), playerNode.child("heartposition").attribute("y").as_int());
-	heartCounterPos = { 30,2790 };
 	checkpoint1x = int(playerNode.child("checkpointpos1x").attribute("x").as_int());
 	checkpoint1y = int(playerNode.child("checkpointpos1y").attribute("y").as_int());
 	checkpoint2x = int(playerNode.child("checkpointpos2x").attribute("x").as_int());
@@ -95,8 +87,6 @@ bool Player::Start()
 	jumpSound = app->audio->LoadFx("Assets/audio/fx/jump.wav");
 	checkpointSound = app->audio->LoadFx("Assets/audio/fx/checkpoint.wav");
 	position = initialPos;
-	coinTexture = app->tex->Load(coinTextPath.GetString());
-	heartTexture = app->tex->Load(texturePath.GetString());
 	playerCollider = app->collisions->AddCollider({ position.x + 2, position.y + 2, (int)width -2, (int)height }, ColliderType::COLLIDER_ALLY, this);
 	
 	return true;
@@ -223,9 +213,6 @@ bool Player::Update(float dt)
 		acumulatedMs = 0.0f;
 		doLogic = false;
 		app->render->CameraMovement();//Problem: if we dont put the camera movement here the player gets drawn double
-		CoinMovement();
-		HeartMovement();
-		HeartCounterMovement();
 	}
 
 	
@@ -295,8 +282,6 @@ bool Player::Update(float dt)
 bool Player::CleanUp()
 {
 	app->tex->UnLoad(texture);
-	app->tex->UnLoad(coinTexture);
-	app->tex->UnLoad(heartTexture);
 	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
 
@@ -318,10 +303,6 @@ void Player::Draw(float dt)
 		app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(dt), 1.0f, SDL_FLIP_HORIZONTAL);
 	else
 		app->render->DrawTexture(texture, position.x, position.y, &currentAnimation->GetCurrentFrame(dt), 1.0f);
-
-	app->render->DrawTexture(coinTexture, coinPos.x, coinPos.y);
-
-	app->render->DrawTexture(heartTexture, heartPos.x, heartPos.y, &heartRect);
 
 }
 
@@ -876,85 +857,32 @@ void Player::Move()
 
 void Player::Die()
 {
-
 	position = initialPos;
 	SetPlayerCollider();
-
-}
-
-void Player::CoinMovement()
-{
-	if (position.x <= (Map::GetMapWidth() * Map::GetTileWidth()) - (app->win->width / 2))
-	{
-		coinPos.x = (app->player->GetPosition().x - app->render->camera.w / 2);
-
-	}
-	if (coinPos.x < 0)
-	{
-		coinPos.x = 0;
-
-	}
-
-	coinPos.y = (app->player->GetPosition().y - app->render->camera.h / 2);
-
-
-	if (coinPos.y < 0)
-	{
-		coinPos.y = 0;
-
-	}
-}
-
-void Player::HeartMovement()
-{
-	if (position.x <= (Map::GetMapWidth() * Map::GetTileWidth()) - (app->win->width / 2))
-	{
-		heartPos.x = (app->player->GetPosition().x - app->render->camera.w / 2) + 8;
-
-	}
-	if (heartPos.x < 8)
-	{
-		heartPos.x = 8;
-
-	}
-
-	heartPos.y = (app->player->GetPosition().y - app->render->camera.h / 2) + 40;
-
-
-	if (heartPos.y < 0)
-	{
-		heartPos.y = 0;
-
-	}
-}
-
-
-void Player::HeartCounterMovement()
-{
-	if (position.x <= (Map::GetMapWidth() * Map::GetTileWidth()) - (app->win->width / 2))
-	{
-		heartCounterPos.x = (app->player->GetPosition().x - app->render->camera.w / 2) + 30;
-
-	}
-	if (heartCounterPos.x < 30)
-	{
-		heartCounterPos.x = 30;
-
-	}
-
-	heartCounterPos.y = (app->player->GetPosition().y - app->render->camera.h / 2) + 40;
-
-
-	if (heartCounterPos.y < 0)
-	{
-		heartCounterPos.y = 0;
-
-	}
 }
 
 void Player::SetPlayerCollider()
 {
 	playerCollider->SetPos(position.x + 2, position.y + 2);
+}
+
+void Player::OnCollision(Collider* c1, Collider* c2)
+{
+	if (c2->type == ColliderType::COLLIDER_ENEMY) 
+	{
+		app->LoadGame();
+		--lives;
+	}
+	if (c2->type == ColliderType::COLLIDER_COLLECTIBLE) 
+	{
+		if(c2->entity != nullptr)
+			c2->entity->Die();
+	}
+}
+
+int Player::GetLives()
+{
+	return lives;
 }
 
 void Player::Lives(Module* mod)

@@ -406,12 +406,6 @@ void App::SaveGame() const
 	wantToSave = true;
 }
 
-/*
-void App::GetSaveGames(List<SString>& list_to_fill) const
-{
-}
-*/
-
 // Called before quitting
 bool App::CleanUp()
 {
