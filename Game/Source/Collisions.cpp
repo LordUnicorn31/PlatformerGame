@@ -17,13 +17,16 @@ Collisions::Collisions()
 		colliders[i] = nullptr;
 
 	matrix[COLLIDER_ALLY][COLLIDER_ALLY] = false;
-	matrix[COLLIDER_ALLY][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_ALLY][COLLIDER_ENEMY] = true;
+	matrix[COLLIDER_ALLY][COLLIDER_COLLECTIBLE] = true;
 
-
-	matrix[COLLIDER_ENEMY][COLLIDER_ALLY] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_ALLY] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_ENEMY][COLLIDER_COLLECTIBLE] = false;
 
-
+	matrix[COLLIDER_COLLECTIBLE][COLLIDER_ALLY] = true;
+	matrix[COLLIDER_COLLECTIBLE][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_COLLECTIBLE][COLLIDER_COLLECTIBLE] = false;
 }
 
 // Destructor
@@ -107,8 +110,8 @@ void Collisions::DebugDraw()
 		{
 			switch (colliders[i]->type)
 			{
-			case COLLIDER_NONE: // white
-				app->render->DrawRectangle(colliders[i]->rect, 255, 255, 255, alpha);
+			case COLLIDER_COLLECTIBLE: // blue
+				app->render->DrawRectangle(colliders[i]->rect, 0, 0, 255, alpha);
 				break;
 			
 			case COLLIDER_ALLY: // green
@@ -142,7 +145,7 @@ bool Collisions::CleanUp()
 	return true;
 }
 
-Collider* Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback)
+Collider* Collisions::AddCollider(SDL_Rect rect, ColliderType type, Module* callback)
 {
 	Collider* ret = nullptr;
 

@@ -28,7 +28,7 @@ WanderEnemy::WanderEnemy(iPoint pos) : Dynamic(EntityType::WANDER_ENEMY, pos)
 	moveAnimation.speed = 6.0f;
 	deathAnimation.PushBack({ 0, 96, 16, 16 });
 	deathAnimation.PushBack({ 80, 96, 16, 16 });
-	entityCollider = app->collisions->AddCollider({ pos.x +2, pos.y +2, width -2, height }, COLLIDER_TYPE::COLLIDER_ENEMY, app->entity);
+	entityCollider = app->collisions->AddCollider({ pos.x +2, pos.y +2, width -2, height }, ColliderType::COLLIDER_ENEMY, app->entity);
 }
 
 WanderEnemy::~WanderEnemy(){}

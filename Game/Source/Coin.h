@@ -16,8 +16,4 @@ private:
 	Animations spinCoin;
 	Animations* currentAnimation = nullptr;
 	iPoint initialPosition;
-	
-public:
-
-	Collider* coinCollider;
 };

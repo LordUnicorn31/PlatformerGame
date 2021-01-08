@@ -23,7 +23,7 @@ PatrolEnemy::PatrolEnemy(iPoint pos) : Dynamic(EntityType::PATROL_ENEMY, pos)
 	deathAnimation.PushBack({ 0, 80, 16, 16 });
 	deathAnimation.PushBack({ 80, 80, 16, 16 });
 	timeSinceSwap = 0.0f;
-	entityCollider = app->collisions->AddCollider({ pos.x + 2, pos.y + 2, width - 2, height }, COLLIDER_TYPE::COLLIDER_ENEMY, app->entity);
+	entityCollider = app->collisions->AddCollider({ pos.x + 2, pos.y + 2, width - 2, height }, ColliderType::COLLIDER_ENEMY, app->entity);
 }
 
 PatrolEnemy::~PatrolEnemy(){}

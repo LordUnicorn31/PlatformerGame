@@ -10,14 +10,15 @@ class Enemies;
 struct Particle;
 
 
-enum COLLIDER_TYPE
+enum ColliderType
 {
 	COLLIDER_NONE = -1,
 	COLLIDER_ALLY,
 	COLLIDER_ENEMY,
 	COLLIDER_ATTACK,
+	COLLIDER_COLLECTIBLE,
 
-	NUM_COLLIDER_TYPES
+	NUM_ColliderTypeS
 };
 
 struct Collider
@@ -25,11 +26,11 @@ struct Collider
 	SDL_Rect rect;
 	bool toDelete = false;
 	bool active = true;
-	COLLIDER_TYPE type;
+	ColliderType type;
 	Module* callback = nullptr;
 	//Collider();
 
-	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, Module* callback = nullptr) :rect(rectangle), type(type), callback(callback) 
+	Collider(SDL_Rect rectangle, ColliderType type, Module* callback = nullptr) :rect(rectangle), type(type), callback(callback) 
 	{
 
 	}
@@ -54,13 +55,13 @@ public:
 	bool Update(float dt) override;
 	bool CleanUp() override;
 
-	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
+	Collider* AddCollider(SDL_Rect rect, ColliderType type, Module* callback = nullptr);
 	void DebugDraw();
 
 private:
 
 	Collider* colliders[MAX_COLLIDERS];
-	bool matrix[NUM_COLLIDER_TYPES][NUM_COLLIDER_TYPES];
+	bool matrix[NUM_ColliderTypeS][NUM_ColliderTypeS];
 	bool debug = false;
 
 };

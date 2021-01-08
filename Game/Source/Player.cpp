@@ -97,7 +97,7 @@ bool Player::Start()
 	position = initialPos;
 	coinTexture = app->tex->Load(coinTextPath.GetString());
 	heartTexture = app->tex->Load(texturePath.GetString());
-	playerCollider = app->collisions->AddCollider({ position.x + 2, position.y + 2, (int)width -2, (int)height }, COLLIDER_TYPE::COLLIDER_ALLY, this);
+	playerCollider = app->collisions->AddCollider({ position.x + 2, position.y + 2, (int)width -2, (int)height }, ColliderType::COLLIDER_ALLY, this);
 	
 	return true;
 }

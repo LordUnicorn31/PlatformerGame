@@ -26,8 +26,10 @@ FlyEnemy::FlyEnemy(iPoint pos) : Dynamic(EntityType::FLY_ENEMY, pos)
 	
 	idleAnimation.PushBack({ 192, 131, 16, 8 });
 	idleAnimation.PushBack({ 208, 131, 16, 8 });
+	idleAnimation.speed = 1.5f;
 	moveAnimation.PushBack({ 192, 131, 16, 8 });
 	moveAnimation.PushBack({ 208, 131, 16, 8 });
+	moveAnimation.speed = 2.5f;
 	deathAnimation.PushBack({ 192, 131, 16, 8 });
 	deathAnimation.PushBack({ 80, 80,  16, 8 });
 	
@@ -37,7 +39,7 @@ FlyEnemy::FlyEnemy(iPoint pos) : Dynamic(EntityType::FLY_ENEMY, pos)
 	currentDirection = { 0,0 };
 	destinationTile = { 0,0 };
 	attackRadius = ATTACK_RADIUS * Map::GetTileWidth();
-	entityCollider = app->collisions->AddCollider({ pos.x + 2, pos.y + 2, width - 2, height }, COLLIDER_TYPE::COLLIDER_ENEMY, app->entity);
+	entityCollider = app->collisions->AddCollider({ pos.x + 2, pos.y + 2, width - 2, height }, ColliderType::COLLIDER_ENEMY, app->entity);
 }
 
 FlyEnemy::~FlyEnemy(){}
