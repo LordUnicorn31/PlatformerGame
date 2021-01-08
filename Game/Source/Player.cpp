@@ -971,9 +971,3 @@ void Player::Lives(Module* mod)
 		lives = fullLives;
 	}
 }
-
-
-// TEMPORARY UI FUNCTIONS
-
-
-

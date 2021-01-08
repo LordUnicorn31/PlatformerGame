@@ -5,6 +5,8 @@
 #include "Render.h"
 #include "Timer.h"
 #include "Map.h"
+#include "EntityManager.h"
+#include "Collisions.h"
 
 #define ATTACK_RADIUS 10
 
@@ -35,6 +37,7 @@ FlyEnemy::FlyEnemy(iPoint pos) : Dynamic(EntityType::FLY_ENEMY, pos)
 	currentDirection = { 0,0 };
 	destinationTile = { 0,0 };
 	attackRadius = ATTACK_RADIUS * Map::GetTileWidth();
+	entityCollider = app->collisions->AddCollider({ pos.x + 2, pos.y + 2, width - 2, height }, COLLIDER_TYPE::COLLIDER_ENEMY, app->entity);
 }
 
 FlyEnemy::~FlyEnemy(){}
@@ -229,6 +232,7 @@ void FlyEnemy::Move()
 {
 	pos.x += maxSpeed * currentDirection.x;
 	pos.y += maxSpeed * currentDirection.y;
+	SetEntityCollider();
 
 	if(ReachedTile())
 	{

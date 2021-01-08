@@ -3,6 +3,8 @@
 #include "Render.h"
 #include "Player.h"
 #include "Map.h"
+#include "EntityManager.h"
+#include "Collisions.h"
 
 enum class WanderEnemyStates : unsigned char
 {
@@ -26,6 +28,7 @@ WanderEnemy::WanderEnemy(iPoint pos) : Dynamic(EntityType::WANDER_ENEMY, pos)
 	moveAnimation.speed = 6.0f;
 	deathAnimation.PushBack({ 0, 96, 16, 16 });
 	deathAnimation.PushBack({ 80, 96, 16, 16 });
+	entityCollider = app->collisions->AddCollider({ pos.x +2, pos.y +2, width -2, height }, COLLIDER_TYPE::COLLIDER_ENEMY, app->entity);
 }
 
 WanderEnemy::~WanderEnemy(){}
@@ -88,6 +91,7 @@ void WanderEnemy::Move()
 	while (app->player->GetPosition().x > pos.x) maxSpeed;*/
 
 	pos.x += maxSpeed;
+	SetEntityCollider();
 }
 
 void WanderEnemy::Die()

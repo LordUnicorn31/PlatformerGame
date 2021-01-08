@@ -3,6 +3,7 @@
 #include "Point.h"
 
 struct SDL_Texture;
+struct Collider;
 
 enum class EntityType : unsigned char 
 {
@@ -24,11 +25,14 @@ public:
 	int width;
 	int height;
 	SDL_Texture* sprite;
+	Collider* entityCollider;
 	
 public:
 	virtual void Draw(float dt);
 	virtual void Update(float dt);
 	virtual void UpdateLogic();
+protected:
+	void SetEntityCollider();
 };
 
 class Dynamic : public Entity 
