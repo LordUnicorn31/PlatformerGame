@@ -126,8 +126,25 @@ bool CastleScene::CleanUp()
 	app->entity->Disable();
 	app->collisions->Disable();
 	app->gui->DeleteAllUiElements();
+
+	pauseButton = nullptr;
 	pauseWindow = nullptr;
+	continueButton = nullptr;
+	saveButton = nullptr;
+	titleButton = nullptr;
+	optionsButton = nullptr;
+	exitButton = nullptr;
 	optionsMenu = nullptr;
+	backButton = nullptr;
+	musSlider = nullptr;
+	fxSlider = nullptr;
+	optionsText = nullptr;
+	fxText = nullptr;
+	musicText = nullptr;
+	fullScreenCheck = nullptr;
+	vsyncCheck = nullptr;
+	fullScreenText = nullptr;
+	vsyncText = nullptr;
 
 	return true;
 }
@@ -165,6 +182,11 @@ void CastleScene::UiCallback(UiElement* element)
 				app->gui->RemoveUiElement(exitButton);
 				app->gui->RemoveUiElement(titleButton);
 				pauseWindow = nullptr;
+				continueButton = nullptr;
+				saveButton = nullptr;
+				optionsButton = nullptr;
+				exitButton = nullptr;
+				titleButton = nullptr;
 				/*app->audio->PlayMusic("Resources/audio/music/game.ogg", 0.0f);*/
 
 			}
@@ -198,6 +220,10 @@ void CastleScene::UiCallback(UiElement* element)
 			app->gui->RemoveUiElement(optionsButton);
 			app->gui->RemoveUiElement(titleButton);
 			pauseWindow = nullptr;
+			continueButton = nullptr;
+			saveButton = nullptr;
+			optionsButton = nullptr;
+			titleButton = nullptr;
 		}
 	}
 	/*if (element == fullScreen) {
@@ -248,6 +274,16 @@ void CastleScene::UiCallback(UiElement* element)
 		app->gui->RemoveUiElement(vsyncCheck);
 		/*app->audio->PlayFx(buttonFx);*/
 		optionsMenu = nullptr;
+		backButton = nullptr;
+		optionsText = nullptr;
+		fxText = nullptr;
+		musicText = nullptr;
+		musSlider = nullptr;
+		fxSlider = nullptr;
+		fullScreenText = nullptr;
+		vsyncText = nullptr;
+		fullScreenCheck = nullptr;
+		vsyncCheck = nullptr;
 	}
 	if (element == musSlider)
 	{
