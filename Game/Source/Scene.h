@@ -66,6 +66,10 @@ private:
 	UiElement* optionsText;
 	UiElement* fxText;
 	UiElement* musicText;
+	UiElement* fullScreenCheck;
+	UiElement* vsyncCheck;
+	UiElement* fullScreenText;
+	UiElement* vsyncText;
 
 	bool exitGame;
 };

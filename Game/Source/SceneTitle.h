@@ -49,7 +49,6 @@ private:
 
 	UiElement* optionsMenu;
 	UiElement* backButton;
-	UiElement* fullScreen;
 	UiElement* sliderBarFx;
 	UiElement* sliderBarMus;
 	UiElement* musicText;
@@ -57,5 +56,7 @@ private:
 	UiElement* optionsText;
 	UiElement* fullScreenCheck;
 	UiElement* vsyncCheck;
+	UiElement* fullScreenText;
+	UiElement* vsyncText;
 
 };

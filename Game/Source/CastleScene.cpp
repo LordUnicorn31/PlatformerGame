@@ -187,6 +187,14 @@ void CastleScene::UiCallback(UiElement* element)
 		/*app->audio->PlayFx(buttonFx);*/
 		app->SaveGame();
 	}
+	if (element == fullScreenCheck) {
+		/*app->audio->PlayFx(buttonFx);*/
+		app->win->FullScreen();
+	}
+	if (element == vsyncCheck)
+	{
+		app->render->vSync = !app->render->vSync;
+	}
 	if (element == optionsButton)
 	{
 		/*app->audio->PlayFx(buttonFx);*/
@@ -198,6 +206,10 @@ void CastleScene::UiCallback(UiElement* element)
 		optionsText = app->gui->AddText(135, 20, "OPTIONS MENU", nullptr, optionsMenu, { 255, 255, 255 }, 42, false, false, false);
 		fxText = app->gui->AddText(70, 95, "FX", nullptr, optionsMenu, { 255, 255, 255 }, 42, false, false, false);
 		musicText = app->gui->AddText(25, 200, "MUSIC", nullptr, optionsMenu, { 255, 255, 255 }, 42, false, false, false);
+		fullScreenCheck = app->gui->AddCheckBox(300, 250, { 987, 808, 30, 30 }, { 1028, 808, 30, 30 }, this, optionsMenu);
+		vsyncCheck = app->gui->AddCheckBox(300, 300, { 987, 808, 30, 30 }, { 1028, 808, 30, 30 }, this, optionsMenu);
+		fullScreenText = app->gui->AddText(100, 255, "FULLSCREEN", nullptr, optionsMenu);
+		vsyncText = app->gui->AddText(110, 305, "VSYNC ON", nullptr, optionsMenu);
 	}
 	if (element == backButton)
 	{
@@ -208,6 +220,10 @@ void CastleScene::UiCallback(UiElement* element)
 		app->gui->RemoveUiElement(musicText);
 		app->gui->RemoveUiElement(musSlider);
 		app->gui->RemoveUiElement(fxSlider);
+		app->gui->RemoveUiElement(fullScreenText);
+		app->gui->RemoveUiElement(vsyncText);
+		app->gui->RemoveUiElement(fullScreenCheck);
+		app->gui->RemoveUiElement(vsyncCheck);
 		/*app->audio->PlayFx(buttonFx);*/
 	}
 	if (element == musSlider)
