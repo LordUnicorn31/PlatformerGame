@@ -7,6 +7,7 @@
 
 class App;
 class UiElement;
+struct Collider;
 
 class Module
 {
@@ -98,6 +99,7 @@ public:
 
 	SString name;
 	bool active;
+	virtual void OnCollision(Collider*, Collider*) {};
 protected:
 	bool enabled = true;
 

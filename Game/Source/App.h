@@ -24,6 +24,7 @@ class CastleScene;
 class EntityManager;
 class Gui;
 class Fonts;
+class Collisions;
 
 class SString;
 
@@ -104,6 +105,7 @@ public:
 	EntityManager* entity;
 	Gui* gui;
 	Fonts* font;
+	Collisions* collisions;
 
 	bool freeze;
 

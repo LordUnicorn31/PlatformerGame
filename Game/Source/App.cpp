@@ -16,6 +16,7 @@
 #include "EntityManager.h"
 #include "Fonts.h"
 #include "Gui.h"
+#include "Collisions.h"
 
 
 #include "Defs.h"
@@ -52,6 +53,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	sceneTitle = new SceneTitle();
 	castleScene = new CastleScene();
 	entity = new EntityManager();
+	collisions = new Collisions();
 
 
 	// Ordered for awake / Start / Update
@@ -70,6 +72,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(sceneTitle);
 	AddModule(gui);
 	AddModule(audio);
+	AddModule(collisions);
 	
 
 	// render last to swap buffer

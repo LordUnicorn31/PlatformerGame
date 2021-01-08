@@ -55,6 +55,7 @@
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\Collisions.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -130,6 +131,7 @@
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\Collisions.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

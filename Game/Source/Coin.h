@@ -2,6 +2,7 @@
 #include "Entity.h"
 #include "Animation.h"
 
+struct Collider;
 class Coin : public Static
 {
 public:
@@ -15,4 +16,8 @@ private:
 	Animations spinCoin;
 	Animations* currentAnimation = nullptr;
 	iPoint initialPosition;
+	
+public:
+
+	Collider* coinCollider;
 };
