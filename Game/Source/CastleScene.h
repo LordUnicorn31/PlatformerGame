@@ -38,6 +38,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void UiCallback(UiElement* element);
+
 private:
 	SString mapName;
 	SString audioPath;
@@ -45,6 +47,23 @@ private:
 	bool onDeath;
 
 	UiElement* pauseButton;
+	UiElement* pauseWindow;
+	UiElement* continueButton;
+	UiElement* saveButton;
+	UiElement* titleButton;
+	UiElement* optionsButton;
+	UiElement* exitButton;
+
+	UiElement* optionsMenu;
+	UiElement* backButton;
+	UiElement* musSlider;
+	UiElement* fxSlider;
+
+	UiElement* optionsText;
+	UiElement* fxText;
+	UiElement* musicText;
+
+	bool exitGame;
 };
 
 #endif // __CASTLESCENE_H__
