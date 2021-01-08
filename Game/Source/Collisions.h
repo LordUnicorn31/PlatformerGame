@@ -27,20 +27,12 @@ struct Collider
 	bool active = true;
 	COLLIDER_TYPE type;
 	Module* callback = nullptr;
-	Entity* entity;
-	Enemies* enemy;
-	Particle* particle;
-	Collider();
+	//Collider();
 
-	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, Module* callback = nullptr, Entity* entity = nullptr, Enemies* enemy = nullptr, Particle* particle = nullptr) :
-		rect(rectangle),
-		type(type),
-		callback(callback),
-		entity(entity),
-		enemy(enemy),
-		particle(particle)
-	{}
+	Collider(SDL_Rect rectangle, COLLIDER_TYPE type, Module* callback = nullptr) :rect(rectangle), type(type), callback(callback) 
+	{
 
+	}
 	void SetPos(int x, int y)
 	{
 		rect.x = x;
