@@ -126,8 +126,25 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	app->gui->DeleteAllUiElements();
+	pauseButton = nullptr;
 	pauseWindow = nullptr;
+	continueButton = nullptr;
+	saveButton = nullptr;
+	titleButton = nullptr;
+	optionsButton = nullptr;
+	exitButton = nullptr;
 	optionsMenu = nullptr;
+	backButton = nullptr;
+	musSlider = nullptr;
+	fxSlider = nullptr;
+	optionsText = nullptr;
+	fxText = nullptr;
+	musicText = nullptr;
+	fullScreenCheck = nullptr;
+	vsyncCheck = nullptr;
+	fullScreenText = nullptr;
+	vsyncText = nullptr;
+
 	app->audio->UnloadMusic();
 	app->player->Disable();
 	app->entity->Disable();
@@ -169,6 +186,11 @@ void Scene::UiCallback(UiElement* element)
 				app->gui->RemoveUiElement(exitButton);
 				app->gui->RemoveUiElement(titleButton);
 				pauseWindow = nullptr;
+				continueButton = nullptr;
+				saveButton = nullptr;
+				optionsButton = nullptr;
+				exitButton = nullptr;
+				titleButton = nullptr;
 				/*app->audio->PlayMusic("Resources/audio/music/game.ogg", 0.0f);*/
 
 			}
@@ -202,7 +224,13 @@ void Scene::UiCallback(UiElement* element)
 			app->gui->RemoveUiElement(optionsButton);
 			app->gui->RemoveUiElement(titleButton);
 			app->gui->RemoveUiElement(exitButton);
+
 			pauseWindow = nullptr;
+			continueButton = nullptr;
+			saveButton = nullptr;
+			optionsButton = nullptr;
+			titleButton = nullptr;
+			exitButton = nullptr;
 		}
 	}
 	/*if (element == fullScreen) {
@@ -251,8 +279,19 @@ void Scene::UiCallback(UiElement* element)
 		app->gui->RemoveUiElement(vsyncText);
 		app->gui->RemoveUiElement(fullScreenCheck);
 		app->gui->RemoveUiElement(vsyncCheck);
-		/*app->audio->PlayFx(buttonFx);*/
+
 		optionsMenu = nullptr;
+		backButton = nullptr;
+		optionsText = nullptr;
+		fxText = nullptr;
+		musicText = nullptr;
+		musSlider = nullptr;
+		fxSlider = nullptr;
+		fullScreenText = nullptr;
+		vsyncText = nullptr;
+		fullScreenCheck = nullptr;
+		vsyncCheck = nullptr;
+		/*app->audio->PlayFx(buttonFx);*/
 	}
 	if (element == musSlider) 
 	{
