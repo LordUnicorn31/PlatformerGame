@@ -10,7 +10,7 @@ Coin::Coin(iPoint pos) : Static(EntityType::COIN, pos)
 {
 	initialPosition = pos;
 	spinCoin.PushBack({ 50, 755, 10, 10 });
-	entityCollider = app->collisions->AddCollider({ pos.x, pos.y, 16, 16 }, ColliderType::COLLIDER_COLLECTIBLE, app->entity);
+	entityCollider = app->collisions->AddCollider({ pos.x, pos.y, 16, 16 }, ColliderType::COLLIDER_COLLECTIBLE, app->entity, this);
 }
 
 Coin::~Coin() {};

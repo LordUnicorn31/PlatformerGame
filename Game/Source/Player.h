@@ -52,20 +52,13 @@ private:
 	void MoveLadder();
 	bool Load(pugi::xml_node& playerNode);
 	bool Save(pugi::xml_node& playerNode) const;
-	void CoinMovement();
-	void HeartMovement();
-	void HeartCounterMovement();
 	void SetPlayerCollider();
+	void OnCollision(Collider* c1, Collider* c2) override;
+	int GetLives();
 
 	SDL_Rect textureRect;
-	SDL_Rect heartRect;
 	SDL_Texture* texture;
-	SDL_Texture* coinTexture;
-	SDL_Texture* heartTexture;
-	iPoint position; //unsigned int?
-	iPoint coinPos;
-	iPoint heartPos;
-	iPoint heartCounterPos;
+	iPoint position;
 	int lives;
 	int fullLives;
 	uint width;
@@ -102,10 +95,6 @@ private:
 	Animations deathAnimation;
 	Animations attackAnimation;
 	Animations* currentAnimation = nullptr;
-
-
-	SDL_Color white;
-	char numLives;
 
 	bool checkPoint = true;
 
