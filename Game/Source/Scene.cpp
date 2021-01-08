@@ -121,10 +121,10 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
-	
+	app->gui->DeleteAllUiElements();
 	app->audio->UnloadMusic();
 	app->player->Disable();
-	app->gui->DeleteAllUiElements();
+	
 	app->entity->Disable();
 	Map::UnLoad();
 	return true;
@@ -140,13 +140,15 @@ void Scene::UiCallback(UiElement* element)
 
 				pauseWindow = app->gui->AddImage(417, 150, { 0, 512, 483, 512 },this);
 				app->gui->AddText(200, 50, "PAUSE", NULL, pauseWindow, { 255, 255, 255, 255 }, 32, false, false, false);
-				continueButton = app->gui->AddButton(120, 110, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
+				continueButton = app->gui->AddButton(120, 90, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
 				app->gui->AddText(50, 25, "CONTINUE", NULL, continueButton, { 255, 255, 255, 255 }, 32, false, false, false);
-				saveButton = app->gui->AddButton(120, 190, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
+				saveButton = app->gui->AddButton(120, 165, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
 				app->gui->AddText(80, 25, "SAVE", NULL, saveButton, { 255, 255, 255, 255 }, 32, false, false, false);
-				optionsButton = app->gui->AddButton(120, 280, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
+				optionsButton = app->gui->AddButton(120, 240, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
 				app->gui->AddText(60, 25, "OPTIONS", NULL, optionsButton, { 255, 255, 255, 255 }, 32, false, false, false);
-				exitButton = app->gui->AddButton(120, 370, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
+				titleButton = app->gui->AddButton(120, 315, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
+				app->gui->AddText(50, 25, "MAIN MENU", NULL, titleButton);
+				exitButton = app->gui->AddButton(120, 390, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
 				app->gui->AddText(45, 25, "EXIT GAME", NULL, exitButton, { 255, 255, 255, 255 }, 32, false, false, false);
 				app->freeze = true;
 
@@ -159,6 +161,7 @@ void Scene::UiCallback(UiElement* element)
 				app->gui->RemoveUiElement(saveButton);
 				app->gui->RemoveUiElement(optionsButton);
 				app->gui->RemoveUiElement(exitButton);
+				app->gui->RemoveUiElement(titleButton);
 				pauseWindow = nullptr;
 				/*app->audio->PlayMusic("Resources/audio/music/game.ogg", 0.0f);*/
 
@@ -172,6 +175,14 @@ void Scene::UiCallback(UiElement* element)
 		exitGame = true;
 
 	}
+	
+	if (element == titleButton)
+	{
+		app->freeze = false;
+		pauseWindow = nullptr;
+		app->transitions->FadeToBlack(this, app->sceneTitle);
+	}
+
 	if (element == continueButton) 
 	{
 		/*app->audio->PlayMusic("Resources/audio/music/game.ogg", 0.0f);*/
@@ -184,6 +195,7 @@ void Scene::UiCallback(UiElement* element)
 			app->gui->RemoveUiElement(saveButton);
 			app->gui->RemoveUiElement(optionsButton);
 			app->gui->RemoveUiElement(titleButton);
+			app->gui->RemoveUiElement(exitButton);
 			pauseWindow = nullptr;
 		}
 	}

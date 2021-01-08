@@ -41,14 +41,16 @@ bool SceneTitle::Start()
 	titleImage = app->tex->Load(texturePath.GetString());
     app->audio->PlayMusic(audioPath.GetString());
 
-	newGameButton = app->gui->AddButton((int)525.5f, 340, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 },this);
+	newGameButton = app->gui->AddButton((int)525.5f, 310, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 },this);
 	app->gui->AddText(52, 22, "NEW GAME", nullptr, newGameButton, { 255,255,255 }, 32, false, false, false);
-	continueButton = app->gui->AddButton((int)525.5f, 420, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
+	continueButton = app->gui->AddButton((int)525.5f, 390, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
 	app->gui->AddText(50, 22, "CONTINUE", nullptr, continueButton, { 255,255,255 }, 32, false, false, false);
-	optionsButton = app->gui->AddButton((int)525.5f, 500, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
+	optionsButton = app->gui->AddButton((int)525.5f, 470, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
 	app->gui->AddText(60, 22, "OPTIONS", nullptr, optionsButton, { 255,255,255 }, 32, false, false, false);
-	exitButton = app->gui->AddButton((int)525.5f, 580, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
+	exitButton = app->gui->AddButton((int)525.5f, 550, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
 	app->gui->AddText(80, 22, "EXIT", nullptr, exitButton, { 255,255,255 }, 32, false, false, false);
+	creditButton = app->gui->AddButton((int)525.5f, 630, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
+	app->gui->AddText(60, 22, "CREDITS", nullptr, creditButton);
 	return true;
 }
 
@@ -128,6 +130,22 @@ void SceneTitle::UiCallback(UiElement* element)
 	if (element == continueButton)
 	{
 
+	}
+
+	if (element == creditButton)
+	{
+		creditPanel = app->gui->AddImage(417, 200, { 20,540,446,465 }, this);
+		backCredit = app->gui->AddButton(30, 40, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, this, creditPanel);
+		creditTitle = app->gui->AddText(150, 35, "CREDITS", nullptr, creditPanel, { 255,255,255 }, 42, false, false, false);
+		creditsText = app->gui->AddText(100, 70, "JOJO STUDIOS", nullptr, creditPanel);
+	}
+
+	if (element == backCredit)
+	{
+		app->gui->RemoveUiElement(creditPanel);
+		app->gui->RemoveUiElement(backCredit);
+		app->gui->RemoveUiElement(creditTitle);
+		app->gui->RemoveUiElement(creditsText);
 	}
 
 	if (element == optionsButton)

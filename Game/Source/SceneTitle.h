@@ -46,6 +46,7 @@ private:
 	UiElement* continueButton;
 	UiElement* optionsButton;
 	UiElement* exitButton;
+	UiElement* creditButton;
 
 	UiElement* optionsMenu;
 	UiElement* backButton;
@@ -58,5 +59,10 @@ private:
 	UiElement* vsyncCheck;
 	UiElement* fullScreenText;
 	UiElement* vsyncText;
+
+	UiElement* creditPanel;
+	UiElement* backCredit;
+	UiElement* creditTitle;
+	UiElement* creditsText;
 
 };
