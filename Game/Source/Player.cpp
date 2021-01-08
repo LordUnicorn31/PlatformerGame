@@ -13,7 +13,7 @@
 #include "Animation.h"
 #include "Window.h"
 #include "SceneTitle.h"
-#include "Text.h"
+#include "Collisions.h"
 
 #ifdef OPTICKPROFILE
 #include "optick.h"
@@ -90,7 +90,6 @@ void Player::Init()
 
 bool Player::Start()
 {
-	text->Start();
 
 	texture = app->tex->Load(texturePath.GetString());
 	jumpSound = app->audio->LoadFx("Assets/audio/fx/jump.wav");
@@ -98,9 +97,7 @@ bool Player::Start()
 	position = initialPos;
 	coinTexture = app->tex->Load(coinTextPath.GetString());
 	heartTexture = app->tex->Load(texturePath.GetString());
-
-	heartCounterTex = text->AddText("Assets/Textures/8bit.ttf", 10, "x03", white);
-	moveTut = text->AddText("Assets/Textures/8bit.ttf", 20, "PRESS W, A, S, D, TO MOVE", white);
+	playerCollider = app->collisions->AddCollider({ position.x + 2, position.y + 2, (int)width -2, (int)height }, COLLIDER_TYPE::COLLIDER_ALLY, this);
 	
 	return true;
 }
@@ -271,6 +268,7 @@ bool Player::Update(float dt)
 		iPoint checkpoint1 = Map::MapToWorld(checkpoint1x, checkpoint1y);
 
 		position = checkpoint1;
+		SetPlayerCollider();
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
@@ -278,6 +276,7 @@ bool Player::Update(float dt)
 		iPoint checkpoint2 = Map::MapToWorld(checkpoint2x, checkpoint2y);
 
 		position = checkpoint2;
+		SetPlayerCollider();
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
@@ -285,6 +284,7 @@ bool Player::Update(float dt)
 		iPoint checkpoint3 = Map::MapToWorld(checkpoint3x, checkpoint3y);
 
 		position = checkpoint3;
+		SetPlayerCollider();
 	}
 
 	
@@ -297,11 +297,8 @@ bool Player::CleanUp()
 	app->tex->UnLoad(texture);
 	app->tex->UnLoad(coinTexture);
 	app->tex->UnLoad(heartTexture);
-	app->tex->UnLoad(heartCounterTex);
-	app->tex->UnLoad(moveTut);
 	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
-	text->Clean();
 
 	return true;
 }
@@ -326,11 +323,6 @@ void Player::Draw(float dt)
 
 	app->render->DrawTexture(heartTexture, heartPos.x, heartPos.y, &heartRect);
 
-	app->render->DrawTexture(heartCounterTex, heartCounterPos.x, heartCounterPos.y);
-
-	app->render->DrawTexture(moveTut, 40, 2900);
-
-	
 }
 
 
@@ -464,6 +456,7 @@ bool Player::SnapToLadder(bool onPlatform, bool down)
 				uint index = playerCenterDown.y * Map::GetMapHeight() + playerCenterDown.x; //Problem : Maybe we don't need the index calculation to snap the player
 				position.x = (index % Map::GetMapWidth()) * Map::GetTileWidth();
 				position.y += Map::GetTileHeight();
+				SetPlayerCollider();
 				return true;
 			}
 		}
@@ -476,6 +469,7 @@ bool Player::SnapToLadder(bool onPlatform, bool down)
 				uint index = playerCenterUp.y * Map::GetMapHeight() + playerCenterUp.x; //Problem : Maybe we don't need the index calculation to snap the player
 				position.x = (index % Map::GetMapWidth()) * Map::GetTileWidth();
 				position.y -= Map::GetTileHeight();
+				SetPlayerCollider();
 				return true;
 			}
 		}
@@ -522,6 +516,7 @@ void Player::MoveLadder()
 				onLadder = false;
 			}
 		}
+		SetPlayerCollider();
 	}
 
 	if (moving)
@@ -534,6 +529,7 @@ bool Player::Load(pugi::xml_node& playerNode)
 {
 	position.x = playerNode.child("position").attribute("x").as_int();
 	position.y = playerNode.child("position").attribute("y").as_int();
+	SetPlayerCollider();
 	return true;
 }
 
@@ -645,6 +641,7 @@ void Player::Move()
 				position.x += MAX(speed.x, -distance);
 				flip = true;
 			}
+			SetPlayerCollider();
 			if (distance == 0)
 				speed.x = 0;
 		}
@@ -710,6 +707,7 @@ void Player::Move()
 				position.x += MAX(speed.x, -distance);
 				flip = true;
 			}
+			SetPlayerCollider();
 			if (distance == 0)
 				speed.x = 0;
 		}
@@ -807,6 +805,7 @@ void Player::Move()
 			{
 				position.y += MIN(speed.y, distance);
 			}
+			SetPlayerCollider();
 			if (distance == 0)
 				speed.y = 0;
 		}
@@ -867,6 +866,7 @@ void Player::Move()
 			{
 				position.y += MIN(speed.y, distance);
 			}
+			SetPlayerCollider();
 			if (distance == 0)
 				speed.y = 0;
 		}
@@ -878,6 +878,7 @@ void Player::Die()
 {
 
 	position = initialPos;
+	SetPlayerCollider();
 
 }
 
@@ -949,6 +950,11 @@ void Player::HeartCounterMovement()
 		heartCounterPos.y = 0;
 
 	}
+}
+
+void Player::SetPlayerCollider()
+{
+	playerCollider->SetPos(position.x + 2, position.y + 2);
 }
 
 void Player::Lives(Module* mod)

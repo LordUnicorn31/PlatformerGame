@@ -17,9 +17,7 @@
 #include "Chest.h"
 #include "Gui.h"
 #include "SceneTitle.h"
-
-#include "SDL2-2.0.10/include/SDL.h"
-#include "SDL2_mixer-2.0.4/mixer.h"
+#include "Collisions.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -61,6 +59,7 @@ bool Scene::Start()
 	app->entity->Enable();
 	Map::Load(mapPath.GetString(),mapName.GetString());
 	app->player->Enable();
+	app->collisions->Enable();
 
 	return true;
 }
@@ -127,10 +126,12 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	app->gui->DeleteAllUiElements();
+	pauseWindow = nullptr;
+	optionsMenu = nullptr;
 	app->audio->UnloadMusic();
 	app->player->Disable();
-	
 	app->entity->Disable();
+	app->collisions->Disable();
 	Map::UnLoad();
 	return true;
 }

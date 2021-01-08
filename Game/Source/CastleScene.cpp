@@ -12,6 +12,7 @@
 #include "SceneLose.h"
 #include "EntityManager.h"
 #include "SceneTitle.h"
+#include "Collisions.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -52,6 +53,7 @@ bool CastleScene::Start()
 	Map::Load(mapPath.GetString(),mapName.GetString());
 	app->player->Enable();
 	pauseButton = app->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, this, nullptr, false, true, false);
+	app->collisions->Enable();
 
 	return true;
 }
@@ -122,7 +124,10 @@ bool CastleScene::CleanUp()
 	app->audio->UnloadMusic();
 	app->player->Disable();
 	app->entity->Disable();
+	app->collisions->Disable();
 	app->gui->DeleteAllUiElements();
+	pauseWindow = nullptr;
+	optionsMenu = nullptr;
 
 	return true;
 }

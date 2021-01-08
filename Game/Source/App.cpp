@@ -66,13 +66,13 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(castleScene);
 	AddModule(player);
 	AddModule(entity);
+	AddModule(collisions);
 	AddModule(transitions);
 	AddModule(loseScene);
 	AddModule(sceneLogo);
 	AddModule(sceneTitle);
 	AddModule(gui);
 	AddModule(audio);
-	AddModule(collisions);
 	
 
 	// render last to swap buffer

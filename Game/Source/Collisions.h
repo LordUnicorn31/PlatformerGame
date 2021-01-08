@@ -51,10 +51,10 @@ public:
 
 	void Init();
 	bool PreUpdate() override;
-	bool Update(float dt);
+	bool Update(float dt) override;
 	bool CleanUp() override;
 
-	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr, Entity* entity = nullptr, Enemies* enemy = nullptr, Particle* particle = nullptr);
+	Collider* AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback = nullptr);
 	void DebugDraw();
 
 private:

@@ -92,21 +92,19 @@ bool Collisions::Update(float dt)
 
 void Collisions::DebugDraw()
 {
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) { //||App->scene->colliders) {
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		debug = !debug;
-		
-	}
 
-	if (debug == false) {
+	if (debug == false) 
 		return;
-	}
 
 	Uint8 alpha = 140;
 	for (uint i = 0; i < MAX_COLLIDERS; ++i)
 	{
 		if (colliders[i] == nullptr)
 			continue;
-		if (colliders[i]->active) {
+		if (colliders[i]->active) 
+		{
 			switch (colliders[i]->type)
 			{
 			case COLLIDER_NONE: // white
@@ -144,7 +142,7 @@ bool Collisions::CleanUp()
 	return true;
 }
 
-Collider* Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback, Entity* entity, Enemies* enemy, Particle* particle)
+Collider* Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* callback)
 {
 	Collider* ret = nullptr;
 
@@ -152,7 +150,7 @@ Collider* Collisions::AddCollider(SDL_Rect rect, COLLIDER_TYPE type, Module* cal
 	{
 		if (colliders[i] == nullptr)
 		{
-			ret = colliders[i] = new Collider(rect, type, callback, entity, enemy, particle);
+			ret = colliders[i] = new Collider(rect, type, callback);
 			break;
 		}
 	}

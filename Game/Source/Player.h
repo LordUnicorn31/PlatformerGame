@@ -10,6 +10,7 @@ class SDL_Texture;
 class SString;
 struct SDL_Color;
 class Text;
+struct Collider;
 
 
 class Player : public Module{ //public Entity ??
@@ -54,8 +55,7 @@ private:
 	void CoinMovement();
 	void HeartMovement();
 	void HeartCounterMovement();
-	
-	
+	void SetPlayerCollider();
 
 	SDL_Rect textureRect;
 	SDL_Rect heartRect;
@@ -95,8 +95,6 @@ private:
 	int checkpoint3y;
 	
 	
-	
-
 	Animations idleAnimation;
 	Animations runAnimation;
 	Animations jumpAnimation;
@@ -106,15 +104,10 @@ private:
 	Animations* currentAnimation = nullptr;
 
 
-	
 	SDL_Color white;
-	SDL_Texture* heartCounterTex;
 	char numLives;
-
-	Text* text;
-	SDL_Texture* moveTut;
 
 	bool checkPoint = true;
 
-	
+	Collider* playerCollider;
 };
