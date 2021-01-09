@@ -18,6 +18,7 @@ class Scene;
 class Player;
 class Transitions;
 class LoseScene;
+class SceneWin;
 class SceneLogo;
 class SceneTitle;
 class CastleScene;
@@ -25,6 +26,7 @@ class EntityManager;
 class Gui;
 class Fonts;
 class Collisions;
+
 
 class SString;
 
@@ -99,6 +101,7 @@ public:
 	Player* player;
 	Transitions* transitions;
 	LoseScene* loseScene;
+	SceneWin* sceneWin;
 	SceneLogo* sceneLogo;
 	SceneTitle* sceneTitle;
 	CastleScene* castleScene;

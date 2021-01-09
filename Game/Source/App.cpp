@@ -10,6 +10,7 @@
 #include "Player.h"
 #include "Transitions.h"
 #include "SceneLose.h"
+#include "SceneWin.h"
 #include "SceneLogo.h"
 #include "SceneTitle.h"
 #include "CastleScene.h"
@@ -49,6 +50,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	player = new Player();
 	transitions = new Transitions();
 	loseScene = new LoseScene();
+	sceneWin = new SceneWin();
 	sceneLogo = new SceneLogo();
 	sceneTitle = new SceneTitle();
 	castleScene = new CastleScene();
@@ -69,6 +71,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(collisions);
 	AddModule(transitions);
 	AddModule(loseScene);
+	AddModule(sceneWin);
 	AddModule(sceneLogo);
 	AddModule(sceneTitle);
 	AddModule(gui);

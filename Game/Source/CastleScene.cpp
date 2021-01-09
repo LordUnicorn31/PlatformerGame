@@ -13,6 +13,7 @@
 #include "EntityManager.h"
 #include "SceneTitle.h"
 #include "Collisions.h"
+#include "SceneWin.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -112,7 +113,7 @@ bool CastleScene::Update(float dt)
 			app->transitions->FadeToBlack(this, app->loseScene);
 	}
 	if (app->player->Finished())
-		app->transitions->FadeToBlack(this, app->loseScene); //TODO: create a win scene
+		app->transitions->FadeToBlack(this, app->sceneWin); //TODO: create a win scene
 
 	if (app->player->GotCoin())
 		ChangeCoinCounter();
@@ -292,11 +293,13 @@ void CastleScene::UiCallback(UiElement* element)
 			app->gui->RemoveUiElement(saveButton);
 			app->gui->RemoveUiElement(optionsButton);
 			app->gui->RemoveUiElement(titleButton);
+			app->gui->RemoveUiElement(exitButton);
 			pauseWindow = nullptr;
 			continueButton = nullptr;
 			saveButton = nullptr;
 			optionsButton = nullptr;
 			titleButton = nullptr;
+			exitButton = nullptr;
 		}
 	}
 	/*if (element == fullScreen) {
@@ -358,6 +361,7 @@ void CastleScene::UiCallback(UiElement* element)
 		fullScreenCheck = nullptr;
 		vsyncCheck = nullptr;
 	}
+	
 	if (element == musSlider)
 	{
 		app->audio->MusicVolume(((UiSlider*)element)->value);

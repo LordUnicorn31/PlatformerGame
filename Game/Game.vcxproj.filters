@@ -56,6 +56,7 @@
     </ClCompile>
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Collisions.cpp" />
+    <ClCompile Include="Source\SceneWin.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -132,6 +133,7 @@
     </ClInclude>
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Collisions.h" />
+    <ClInclude Include="Source\SceneWin.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

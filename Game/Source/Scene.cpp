@@ -19,6 +19,7 @@
 #include "SceneTitle.h"
 #include "Collisions.h"
 #include "SceneLose.h"
+#include "SceneWin.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -133,6 +134,11 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
 		app->transitions->FadeToBlack(this, app->castleScene);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	{
+		app->transitions->FadeToBlack(this, app->sceneWin);
 	}
 
 	Map::Draw();
@@ -365,6 +371,7 @@ void Scene::UiCallback(UiElement* element)
 		vsyncCheck = nullptr;
 		/*app->audio->PlayFx(buttonFx);*/
 	}
+
 	if (element == musSlider) 
 	{
 		app->audio->MusicVolume(((UiSlider*)element)->value);
