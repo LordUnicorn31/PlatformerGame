@@ -41,6 +41,8 @@ private:
 	bool exitGame;
 	SString texturePath;
 	SString audioPath;
+	SString buttonPath;
+	uint buttonFx;
 
 	UiElement* newGameButton;
 	UiElement* continueButton;

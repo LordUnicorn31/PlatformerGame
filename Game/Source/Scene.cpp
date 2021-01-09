@@ -41,6 +41,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	mapName.create(config.child("mapname").attribute("name").as_string());
 	mapPath.create(config.child("mapfolder").attribute("name").as_string());
 	audioPath.create(config.child("audio").attribute("path").as_string());
+	buttonPath.create(config.child("button").attribute("path").as_string());
 	totalLevelTime = config.child("leveltime").attribute("time").as_int();
 
 	SDL_ShowCursor(SDL_DISABLE);
@@ -57,6 +58,7 @@ void Scene::Init()
 bool Scene::Start()
 {   
 	exitGame = false;
+	buttonFx = app->audio->LoadFx(buttonPath.GetString());
 	pauseButton = app->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, this, nullptr, false, true, false);
 	app->audio->PlayMusic(audioPath.GetString());
 	app->entity->Enable();
@@ -198,6 +200,7 @@ bool Scene::CleanUp()
 	playerCoins = nullptr;
 
 	app->audio->UnloadMusic();
+	app->audio->UnloadFx();
 	app->player->Disable();
 	app->entity->Disable();
 	app->collisions->Disable();
@@ -207,9 +210,10 @@ bool Scene::CleanUp()
 
 void Scene::UiCallback(UiElement* element)
 {
-	if (element == pauseButton) {
-		/*app->audio->PlayMusic("Resources/audio/music/music_options.ogg", 0.0f);*/
-		if (pauseButton != nullptr) {
+	if (element == pauseButton) 
+	{
+		if (pauseButton != nullptr) 
+		{
 			if (pauseWindow == nullptr) 
 			{
 
@@ -276,13 +280,14 @@ void Scene::UiCallback(UiElement* element)
 	if (element == exitButton) 
 	{
 		//Create The Funtionality
-		/*app->audio->PlayFx(buttonFx);*/
+		app->audio->PlayFx(buttonFx);
 		exitGame = true;
 
 	}
 	
 	if (element == titleButton)
 	{
+		app->audio->PlayFx(buttonFx);
 		app->freeze = false;
 		pauseWindow = nullptr;
 		app->transitions->FadeToBlack(this, app->sceneTitle);
@@ -290,8 +295,7 @@ void Scene::UiCallback(UiElement* element)
 
 	if (element == continueButton) 
 	{
-		/*app->audio->PlayMusic("Resources/audio/music/game.ogg", 0.0f);*/
-		/*app->audio->PlayFx(buttonFx);*/
+		app->audio->PlayFx(buttonFx);
 		app->freeze = false;
 		if (pauseWindow != nullptr) 
 		{
@@ -317,20 +321,22 @@ void Scene::UiCallback(UiElement* element)
 	}*/
 	if (element == saveButton) 
 	{
-		/*app->audio->PlayFx(buttonFx);*/
+		app->audio->PlayFx(buttonFx);
 		app->SaveGame();
 	}
-	if (element == fullScreenCheck) {
-		/*app->audio->PlayFx(buttonFx);*/
+	if (element == fullScreenCheck) 
+	{
+		app->audio->PlayFx(buttonFx);
 		app->win->FullScreen();
 	}
 	if (element == vsyncCheck)
 	{
-		app->render->vSync = !app->render->vSync;
+		app->audio->PlayFx(buttonFx);
+		app->render->vSync = true;
 	}
 	if (element == optionsButton) 
 	{
-		/*app->audio->PlayFx(buttonFx);*/
+		app->audio->PlayFx(buttonFx);
 		optionsMenu = app->gui->AddImage(437, 177, { 20,540,446,465 }, this);
 		backButton = app->gui->AddButton(30, 20, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, this, optionsMenu, false, true, false);
 		musSlider = app->gui->AddSlider(115, 200, app->audio->GetMusicVolume(), MAX_VOLUME, true, false, false, optionsMenu, this);
@@ -346,6 +352,7 @@ void Scene::UiCallback(UiElement* element)
 	}
 	if (element == backButton) 
 	{
+		app->audio->PlayFx(buttonFx);
 		app->gui->RemoveUiElement(optionsMenu);
 		app->gui->RemoveUiElement(backButton);
 		app->gui->RemoveUiElement(optionsText);

@@ -30,6 +30,7 @@ bool SceneWin::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	texturePath.create(config.child("texture").attribute("path").as_string());
 	audioPath.create(config.child("audio").attribute("path").as_string());
+	buttonPath.create(config.child("audio").attribute("path").as_string());
 	bool ret = true;
 	return ret;
 }
@@ -39,6 +40,7 @@ bool SceneWin::Start()
 {
 	
 	app->player->Disable();
+	buttonFx = app->audio->LoadFx(buttonPath.GetString());
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 	background = app->tex->Load(texturePath.GetString());
@@ -89,6 +91,7 @@ bool SceneWin::CleanUp()
 
 	app->tex->UnLoad(background);
 	app->audio->UnloadMusic();
+	app->audio->UnloadFx();
 	app->gui->DeleteAllUiElements();
 	buttonTitle = nullptr;
 	textTitle = nullptr;
@@ -106,6 +109,7 @@ void SceneWin::UiCallback(UiElement* element)
 {
 	if (element == buttonTitle)
 	{
+		app->audio->PlayFx(buttonFx);
 		app->transitions->FadeToBlack(this, app->sceneTitle);
 	}
 }

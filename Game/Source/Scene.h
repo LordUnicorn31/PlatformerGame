@@ -53,6 +53,9 @@ private:
 	SString mapName;
 	SString mapPath;
 	SString audioPath;
+	SString buttonPath;
+
+	uint buttonFx;
 
 	UiElement* pauseButton;
 	UiElement* pauseWindow;

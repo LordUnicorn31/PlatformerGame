@@ -30,6 +30,7 @@ bool LoseScene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	texturePath.create(config.child("texture").attribute("path").as_string());
 	audioPath.create(config.child("audio").attribute("path").as_string());
+	buttonPath.create(config.child("button").attribute("path").as_string());
 	bool ret = true;
 	return ret;
 }
@@ -42,6 +43,7 @@ bool LoseScene::Start()
 	app->render->camera.y = 0;
 	background = app->tex->Load(texturePath.GetString());
 	app->audio->PlayMusic(audioPath.GetString());
+	buttonFx = app->audio->LoadFx(buttonPath.GetString());
 	buttonTitle = app->gui->AddButton((int)525.5f, 470, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
 	textTitle = app->gui->AddText(50, 22, "MAIN MENU", nullptr, buttonTitle, { 255,255,255 }, 32, false, false, false);
 
@@ -88,6 +90,7 @@ bool LoseScene::CleanUp()
 
 	app->tex->UnLoad(background);
 	app->audio->UnloadMusic();
+	app->audio->UnloadFx();
 	app->gui->DeleteAllUiElements();
 	buttonTitle = nullptr;
 	textTitle = nullptr;
@@ -105,6 +108,7 @@ void LoseScene::UiCallback(UiElement* element)
 {
 	if (element == buttonTitle)
 	{
+		app->audio->PlayFx(buttonFx);
 		app->transitions->FadeToBlack(this, app->sceneTitle);
 	}
 }

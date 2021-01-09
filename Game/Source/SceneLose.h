@@ -39,7 +39,9 @@ private:
 	SDL_Texture* background;
 	SString texturePath;
 	SString audioPath;
+	SString buttonPath;
 
+	uint buttonFx;
 	UiElement* buttonTitle;
 	UiElement* textTitle;
 

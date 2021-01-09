@@ -30,6 +30,7 @@ bool SceneTitle::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	texturePath.create(config.child("texture").attribute("path").as_string());
 	audioPath.create(config.child("audio").attribute("path").as_string());
+	buttonPath.create(config.child("button").attribute("path").as_string());
 
 	return true;
 }
@@ -40,6 +41,7 @@ bool SceneTitle::Start()
 	exitGame = false;
 	titleImage = app->tex->Load(texturePath.GetString());
     app->audio->PlayMusic(audioPath.GetString());
+	buttonFx = app->audio->LoadFx(buttonPath.GetString());
 
 	newGameButton = app->gui->AddButton((int)525.5f, 310, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 },this);
 	app->gui->AddText(52, 22, "NEW GAME", nullptr, newGameButton, { 255,255,255 }, 32, false, false, false);
@@ -141,11 +143,13 @@ void SceneTitle::UiCallback(UiElement* element)
 {
 	if (element == newGameButton)
 	{
+		app->audio->PlayFx(buttonFx);
 		app->transitions->FadeToBlack(this, app->scene, 0.5f);
 	}
 
 	if (element == exitButton)
 	{
+		app->audio->PlayFx(buttonFx);
 		exitGame = true;
 	}
 
@@ -156,6 +160,7 @@ void SceneTitle::UiCallback(UiElement* element)
 
 	if (element == creditButton)
 	{
+		app->audio->PlayFx(buttonFx);
 		creditPanel = app->gui->AddImage(417, 200, { 20,540,446,465 }, this);
 		backCredit = app->gui->AddButton(30, 40, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, this, creditPanel);
 		creditTitle = app->gui->AddText(150, 35, "CREDITS", nullptr, creditPanel, { 255,255,255 }, 42, false, false, false);
@@ -164,6 +169,7 @@ void SceneTitle::UiCallback(UiElement* element)
 
 	if (element == backCredit)
 	{
+		app->audio->PlayFx(buttonFx);
 		app->gui->RemoveUiElement(creditPanel);
 		app->gui->RemoveUiElement(backCredit);
 		app->gui->RemoveUiElement(creditTitle);
@@ -176,6 +182,7 @@ void SceneTitle::UiCallback(UiElement* element)
 
 	if (element == optionsButton)
 	{
+		app->audio->PlayFx(buttonFx);
 		optionsMenu = app->gui->AddImage(417, 200, { 20,540,446,465 }, this);
 		backButton = app->gui->AddButton(30, 40, { 806,368,35,24 }, { 815,246,35,24 }, { 806,368,35,24 }, this, optionsMenu);
 		sliderBarFx = app->gui->AddSlider(115, 100, app->audio->GetFxVolume(), MAX_VOLUME, true, false, false, optionsMenu, this);
@@ -189,8 +196,9 @@ void SceneTitle::UiCallback(UiElement* element)
 		vsyncText = app->gui->AddText(110, 305, "VSYNC ON", nullptr, optionsMenu);
 	}
 
-	if (element == backButton) {
-		/*app->audio->PlayFx(buttonFx);*/
+	if (element == backButton) 
+	{
+		app->audio->PlayFx(buttonFx);
 		app->gui->RemoveUiElement(optionsMenu);
 		app->gui->RemoveUiElement(sliderBarMus);
 		app->gui->RemoveUiElement(sliderBarFx);
@@ -213,18 +221,22 @@ void SceneTitle::UiCallback(UiElement* element)
 		vsyncCheck = nullptr;
 		
 	}
-	if (element == fullScreenCheck) {
-		/*app->audio->PlayFx(buttonFx);*/
+	if (element == fullScreenCheck) 
+	{
+		app->audio->PlayFx(buttonFx);
 		app->win->FullScreen();
 	}
 	if (element == vsyncCheck)
 	{
+		app->audio->PlayFx(buttonFx);
 		app->render->vSync = !app->render->vSync;
 	}
-	if (element == sliderBarFx) {
+	if (element == sliderBarFx) 
+	{
 		app->audio->FxVolume(((UiSlider*)element)->value);
 	}
-	if (element == sliderBarMus) {
+	if (element == sliderBarMus) 
+	{
 		app->audio->MusicVolume(((UiSlider*)element)->value);
 	}
 }
