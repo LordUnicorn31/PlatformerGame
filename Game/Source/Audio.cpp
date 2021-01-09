@@ -89,6 +89,11 @@ void Audio::FxVolume(int vol)
 		vol = 0;
 	}
 
+	for (int i = 0; i<fx.count(); ++i)
+	{
+		Mix_VolumeChunk(fx[i], vol);
+	}
+	currentFxVolume = vol;
 }
 
 // Called before quitting
