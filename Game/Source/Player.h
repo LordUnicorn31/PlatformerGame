@@ -26,18 +26,12 @@ public:
 	void Die();
 	iPoint GetPosition() const;
 	bool OnDeath();
-	void Lives(Module* mod);
-	/*
-	fPoint targetSpeed; //Si volem posar aceleracio
-	float a; //Si volem posar acceleracio
-	//float a;
-	//flaot maxspeed
-	//float
-	//Collider
+	int GetLives();
+	int GetCoins();
+	bool ImDead() const;
+	bool Finished() const;
+	bool GotCoin() const;
 
-	//Jump
-	//Pujar ladder
-	*/
 private:
 	void Draw(float dt);
 	void Move();
@@ -54,13 +48,13 @@ private:
 	bool Save(pugi::xml_node& playerNode) const;
 	void SetPlayerCollider();
 	void OnCollision(Collider* c1, Collider* c2) override;
-	int GetLives();
 
 	SDL_Rect textureRect;
 	SDL_Texture* texture;
 	iPoint position;
 	int lives;
 	int fullLives;
+	int coins;
 	uint width;
 	uint height;
 	fPoint speed;
@@ -86,6 +80,8 @@ private:
 	int checkpoint2y;
 	int checkpoint3x;
 	int checkpoint3y;
+
+	bool checkPoint = true;
 	
 	
 	Animations idleAnimation;
@@ -96,7 +92,8 @@ private:
 	Animations attackAnimation;
 	Animations* currentAnimation = nullptr;
 
-	bool checkPoint = true;
-
+	bool onDeath = false;
+	bool onEnd = false;
+	bool gotCoin = false;
 	Collider* playerCollider;
 };

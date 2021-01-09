@@ -6,13 +6,9 @@
 #include "Player.h"
 #include "Input.h"
 #include "Scene.h"
-#include "Transitions.h"
 #include "Audio.h"
-#include "SceneLose.h"
-#include "CastleScene.h"
 #include "Animation.h"
 #include "Window.h"
-#include "SceneTitle.h"
 #include "Collisions.h"
 
 #ifdef OPTICKPROFILE
@@ -64,6 +60,7 @@ bool Player::Awake(pugi::xml_node& playerNode)
 	texturePath.create(playerNode.child_value("texture"));
 	coinTextPath.create(playerNode.child_value("cointexture"));
 	textureRect = { playerNode.child("textureRect").attribute("x").as_int(), playerNode.child("textureRect").attribute("y").as_int(), playerNode.child("textureRect").attribute("w").as_int(), playerNode.child("textureRect").attribute("h").as_int() };
+	initialPos = iPoint(playerNode.child("position").attribute("x").as_int(), playerNode.child("position").attribute("y").as_int());
 	checkpoint1x = int(playerNode.child("checkpointpos1x").attribute("x").as_int());
 	checkpoint1y = int(playerNode.child("checkpointpos1y").attribute("y").as_int());
 	checkpoint2x = int(playerNode.child("checkpointpos2x").attribute("x").as_int());
@@ -88,6 +85,8 @@ bool Player::Start()
 	checkpointSound = app->audio->LoadFx("Assets/audio/fx/checkpoint.wav");
 	position = initialPos;
 	playerCollider = app->collisions->AddCollider({ position.x + 2, position.y + 2, (int)width -2, (int)height }, ColliderType::COLLIDER_ALLY, this);
+	coins = 0;
+	lives = fullLives;
 	
 	return true;
 }
@@ -111,10 +110,10 @@ bool Player::Update(float dt)
 
 	//Get the input and update the movement variables accordingly
 	bool onPlatform = OnPlatform();
-	bool onDeath = OnDeath();
-	bool onChange = Onchange();
+	onDeath = OnDeath();
 	bool onSave = OnSave();
-	bool onEnd = OnEnd();
+	onEnd = OnEnd();
+	gotCoin = false;
 
 	currentAnimation = &idleAnimation;
 
@@ -222,16 +221,7 @@ bool Player::Update(float dt)
 		//Die(); Respawn
 		/*app->transitions->FadeToBlack(app->scene,app->loseScene);*/
 		app->LoadGame();
-	}
-	
-	if (onChange)
-	{
-		app->transitions->FadeToBlack(app->scene, app->castleScene);
-	}
-	
-	if (onEnd)
-	{
-		app->transitions->FadeToBlack(app->castleScene, app->loseScene);
+		--lives;
 	}
 
 	if (onSave && checkPoint)
@@ -284,6 +274,8 @@ bool Player::CleanUp()
 	app->tex->UnLoad(texture);
 	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
+	/*delete playerCollider;
+	playerCollider = nullptr;*/
 
 	return true;
 }
@@ -872,11 +864,15 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 	{
 		app->LoadGame();
 		--lives;
+		onDeath = true;
 	}
 	if (c2->type == ColliderType::COLLIDER_COLLECTIBLE) 
 	{
-		if(c2->entity != nullptr)
+		if (c2->entity != nullptr) 
+		{
 			c2->entity->Die();
+			gotCoin = true;
+		}
 	}
 }
 
@@ -885,17 +881,22 @@ int Player::GetLives()
 	return lives;
 }
 
-void Player::Lives(Module* mod)
+int Player::GetCoins()
 {
-	if (OnDeath())
-	{
-		--lives;
-	}
+	return coins;
+}
 
-	if (lives <= 0)
-	{
-		app->transitions->FadeToBlack(mod, app->loseScene);
+bool Player::ImDead() const
+{
+	return onDeath;
+}
 
-		lives = fullLives;
-	}
+bool Player::Finished() const
+{
+	return onEnd;
+}
+
+bool Player::GotCoin() const
+{
+	return gotCoin;
 }

@@ -18,6 +18,7 @@
 #include "Gui.h"
 #include "SceneTitle.h"
 #include "Collisions.h"
+#include "SceneLose.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -61,12 +62,18 @@ bool Scene::Start()
 	app->player->Enable();
 	app->collisions->Enable();
 
+	livesHeart = app->gui->AddImage(10, 10, { 1153,0,16,12 }, this);
+	playerCoins = app->gui->AddImage(10, 30, { 1107,0,19,18 }, this);
+	ChangeCoinCounter();
+	ChangeLivesCounter();
+
 	return true;
 }
 
 // Called each loop iteration
 bool Scene::PreUpdate()
 {
+	//app->render->CameraMovement();
 	return true;
 }
 
@@ -82,10 +89,19 @@ bool Scene::Update(float dt)
 		app->LoadGame();
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		app->SaveGame();
-	
 
-	Map::Draw();
-	app->player->Lives(this);
+	//Chacking Player state
+	if (app->player->ImDead()) 
+	{
+		ChangeLivesCounter();
+		if(app->player->GetLives() <= 0)
+			app->transitions->FadeToBlack(this, app->loseScene);
+	}
+	if (app->player->Finished())
+		app->transitions->FadeToBlack(this, app->castleScene);
+
+	if (app->player->GotCoin())
+		ChangeCoinCounter();
 
 	// DEBUG KEYS
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
@@ -97,6 +113,8 @@ bool Scene::Update(float dt)
 	{
 		app->transitions->FadeToBlack(this, app->castleScene);
 	}
+
+	Map::Draw();
 	return true;
 }
 
@@ -144,6 +162,8 @@ bool Scene::CleanUp()
 	vsyncCheck = nullptr;
 	fullScreenText = nullptr;
 	vsyncText = nullptr;
+	coinsText = nullptr;
+	livesText = nullptr;
 
 	app->audio->UnloadMusic();
 	app->player->Disable();
@@ -301,5 +321,21 @@ void Scene::UiCallback(UiElement* element)
 	{
 		app->audio->FxVolume(((UiSlider*)element)->value);
 	}
+}
+
+void Scene::ChangeCoinCounter()
+{
+	if (coinsText != nullptr)
+		app->gui->RemoveUiElement(coinsText);
+
+	coinsText = app->gui->AddText(30, 30, std::to_string(app->player->GetCoins()).c_str());
+}
+
+void Scene::ChangeLivesCounter()
+{
+	if (coinsText != nullptr)
+		app->gui->RemoveUiElement(livesText);
+
+	livesText = app->gui->AddText(30, 10, std::to_string(app->player->GetLives()).c_str());
 }
 

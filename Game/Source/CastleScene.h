@@ -41,6 +41,10 @@ public:
 	void UiCallback(UiElement* element);
 
 private:
+	void ChangeCoinCounter();
+	void ChangeLivesCounter();
+
+private:
 	SString mapName;
 	SString audioPath;
 	SString mapPath;
@@ -66,6 +70,11 @@ private:
 	UiElement* vsyncCheck;
 	UiElement* fullScreenText;
 	UiElement* vsyncText;
+
+	UiElement* livesHeart;
+	UiElement* playerCoins;
+	UiElement* livesText;
+	UiElement* coinsText;
 
 	bool exitGame;
 };

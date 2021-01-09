@@ -5,7 +5,8 @@ Entity::Entity(EntityType type, iPoint initialPos) : etype(type), pos(initialPos
 
 Entity::~Entity() 
 {
-
+	delete entityCollider;
+	entityCollider = nullptr;
 }
 
 void Entity::Update(float dt) 

@@ -55,6 +55,11 @@ bool CastleScene::Start()
 	pauseButton = app->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, this, nullptr, false, true, false);
 	app->collisions->Enable();
 
+	livesHeart = app->gui->AddImage(10, 10, { 1153,0,16,12 }, this);
+	playerCoins = app->gui->AddImage(10, 30, { 1107,0,19,18 }, this);
+	ChangeCoinCounter();
+	ChangeLivesCounter();
+
 	return true;
 }
 
@@ -77,15 +82,24 @@ bool CastleScene::Update(float dt)
 		app->SaveGame();
 
 	Map::Draw();
-	app->player->Lives(this);
+	if (app->player->ImDead())
+	{
+		ChangeLivesCounter();
+		if (app->player->GetLives() <= 0)
+			app->transitions->FadeToBlack(this, app->loseScene);
+	}
+	if (app->player->Finished())
+		app->transitions->FadeToBlack(this, app->loseScene); //TODO: create a win scene
+
+	if (app->player->GotCoin())
+		ChangeCoinCounter();
 
 
 	// DEBUG KEYS
-	onDeath = app->player->OnDeath();
-	if (onDeath)
+	/*if (app->player->ImDead())
 	{
 		app->LoadGame();
-	}
+	}*/
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		app->transitions->FadeToBlack(this, app->scene);
@@ -145,6 +159,10 @@ bool CastleScene::CleanUp()
 	vsyncCheck = nullptr;
 	fullScreenText = nullptr;
 	vsyncText = nullptr;
+	livesHeart = nullptr;
+	playerCoins = nullptr;
+	livesText = nullptr;
+	coinsText = nullptr;
 
 	return true;
 }
@@ -293,5 +311,21 @@ void CastleScene::UiCallback(UiElement* element)
 	{
 		app->audio->FxVolume(((UiSlider*)element)->value);
 	}
+}
+
+void CastleScene::ChangeCoinCounter()
+{
+	if (coinsText != nullptr)
+		app->gui->RemoveUiElement(coinsText);
+
+	coinsText = app->gui->AddText(30, 30, std::to_string(app->player->GetCoins()).c_str());
+}
+
+void CastleScene::ChangeLivesCounter()
+{
+	if (coinsText != nullptr)
+		app->gui->RemoveUiElement(livesText);
+
+	livesText = app->gui->AddText(30, 10, std::to_string(app->player->GetLives()).c_str());
 }
 

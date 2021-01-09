@@ -13,7 +13,11 @@ Coin::Coin(iPoint pos) : Static(EntityType::COIN, pos)
 	entityCollider = app->collisions->AddCollider({ pos.x, pos.y, 16, 16 }, ColliderType::COLLIDER_COLLECTIBLE, app->entity, this);
 }
 
-Coin::~Coin() {};
+Coin::~Coin() 
+{
+	if (entityCollider != nullptr)
+		delete entityCollider;
+}
 
 void Coin::Update(float dt)
 {
@@ -24,6 +28,13 @@ void Coin::Update(float dt)
 void Coin::UpdateLogic()
 {
 
+}
+
+void Coin::Die()
+{
+	/*delete entityCollider;
+	entityCollider = nullptr;*/
+	//toDie = true;
 }
 
 void Coin::Draw(float dt)

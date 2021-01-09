@@ -64,8 +64,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args), saveDocumentName("sav
 	AddModule(font);
 	AddModule(scene);
 	AddModule(castleScene);
-	AddModule(player);
 	AddModule(entity);
+	AddModule(player);
 	AddModule(collisions);
 	AddModule(transitions);
 	AddModule(loseScene);

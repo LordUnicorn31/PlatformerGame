@@ -9,8 +9,9 @@ public:
 	Coin(iPoint pos);
 	~Coin();
 	void Update(float dt) override;
-	void Draw(float dt)override;
-	void UpdateLogic()override;
+	void Draw(float dt) override;
+	void UpdateLogic() override;
+	void Die() override;
 private:
 
 	Animations spinCoin;
