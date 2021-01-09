@@ -34,6 +34,7 @@
     <mapname name="forest.tmx"/>
     <audio path ="Assets/Audio/Music/forest_music.ogg"/>
     <mapfolder name = "Assets/Maps/" />
+    <leveltime time ="303" />
   </scene>
   <gui>
     <atlas atlasPath ="Assets/Textures/atlas.png"></atlas>
@@ -42,6 +43,7 @@
     <mapname name="castle.tmx"/>
     <audio path ="Assets/Audio/Music/castle_music.ogg"/>
     <mapfolder name ="Assets/Maps/" />
+    <leveltime time ="303" />
   </castleScene>
   <sceneLogo>
     <texture path="Assets/Textures/logo_image.png"/>
