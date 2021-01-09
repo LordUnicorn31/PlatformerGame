@@ -68,6 +68,7 @@ bool Scene::Start()
 	ChangeCoinCounter();
 	ChangeLivesCounter();
 
+	clockImage = app->gui->AddImage(620, 10, { 1073,0,22,25 });
 	currentTime = totalLevelTime;
 
 	return true;
@@ -95,17 +96,14 @@ bool Scene::Update(float dt)
 		timeText = nullptr;
 	}
 	if(currentTime >= 200)
-		timeText = app->gui->AddText(625, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, {0,255,0,255});
+		timeText = app->gui->AddText(645, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, {0,255,0,255});
 	else if (currentTime <= 200 && currentTime >= 60)
-		timeText = app->gui->AddText(625, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, { 255,255,0,255 });
+		timeText = app->gui->AddText(645, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, { 255,255,0,255 });
 	else
-		timeText = app->gui->AddText(625, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, { 255,0,0,255 });
+		timeText = app->gui->AddText(645, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, { 255,0,0,255 });
 
-
-		
-
-	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
-		app->win->FullScreen();
+	/*if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		app->win->FullScreen();*/
 
 	//PROBLEM: Don't forget save and load
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
@@ -189,6 +187,7 @@ bool Scene::CleanUp()
 	coinsText = nullptr;
 	livesText = nullptr;
 	timeText = nullptr;
+	clockImage = nullptr;
 
 	app->audio->UnloadMusic();
 	app->player->Disable();

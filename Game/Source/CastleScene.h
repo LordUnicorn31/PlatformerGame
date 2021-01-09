@@ -76,6 +76,7 @@ private:
 	UiElement* coinsText;
 
 	UiElement* timeText;
+	UiElement* clockImage;
 
 	float currentTime;
 	int totalLevelTime;

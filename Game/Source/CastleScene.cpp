@@ -63,6 +63,7 @@ bool CastleScene::Start()
 	ChangeLivesCounter();
 
 	currentTime = totalLevelTime;
+	clockImage = app->gui->AddImage(620, 10, { 1073,0,22,25 });
 
 	return true;
 }
@@ -88,13 +89,14 @@ bool CastleScene::Update(float dt)
 		timeText = nullptr;
 	}
 	if (currentTime >= 200)
-		timeText = app->gui->AddText(625, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, { 0,255,0,255 });
+		timeText = app->gui->AddText(645, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, { 0,255,0,255 });
 	else if (currentTime <= 200 && currentTime >= 60)
-		timeText = app->gui->AddText(625, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, { 255,255,0,255 });
+		timeText = app->gui->AddText(645, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, { 255,255,0,255 });
 	else
-		timeText = app->gui->AddText(625, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, { 255,0,0,255 });
-	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
-		app->win->FullScreen();
+		timeText = app->gui->AddText(645, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, { 255,0,0,255 });
+
+	/*if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
+		app->win->FullScreen();*/
 
 	//PROBLEM: Don't forget save and load
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
@@ -191,6 +193,7 @@ bool CastleScene::CleanUp()
 	livesText = nullptr;
 	coinsText = nullptr;
 	timeText = nullptr;
+	clockImage = nullptr;
 
 	return true;
 }

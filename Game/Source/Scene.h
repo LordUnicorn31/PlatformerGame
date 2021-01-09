@@ -81,6 +81,7 @@ private:
 	UiElement* coinsText;
 
 	UiElement* timeText;
+	UiElement* clockImage;
 
 	bool exitGame;
 
