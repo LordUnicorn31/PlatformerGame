@@ -168,6 +168,10 @@ void SceneTitle::UiCallback(UiElement* element)
 		app->gui->RemoveUiElement(backCredit);
 		app->gui->RemoveUiElement(creditTitle);
 		app->gui->RemoveUiElement(creditsText);
+		creditPanel = nullptr;
+		backCredit = nullptr;
+		creditTitle = nullptr;
+		creditsText = nullptr;
 	}
 
 	if (element == optionsButton)
@@ -197,6 +201,16 @@ void SceneTitle::UiCallback(UiElement* element)
 		app->gui->RemoveUiElement(vsyncText);
 		app->gui->RemoveUiElement(fullScreenCheck);
 		app->gui->RemoveUiElement(vsyncCheck);
+		optionsMenu = nullptr;
+		sliderBarMus = nullptr;
+		sliderBarFx = nullptr;
+		optionsText = nullptr;
+		fxText = nullptr;
+		musicText = nullptr;
+		fullScreenText = nullptr;
+		vsyncText = nullptr;
+		fullScreenCheck = nullptr;
+		vsyncCheck = nullptr;
 		
 	}
 	if (element == fullScreenCheck) {
