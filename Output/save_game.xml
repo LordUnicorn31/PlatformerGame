@@ -6,17 +6,19 @@
 	<fonts />
 	<scene />
 	<castleScene />
-	<player>
-		<position x="20" y="2880" />
-	</player>
 	<EntityManager />
+	<player>
+		<position x="20" y="2992" />
+	</player>
+	<collisions />
 	<transitions />
 	<sceneLose />
+	<sceneWin />
 	<sceneLogo />
 	<sceneTitle />
 	<gui />
 	<audio />
 	<renderer>
-		<camera x="0" y="-2520" />
+		<camera x="0" y="-2632" />
 	</renderer>
 </game_state>

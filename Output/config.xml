@@ -54,7 +54,7 @@
   </sceneTitle>
   <sceneLose>
     <texture path="Assets/Textures/lose_image.png"/>
-    <audio path="Assets/Audio/Music/victory_music.ogg"/>
+    <audio path="Assets/Audio/Music/lose_music.ogg"/>
   </sceneLose>
   <sceneWin>
     <texture path="Assets/Textures/win_image.png"/>
