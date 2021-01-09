@@ -58,10 +58,9 @@ bool Gui::Update(float dt) {
 	if (app->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
 		focusedUi = FocusNextElement(focusedUi);
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-		if (focusedUi != nullptr && focusedUi->module != nullptr && focusedUi->type != UiTypes::EButton) 
-		{
+		if (focusedUi != nullptr && focusedUi->module != nullptr) 
 			focusedUi->module->UiCallback(focusedUi);
-		}
+		
 	UpdateUi();
 	DrawUi();
 	return true;
