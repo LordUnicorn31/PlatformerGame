@@ -103,6 +103,7 @@ void Gui::RemoveUiElement(UiElement* element) {
 			if (uiElementList[i]->parent == element) 
 				RemoveUiElement(uiElementList[i]);
 		}
+		delete uiElementList[index];
 		uiElementList.del(uiElementList.At(index));
 	}
 	else
