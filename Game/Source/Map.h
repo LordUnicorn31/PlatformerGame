@@ -32,11 +32,13 @@ struct MapTile
 	//TODO: Do I have to call delete on this when I delete the renderTiles buffer?
 };
 
-class Map {
+class Map 
+{
 public:
 	Map(const Map&) = delete;
 
-	static Map& Get() {
+	static Map& Get()
+	{
 		static Map instance;
 		return instance;
 	}

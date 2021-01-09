@@ -212,7 +212,8 @@ bool Map::SLoad(const char* mapPath, const char* fileName)
 					}
 					
 					//dont render as map entiti position tiles
-					if (!SGetTileProperty(i, "Type") && !SGetTileProperty(i, "navigation")) {
+					if (!SGetTileProperty(i, "Type") && !SGetTileProperty(i, "navigation")) 
+					{
 						//create a tile to render and push it
 						RenderInfo renderTile;
 						renderTile.x = margin + ((tileWidth + spacing) * (tilesetId % tilesWidth));

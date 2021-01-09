@@ -33,7 +33,8 @@ Collisions::Collisions()
 Collisions::~Collisions()
 {}
 
-void Collisions::Init() {
+void Collisions::Init() 
+{
 	enabled = false;
 	active = true;
 }

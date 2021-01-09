@@ -17,7 +17,7 @@ enum ColliderType
 	COLLIDER_ATTACK,
 	COLLIDER_COLLECTIBLE,
 
-	NUM_ColliderTypeS
+	NUM_COLLIDER_TYPES
 };
 
 struct Collider

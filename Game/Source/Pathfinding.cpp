@@ -131,7 +131,8 @@ int Pathfinding::ICreatePath(const iPoint& origin, const iPoint& destination)
 	PathList open;
 	PathList closed;
 	open.list.add(PathNode(0, 0, origin, nullptr));
-	while (open.list.count() > 0) {
+	while (open.list.count() > 0) 
+	{
 		// TODO 3: Move the lowest score cell from open list to the closed list
 		ListItem<PathNode>* lowest = open.GetNodeLowestScore();
 		ListItem<PathNode>* node = closed.list.add(lowest->data);
@@ -139,10 +140,12 @@ int Pathfinding::ICreatePath(const iPoint& origin, const iPoint& destination)
 		// TODO 4: If we just added the destination, we are done!
 		// Backtrack to create the final path
 		// Use the Pathnode::parent and Flip() the path when you are finish
-		if (node->data.pos == destination) {
+		if (node->data.pos == destination)
+		{
 			lastPath.Clear();
 			const PathNode* path_node = &node->data;
-			while (path_node) {
+			while (path_node) 
+			{
 				lastPath.PushBack(path_node->pos);
 				path_node = path_node->parent;
 			}
@@ -155,7 +158,8 @@ int Pathfinding::ICreatePath(const iPoint& origin, const iPoint& destination)
 		node->data.FindWalkableAdjacents(adjacent);
 		// TODO 6: Iterate adjancent nodes:
 		ListItem<PathNode>* item = adjacent.list.start;
-		for (; item; item = item->next) {
+		for (; item; item = item->next) 
+		{
 			// ignore nodes in the closed list
 			if (closed.Find(item->data.pos) != NULL)
 				continue;
@@ -163,7 +167,8 @@ int Pathfinding::ICreatePath(const iPoint& origin, const iPoint& destination)
 			item->data.CalculateF(destination);
 			if (open.Find(item->data.pos) == NULL)
 				open.list.add(item->data);
-			else {
+			else
+			{
 				// If it is already in the open list, check if it is a better path (compare G)
 				// If it is a better path, Update the parent
 				if (open.Find(item->data.pos)->data.g > item->data.g)

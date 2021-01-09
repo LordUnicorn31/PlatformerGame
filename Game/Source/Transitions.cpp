@@ -89,7 +89,8 @@ bool Transitions::Update(float dt)
 
 		normalized = 1.0f;
 		screen.x += (int)(((float)(screen.w) / (float)totalTime) * dt * (float)now * 2);
-		if (now >= totalTime) {
+		if (now >= totalTime) 
+		{
 			current_step = FadeStep::NONE;
 		}
 

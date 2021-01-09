@@ -112,13 +112,15 @@ void Window::GetWindowSize(uint& width, uint& height) const
 
 void Window::FullScreen()
 {
-	if (fullScreen == false) {
+	if (fullScreen == false) 
+	{
 		Uint32 flags = SDL_WINDOW_SHOWN;
 		flags = SDL_WINDOW_FULLSCREEN;
 		SDL_SetWindowFullscreen(window, flags);
 		fullScreen = true;
 	}
-	else {
+	else 
+	{
 		SDL_SetWindowFullscreen(window, 0);
 		fullScreen = false;
 	}
