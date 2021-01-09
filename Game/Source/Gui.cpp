@@ -93,7 +93,8 @@ void Gui::DeleteAllUiElements()
 	uiElementList.clear();
 }
 
-void Gui::RemoveUiElement(UiElement* element) {
+void Gui::RemoveUiElement(UiElement* element) 
+{
 
 	int index = uiElementList.find(element);
 	if (index != -1) 
@@ -179,7 +180,8 @@ bool Gui::MouseClick()
 	return (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP);
 }
 
-void Gui::DraggUiElements(UiElement* parent, int dx, int dy) {
+void Gui::DraggUiElements(UiElement* parent, int dx, int dy) 
+{
 
 	//crec k falta el dragg del propi primer element
 	for (int i = 0; i < uiElementList.count(); ++i)
@@ -191,7 +193,8 @@ void Gui::DraggUiElements(UiElement* parent, int dx, int dy) {
 	}
 }
 
-UiElement* Gui::FocusNextElement(UiElement* current_element) {
+UiElement* Gui::FocusNextElement(UiElement* current_element) 
+{
 	if (current_element == nullptr) 
 	{
 		for (int i = 0; i < uiElementList.count(); ++i) 
@@ -521,7 +524,8 @@ void UiSlider::Update(int dx, int dy)
 			currentState = Button_state::unhovered;
 		//app->gui->focusedUi = nullptr;
 	}
-	if (currentState == Button_state::clicked) {
+	if (currentState == Button_state::clicked) 
+	{
 		if (parent == nullptr)
 			SetLocalPos(dx, GetLocalPos().y);
 		else
