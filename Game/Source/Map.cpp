@@ -53,10 +53,9 @@ bool Map::SLoad(const char* mapPath, const char* fileName)
 	{
 		SString layerName = layer.attribute("name").as_string();
 		SString navigation = "navigation";
-		SString entities = "Entities";
 
-		if (layerName == navigation) 
-			continue;
+		/*if (layerName == navigation) 
+			continue;*/
 		
 		pugi::xml_node layerData = layer.child("data");
 
@@ -213,7 +212,7 @@ bool Map::SLoad(const char* mapPath, const char* fileName)
 					}
 					
 					//dont render as map entiti position tiles
-					if (!SGetTileProperty(i, "Type")) {
+					if (!SGetTileProperty(i, "Type") && !SGetTileProperty(i, "navigation")) {
 						//create a tile to render and push it
 						RenderInfo renderTile;
 						renderTile.x = margin + ((tileWidth + spacing) * (tilesetId % tilesWidth));
@@ -261,7 +260,7 @@ bool Map::SLoad(const char* mapPath, const char* fileName)
 		for (int x = 0; x < width; ++x) 
 		{
 			index = y * width + x;
-			if (GetTileProperty(index, "Blocked"))
+			if (GetTileProperty(index, "navigation") == 1)
 				navigationMap[index] = (uchar)0;
 		}
 	}
