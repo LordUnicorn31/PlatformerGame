@@ -205,6 +205,30 @@ void CastleScene::UiCallback(UiElement* element)
 				optionsButton = nullptr;
 				exitButton = nullptr;
 				titleButton = nullptr;
+
+				app->gui->RemoveUiElement(optionsMenu);
+				app->gui->RemoveUiElement(backButton);
+				app->gui->RemoveUiElement(optionsText);
+				app->gui->RemoveUiElement(fxText);
+				app->gui->RemoveUiElement(musicText);
+				app->gui->RemoveUiElement(musSlider);
+				app->gui->RemoveUiElement(fxSlider);
+				app->gui->RemoveUiElement(fullScreenText);
+				app->gui->RemoveUiElement(vsyncText);
+				app->gui->RemoveUiElement(fullScreenCheck);
+				app->gui->RemoveUiElement(vsyncCheck);
+
+				optionsMenu = nullptr;
+				backButton = nullptr;
+				optionsText = nullptr;
+				fxText = nullptr;
+				musicText = nullptr;
+				musSlider = nullptr;
+				fxSlider = nullptr;
+				fullScreenText = nullptr;
+				vsyncText = nullptr;
+				fullScreenCheck = nullptr;
+				vsyncCheck = nullptr;
 				/*app->audio->PlayMusic("Resources/audio/music/game.ogg", 0.0f);*/
 
 			}
