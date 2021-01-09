@@ -332,7 +332,7 @@ bool UiElement::OutOfParent()
 
 
 
-UiImage::UiImage(int x, int y, SDL_Rect sourceRect, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementModule) :UiElement(x, y, sourceRect.w, sourceRect.h, interactuable, draggeable, useCamera, UiTypes::Image, parent, elementModule), atlasRect(sourceRect) {}
+UiImage::UiImage(int x, int y, SDL_Rect sourceRect, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementModule) :UiElement(x, y, sourceRect.w, sourceRect.h, interactuable, draggeable, useCamera, UiTypes::IMAGE, parent, elementModule), atlasRect(sourceRect) {}
 UiImage::~UiImage() {}
 
 void UiImage::Update(int dx, int dy) 
@@ -355,7 +355,7 @@ void UiImage::Draw(SDL_Texture* atlas)
 		app->render->DrawTexture(atlas, GetScreenPos().x, GetScreenPos().y, &atlasRect, 1.0f, SDL_FLIP_NONE, useCamera);
 }
 
-UiText::UiText(int x, int y, const char* text, int size, SDL_Color color, bool interactuable, bool draggeable, bool useCamera, _TTF_Font* font, UiElement* parent, Module* elementModule) : UiElement(x, y, size, size, interactuable, draggeable, useCamera, UiTypes::Text, parent, elementModule), fontType(font), message(text), color(color), texture(app->font->Print(message.GetString(), color, fontType)) {}
+UiText::UiText(int x, int y, const char* text, int size, SDL_Color color, bool interactuable, bool draggeable, bool useCamera, _TTF_Font* font, UiElement* parent, Module* elementModule) : UiElement(x, y, size, size, interactuable, draggeable, useCamera, UiTypes::TEXT, parent, elementModule), fontType(font), message(text), color(color), texture(app->font->Print(message.GetString(), color, fontType)) {}
 UiText::~UiText()
 { 
 	app->tex->UnLoad(texture); 
@@ -395,7 +395,7 @@ void UiText::ChangeColor(SDL_Color newcolor)
 	texture = app->font->Print(message.GetString(), color, fontType);
 }
 
-UiCheckBox::UiCheckBox(int x, int y, SDL_Rect uncheck, SDL_Rect check, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementModule) :UiElement(x, y, uncheck.w, uncheck.h, interactuable, draggeable, useCamera, UiTypes::CheckBox, parent, elementModule), unchecked(uncheck), checked(check), currentState(CheckBoxState::UNCHECKED) {}
+UiCheckBox::UiCheckBox(int x, int y, SDL_Rect uncheck, SDL_Rect check, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementModule) :UiElement(x, y, uncheck.w, uncheck.h, interactuable, draggeable, useCamera, UiTypes::CHECKBOX, parent, elementModule), unchecked(uncheck), checked(check), currentState(CheckBoxState::UNCHECKED) {}
 UiCheckBox::~UiCheckBox() {}
 
 void UiCheckBox::Update(int dx, int dy)
@@ -429,7 +429,7 @@ void UiCheckBox::Draw(SDL_Texture* atlas)
 }
 
 
-UiButton::UiButton(int x, int y, SDL_Rect sourceUnhover, SDL_Rect sourceHover, SDL_Rect sourceClick, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementModule) :UiElement(x, y, sourceUnhover.w, sourceUnhover.h, interactuable, draggeable, useCamera, UiTypes::Button, parent, elementModule), unhover(sourceUnhover), hover(sourceHover), click(sourceClick), currentState(Button_state::unhovered) {}
+UiButton::UiButton(int x, int y, SDL_Rect sourceUnhover, SDL_Rect sourceHover, SDL_Rect sourceClick, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementModule) :UiElement(x, y, sourceUnhover.w, sourceUnhover.h, interactuable, draggeable, useCamera, UiTypes::BUTTON, parent, elementModule), unhover(sourceUnhover), hover(sourceHover), click(sourceClick), currentState(Button_state::unhovered) {}
 UiButton::~UiButton() {}
 
 void UiButton::Update(int dx, int dy) 
@@ -475,7 +475,7 @@ void UiButton::Draw(SDL_Texture* atlas)
 	}
 }
 
-UiHUDBars::UiHUDBars(int x, int y, uint inputMaxValue, float* valueptr, bool usecamera, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule) : UiElement(x, y, bar.w, bar.h, interactuable, draggeable, usecamera, UiTypes::HUDBar, parent, elementmodule), border(border), fill(fill), fullBar(bar), value(valueptr), maxValue(inputMaxValue), currentBar(bar) {}
+UiHUDBars::UiHUDBars(int x, int y, uint inputMaxValue, float* valueptr, bool usecamera, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule) : UiElement(x, y, bar.w, bar.h, interactuable, draggeable, usecamera, UiTypes::HUDBAR, parent, elementmodule), border(border), fill(fill), fullBar(bar), value(valueptr), maxValue(inputMaxValue), currentBar(bar) {}
 
 UiHUDBars::~UiHUDBars() {}
 
@@ -493,7 +493,7 @@ void UiHUDBars::Draw(SDL_Texture* atlas)
 	app->render->DrawTexture(atlas, GetScreenPos().x + 1, GetScreenPos().y + 1, &currentBar, 1.0f, SDL_FLIP_NONE, useCamera);
 }
 
-UiSlider::UiSlider(int x, int y, int InitialValue, int maxvalue, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule) :UiElement(x, y, 168, 14, interactuable, draggeable, usecamera, UiTypes::Slider, parent, elementmodule), bar({ 1282, 560, 168, 14 }), unhovered({ 1282, 584, 20, 20 }), hovered({ 1282, 584, 20, 20 }), clicked({ 1307, 584, 20, 20 }), currentState(Button_state::unhovered), barPos(GetScreenPos()), value(InitialValue), maxValue(maxvalue) 
+UiSlider::UiSlider(int x, int y, int InitialValue, int maxvalue, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule) :UiElement(x, y, 168, 14, interactuable, draggeable, usecamera, UiTypes::SLIDER, parent, elementmodule), bar({ 1282, 560, 168, 14 }), unhovered({ 1282, 584, 20, 20 }), hovered({ 1282, 584, 20, 20 }), clicked({ 1307, 584, 20, 20 }), currentState(Button_state::unhovered), barPos(GetScreenPos()), value(InitialValue), maxValue(maxvalue) 
 {
 	int initialX = (int)(((float)value / (float)maxValue) * (float)(bar.w - clicked.w));
 	if (parent == nullptr)

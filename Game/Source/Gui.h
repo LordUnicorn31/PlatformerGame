@@ -18,13 +18,13 @@ class Entity;
 
 //TODO: Namings!!!!
 enum class UiTypes {
-	Unknown,
-	Image,
-	Text,
-	Button,
-	HUDBar,
-	Slider,
-	CheckBox
+	UNKNOWN,
+	IMAGE,
+	TEXT,
+	BUTTON,
+	HUDBAR,
+	SLIDER,
+	CHECKBOX
 };
 
 class UiElement {

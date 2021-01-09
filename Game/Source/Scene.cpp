@@ -332,7 +332,7 @@ void Scene::UiCallback(UiElement* element)
 	if (element == vsyncCheck)
 	{
 		app->audio->PlayFx(buttonFx);
-		app->render->vSync = true;
+		app->render->vSync = !app->render->vSync;
 	}
 	if (element == optionsButton) 
 	{
