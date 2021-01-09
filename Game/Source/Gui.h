@@ -21,7 +21,6 @@ enum class UiTypes {
 	Image,
 	Text,
 	Button,
-	EButton,
 	HUDBar,
 	Slider,
 	CheckBox
