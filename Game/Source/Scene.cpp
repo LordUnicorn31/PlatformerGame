@@ -132,7 +132,8 @@ bool Scene::PostUpdate()
 	}
 		
 	app->render->RenderMouse();
-	if (exitGame) {
+	if (exitGame) 
+	{
 		ret = false;
 		exitGame = false;
 	}

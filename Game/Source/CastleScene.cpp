@@ -48,6 +48,7 @@ void CastleScene::Init()
 // Called before the first frame
 bool CastleScene::Start()
 {
+	exitGame = false;
 	app->audio->PlayMusic(audioPath.GetString());
 	app->entity->Enable();
 	Map::Load(mapPath.GetString(),mapName.GetString());
@@ -126,6 +127,12 @@ bool CastleScene::PostUpdate()
 	}
 
 	app->render->RenderMouse();
+
+	if (exitGame) 
+	{
+		ret = false;
+		exitGame = false;
+	}
 
 	return ret;
 }
