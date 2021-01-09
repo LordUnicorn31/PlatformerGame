@@ -48,7 +48,6 @@ private:
 	SString mapName;
 	SString audioPath;
 	SString mapPath;
-	bool onDeath;
 
 	UiElement* pauseButton;
 	UiElement* pauseWindow;
@@ -75,6 +74,11 @@ private:
 	UiElement* playerCoins;
 	UiElement* livesText;
 	UiElement* coinsText;
+
+	UiElement* timeText;
+
+	float currentTime;
+	int totalLevelTime;
 
 	bool exitGame;
 };

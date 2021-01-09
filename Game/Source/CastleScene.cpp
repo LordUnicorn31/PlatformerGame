@@ -34,6 +34,7 @@ bool CastleScene::Awake(pugi::xml_node& config)
 	mapName.create(config.child("mapname").attribute("name").as_string());
 	audioPath.create(config.child("audio").attribute("path").as_string());
 	mapPath.create(config.child("mapfolder").attribute("name").as_string());
+	totalLevelTime = config.child("leveltime").attribute("time").as_int();
 
 	SDL_ShowCursor(SDL_DISABLE);
 	return ret;
@@ -61,6 +62,8 @@ bool CastleScene::Start()
 	ChangeCoinCounter();
 	ChangeLivesCounter();
 
+	currentTime = totalLevelTime;
+
 	return true;
 }
 
@@ -73,6 +76,23 @@ bool CastleScene::PreUpdate()
 // Called each loop iteration
 bool CastleScene::Update(float dt)
 {
+	currentTime -= dt;
+	if (currentTime <= 0)
+	{
+		currentTime = 0;
+		app->transitions->FadeToBlack(this, app->loseScene);
+	}
+	if (timeText != nullptr)
+	{
+		app->gui->RemoveUiElement(timeText);
+		timeText = nullptr;
+	}
+	if (currentTime >= 200)
+		timeText = app->gui->AddText(625, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, { 0,255,0,255 });
+	else if (currentTime <= 200 && currentTime >= 60)
+		timeText = app->gui->AddText(625, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, { 255,255,0,255 });
+	else
+		timeText = app->gui->AddText(625, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, { 255,0,0,255 });
 	if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		app->win->FullScreen();
 
@@ -170,6 +190,7 @@ bool CastleScene::CleanUp()
 	playerCoins = nullptr;
 	livesText = nullptr;
 	coinsText = nullptr;
+	timeText = nullptr;
 
 	return true;
 }

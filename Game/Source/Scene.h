@@ -8,6 +8,7 @@
 #include "Coin.h"
 #include "Chest.h"
 #include "Gui.h"
+#include "Timer.h"
 
 struct SDL_Texture;
 
@@ -79,7 +80,12 @@ private:
 	UiElement* livesText;
 	UiElement* coinsText;
 
+	UiElement* timeText;
+
 	bool exitGame;
+
+	float currentTime;
+	int totalLevelTime;
 };
 
 #endif // __SCENE_H__
