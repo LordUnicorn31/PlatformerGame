@@ -103,6 +103,28 @@ bool SceneTitle::CleanUp()
 	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
 	titleImage = nullptr;
+	newGameButton = nullptr;
+	continueButton = nullptr;
+	optionsButton = nullptr;
+	exitButton = nullptr;
+	creditButton = nullptr;
+
+	optionsMenu = nullptr;
+	backButton = nullptr;
+	sliderBarFx = nullptr;
+	sliderBarMus = nullptr;
+	musicText = nullptr;
+	fxText = nullptr;
+	optionsText = nullptr;
+	fullScreenCheck = nullptr;
+	vsyncCheck = nullptr;
+	fullScreenText = nullptr;
+	vsyncText = nullptr;
+
+	creditPanel = nullptr;
+	backCredit = nullptr;
+	creditTitle = nullptr;
+	creditsText = nullptr;
 
 
 	return true;

@@ -11,6 +11,8 @@
 #include "Audio.h"
 #include "SceneLose.h"
 #include "Player.h"
+#include "Gui.h"
+#include "SceneTitle.h"
 
 LoseScene::LoseScene() : Module()
 {
@@ -40,6 +42,8 @@ bool LoseScene::Start()
 	app->render->camera.y = 0;
 	background = app->tex->Load(texturePath.GetString());
 	app->audio->PlayMusic(audioPath.GetString());
+	buttonTitle = app->gui->AddButton((int)525.5f, 470, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
+	textTitle = app->gui->AddText(50, 22, "MAIN MENU", nullptr, buttonTitle, { 255,255,255 }, 32, false, false, false);
 
 	return true;
 }
@@ -69,7 +73,7 @@ bool LoseScene::Update(float dt)
 // Called each loop iteration
 bool LoseScene::PostUpdate()
 {
-	
+	app->render->RenderMouse();
 	bool ret = true;
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
@@ -84,6 +88,9 @@ bool LoseScene::CleanUp()
 
 	app->tex->UnLoad(background);
 	app->audio->UnloadMusic();
+	app->gui->DeleteAllUiElements();
+	buttonTitle = nullptr;
+	textTitle = nullptr;
 	return true;
 }
 
@@ -94,3 +101,10 @@ void LoseScene::Init()
 	active = true;
 }
 
+void LoseScene::UiCallback(UiElement* element)
+{
+	if (element == buttonTitle)
+	{
+		app->transitions->FadeToBlack(this, app->sceneTitle);
+	}
+}
