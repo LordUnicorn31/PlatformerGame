@@ -32,10 +32,15 @@ public:
 
 	void Init();
 
+	void UiCallback(UiElement* element);
+
 private:
 
 	SDL_Texture* background;
 	SString texturePath;
 	SString audioPath;
+
+	UiElement* buttonTitle;
+	UiElement* textTitle;
 
 };

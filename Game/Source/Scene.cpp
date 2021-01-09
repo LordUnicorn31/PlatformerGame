@@ -188,6 +188,8 @@ bool Scene::CleanUp()
 	livesText = nullptr;
 	timeText = nullptr;
 	clockImage = nullptr;
+	livesHeart = nullptr;
+	playerCoins = nullptr;
 
 	app->audio->UnloadMusic();
 	app->player->Disable();
