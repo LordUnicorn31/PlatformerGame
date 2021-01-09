@@ -400,30 +400,35 @@ void UiCheckBox::Draw(SDL_Texture* atlas)
 UiButton::UiButton(int x, int y, SDL_Rect source_unhover, SDL_Rect source_hover, SDL_Rect source_click, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementmodule) :UiElement(x, y, source_unhover.w, source_unhover.h, interactuable, draggeable, useCamera, UiTypes::Button, parent, elementmodule), unhover(source_unhover), hover(source_hover), click(source_click), currentState(Button_state::unhovered) {}
 UiButton::~UiButton() {}
 
-void UiButton::Update(int dx, int dy) {
-	if (app->gui->focusedUi == this)
-		currentState = Button_state::hovered;
-	else if (app->gui->UiUnderMouse() == this)
+void UiButton::Update(int dx, int dy) 
+{
+
+	if (app->gui->UiUnderMouse() == this)
 		currentState = Button_state::hovered;
 	else
 		currentState = Button_state::unhovered;
-	if (app->gui->MouseClick() && app->gui->focusedUi == this) {
+	if (app->gui->MouseClick() && app->gui->focusedUi == this) 
+	{
 		currentState = Button_state::clicked;
 		//app->gui->focusedUi = nullptr;
 	}
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && app->gui->focusedUi == this) {
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && app->gui->focusedUi == this) 
+	{
 		currentState = Button_state::clicked;
 		//app->gui->focusedUi = nullptr;
 	}
-	if (draggable && app->gui->MouseClick() && app->gui->UiUnderMouse() == this && dx != 0 && dy != 0) {
+	if (draggable && app->gui->MouseClick() && app->gui->UiUnderMouse() == this && dx != 0 && dy != 0) 
+	{
 		SetLocalPos(GetLocalPos().x + dx, GetLocalPos().y + dy);
 		app->gui->DraggUiElements(this, dx, dy);
 	}
 }
 
 void UiButton::Draw(SDL_Texture* atlas) {
-	if (parent == nullptr || !outofparent()) {
-		switch (currentState) {
+	if (parent == nullptr || !outofparent()) 
+	{
+		switch (currentState) 
+		{
 		case Button_state::unhovered:
 			app->render->DrawTexture(atlas, GetScreenPos().x, GetScreenPos().y, &unhover, 1.0f, SDL_FLIP_NONE, useCamera);
 			break;
@@ -441,19 +446,22 @@ UiHUDBars::UiHUDBars(int x, int y, uint MaxValue, float* valueptr, bool usecamer
 
 UiHUDBars::~UiHUDBars() {}
 
-void UiHUDBars::Update(int dx, int dy) {
+void UiHUDBars::Update(int dx, int dy) 
+{
 	currentBar.w = (int)((*value) / ((float)maxValue / (float)fullBar.w));
 	if (currentBar.w < 0)
 		currentBar.w = 0;
 }
 
-void UiHUDBars::Draw(SDL_Texture* atlas) {
+void UiHUDBars::Draw(SDL_Texture* atlas) 
+{
 	app->render->DrawTexture(atlas, GetScreenPos().x, GetScreenPos().y, &border, 1.0f, SDL_FLIP_NONE, useCamera);
 	app->render->DrawTexture(atlas, GetScreenPos().x + 1, GetScreenPos().y + 1, &fill, 1.0f, SDL_FLIP_NONE, useCamera);
 	app->render->DrawTexture(atlas, GetScreenPos().x + 1, GetScreenPos().y + 1, &currentBar, 1.0f, SDL_FLIP_NONE, useCamera);
 }
 
-UiSlider::UiSlider(int x, int y, int InitialValue, int maxvalue, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule) :UiElement(x, y, 168, 14, interactuable, draggeable, usecamera, UiTypes::Slider, parent, elementmodule), bar({ 1282, 560, 168, 14 }), unhovered({ 1282, 584, 20, 20 }), hovered({ 1282, 584, 20, 20 }), clicked({ 1307, 584, 20, 20 }), currentState(Button_state::unhovered), BarPos(GetScreenPos()), value(InitialValue), MaxValue(maxvalue) {
+UiSlider::UiSlider(int x, int y, int InitialValue, int maxvalue, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule) :UiElement(x, y, 168, 14, interactuable, draggeable, usecamera, UiTypes::Slider, parent, elementmodule), bar({ 1282, 560, 168, 14 }), unhovered({ 1282, 584, 20, 20 }), hovered({ 1282, 584, 20, 20 }), clicked({ 1307, 584, 20, 20 }), currentState(Button_state::unhovered), BarPos(GetScreenPos()), value(InitialValue), MaxValue(maxvalue) 
+{
 	int InitialX = (int)(((float)value / (float)MaxValue) * (float)(bar.w - clicked.w));
 	if (parent == nullptr)
 		SetLocalPos(BarPos.x + InitialX, GetLocalPos().y);
