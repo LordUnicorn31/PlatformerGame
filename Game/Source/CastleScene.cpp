@@ -323,7 +323,8 @@ void CastleScene::UiCallback(UiElement* element)
 			exitButton = nullptr;
 		}
 	}
-	/*if (element == fullScreen) {
+	/*if (element == fullScreen) 
+	{
 		app->audio->PlayFx(buttonFx);
 		app->win->Fullscreen();
 	}*/
@@ -332,7 +333,8 @@ void CastleScene::UiCallback(UiElement* element)
 		app->audio->PlayFx(buttonFx);
 		app->SaveGame();
 	}
-	if (element == fullScreenCheck) {
+	if (element == fullScreenCheck) 
+	{
 		app->audio->PlayFx(buttonFx);
 		app->win->FullScreen();
 	}

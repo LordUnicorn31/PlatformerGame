@@ -69,7 +69,8 @@ bool SceneTitle::Update(float dt)
 
 	app->render->DrawTexture(titleImage, 0, 0, NULL, 1.0f, SDL_FLIP_NONE, false);
 
-	if (exitGame) {
+	if (exitGame) 
+	{
 		ret = false;
 		exitGame = false;
 	}

@@ -334,7 +334,8 @@ void Scene::UiCallback(UiElement* element)
 
 		}
 	}
-	/*if (element == fullScreen) {
+	/*if (element == fullScreen) 
+	{
 		app->audio->PlayFx(buttonFx);
 		app->win->Fullscreen();
 	}*/

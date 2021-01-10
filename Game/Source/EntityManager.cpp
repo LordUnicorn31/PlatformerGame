@@ -78,15 +78,18 @@ bool EntityManager::Update(float dt)
 void EntityManager::UpdateAll(float dt, bool DoLogic) 
 {
 	ListItem<Entity*>* it = entities.start;
-	for (it; it != nullptr; it = it->next) {
+	for (it; it != nullptr; it = it->next) 
+	{
 		it->data->Update(dt);
 		if (DoLogic)
 			it->data->UpdateLogic();
 		it->data->Draw(dt);
 	}
 	/*ListItem<Entity*>* i = entities.start;
-	for (i; i != entities.end; it = it->next) {
-		if (i->data->todie) {
+	for (i; i != entities.end; it = it->next) 
+	{
+		if (i->data->todie) 
+		{
 			Entity* todestroy = i->data;
 			++i;
 			DestroyEntity(todestroy);

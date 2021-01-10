@@ -44,7 +44,8 @@ bool Gui::PreUpdate()
 	return true;
 }
 
-bool Gui::Update(float dt) {
+bool Gui::Update(float dt) 
+{
 	if (MouseClick() && UiUnderMouse() != nullptr && UiUnderMouse()->interactuable) 
 	{
 		focusedUi = UiUnderMouse();
@@ -186,7 +187,8 @@ void Gui::DraggUiElements(UiElement* parent, int dx, int dy)
 	//crec k falta el dragg del propi primer element
 	for (int i = 0; i < uiElementList.count(); ++i)
 	{
-		if (uiElementList[i]->parent == parent) {
+		if (uiElementList[i]->parent == parent) 
+		{
 			uiElementList[i]->SetLocalPos(uiElementList[i]->GetLocalPos().x + dx, uiElementList[i]->GetLocalPos().y + dy);
 			DraggUiElements(uiElementList[i], dx, dy);
 		}
@@ -268,7 +270,8 @@ UiElement* Gui::AddSlider(int x, int y, int value, int maxValue, bool interactua
 	return Slider;
 }
 
-/*UiElement* Gui::AddSlider(int x, int y, bool active, bool draggable,bool useCamera, UiElement* parent, Module* elementmodule, int sliderposition) {
+/*UiElement* Gui::AddSlider(int x, int y, bool active, bool draggable,bool useCamera, UiElement* parent, Module* elementmodule, int sliderposition) 
+{
 	UiElement* Slider = new UiSlider(x, y, active, draggable, parent, elementmodule);
 	uiElementList.push_back(Slider);
 	return Slider;

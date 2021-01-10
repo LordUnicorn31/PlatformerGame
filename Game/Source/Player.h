@@ -13,7 +13,8 @@ class Text;
 struct Collider;
 
 
-class Player : public Module{ //public Entity ??
+class Player : public Module
+{ //public Entity ??
 public:
 	Player();
 	~Player();

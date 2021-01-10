@@ -5,7 +5,8 @@
 
 #define INVALID_WALK_CODE 255
 
-class Pathfinding {
+class Pathfinding 
+{
 public:
 	Pathfinding(const Pathfinding&) = delete;
 

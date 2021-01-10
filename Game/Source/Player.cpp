@@ -767,7 +767,8 @@ void Player::Move()
 				lastcheckindex = indexright % Map::GetMapWidth() + (Map::GetMapHeight() - 1) * Map::GetMapWidth();
 					for (int i = indexright; i <= lastcheckindex; i += Map::GetMapWidth()) 
 					{//iterar les tilesets
-						if (Map::GetTileProperty(i, "Blocked")) {
+						if (Map::GetTileProperty(i, "Blocked")) 
+						{
 							//get the position of the tile
 							right.x = i % Map::GetMapWidth();
 							right.y = i / Map::GetMapWidth();
@@ -793,7 +794,8 @@ void Player::Move()
 			if (distance == 0)
 				speed.y = 0;
 		}
-		else { //just check 1 row of tiles to find obstacles
+		else 
+		{ //just check 1 row of tiles to find obstacles
 			iPoint left;
 			float distance;
 			bool movingup = speed.y < 0;
@@ -812,8 +814,10 @@ void Player::Move()
 			{ //estem anant cap a la dreta
 
 				int lastcheckindex = indexleft % Map::GetMapWidth();
-					for (int i = indexleft; i >= lastcheckindex; i -= Map::GetMapWidth()) {//iterar les tilesets
-						if (Map::GetTileProperty(i, "Blocked")) {
+					for (int i = indexleft; i >= lastcheckindex; i -= Map::GetMapWidth()) 
+					{//iterar les tilesets
+						if (Map::GetTileProperty(i, "Blocked")) 
+						{
 							//get the position of the tile
 							left.x = i % Map::GetMapWidth();
 							left.y = i / Map::GetMapWidth();

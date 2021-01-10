@@ -52,7 +52,7 @@ public:
 private:
 
 	_Mix_Music* music;
-	List<Mix_Chunk *>	fx;
+	List<Mix_Chunk *> fx;
 	int currentMusicVolume;
 	int currentFxVolume;
 };

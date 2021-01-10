@@ -17,7 +17,8 @@ enum class EntityType : unsigned char;
 class Entity;
 
 //TODO: Namings!!!!
-enum class UiTypes {
+enum class UiTypes 
+{
 	UNKNOWN,
 	IMAGE,
 	TEXT,
@@ -27,7 +28,8 @@ enum class UiTypes {
 	CHECKBOX
 };
 
-class UiElement {
+class UiElement 
+{
 public:
 	UiElement(int x, int y, int w, int h, bool interactuable, bool draggeable, bool useCamera, UiTypes uitype, UiElement* parent, Module* elementModule);
 	virtual ~UiElement();
@@ -105,7 +107,8 @@ private:
 	SString atlasPath;
 };
 
-class UiImage :public UiElement {
+class UiImage :public UiElement 
+{
 public:
 	UiImage(int x, int y, SDL_Rect sourceRect, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementModule);
 	~UiImage();
@@ -114,7 +117,8 @@ public:
 	SDL_Rect atlasRect;
 };
 
-enum class Button_state {
+enum class Button_state 
+{
 	unhovered,
 	hovered,
 	clicked
@@ -127,7 +131,8 @@ enum class CheckBoxState
 	HOVERED
 };
 
-class UiButton :public UiElement {
+class UiButton :public UiElement 
+{
 public:
 	UiButton(int x, int y, SDL_Rect sourceUnhover, SDL_Rect sourceHover, SDL_Rect sourceClick, bool interactuable, bool draggeable, bool useCamera, UiElement* parent, Module* elementModule);
 	~UiButton();
@@ -151,7 +156,8 @@ public:
 	CheckBoxState currentState;
 };
 
-class UiText :public UiElement {
+class UiText :public UiElement 
+{
 public:
 	UiText(int x, int y, const char* text, int size, SDL_Color color, bool interactuable, bool draggeable, bool useCamera, _TTF_Font* font = nullptr, UiElement* parent = nullptr, Module* elementModule = nullptr);
 	~UiText();
@@ -165,7 +171,8 @@ public:
 	void ChangeMessage(const char* newmessage);
 };
 
-class UiHUDBars : public UiElement {
+class UiHUDBars : public UiElement 
+{
 public:
 	UiHUDBars(int x, int y, uint MaxValue, float* valueptr, bool useCamera, SDL_Rect bar, SDL_Rect fill, SDL_Rect border, bool interactuable, bool draggeable, UiElement* parent, Module* elementmodule);
 	~UiHUDBars();
@@ -180,7 +187,8 @@ public:
 	bool useCamera;
 };
 
-class UiSlider : public UiElement {
+class UiSlider : public UiElement 
+{
 public:
 	UiSlider(int x, int y, int InitialValue, int maxvalue, bool interactuable, bool draggeable, bool usecamera, UiElement* parent, Module* elementmodule);
 	~UiSlider();
