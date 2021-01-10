@@ -15,7 +15,7 @@ To do so, you must pass the 2 maps the game has (The Forest and the Castle).
 ## Controls
  
  - ESC: Open options menu In-Game.
- - F: Fullscreen.
+ - F: Fullscreen. (except In-Game scenes)
  - A: Move left.
  - D: Move Right.
  - W: Climb up a rope.
