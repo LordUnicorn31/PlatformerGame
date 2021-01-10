@@ -101,4 +101,5 @@ private:
 	bool gotCoin = false;
 	Collider* playerCollider;
 	Collider* attackCollider;
+
 };
