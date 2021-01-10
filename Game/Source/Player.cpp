@@ -84,7 +84,8 @@ bool Player::Start()
 	jumpSound = app->audio->LoadFx("Assets/audio/fx/jump.wav");
 	checkpointSound = app->audio->LoadFx("Assets/audio/fx/checkpoint.wav");
 	position = initialPos;
-	playerCollider = app->collisions->AddCollider({ position.x + 2, position.y + 2, (int)width -2, (int)height }, ColliderType::COLLIDER_ALLY, this);
+	playerCollider = app->collisions->AddCollider({ position.x + 2, position.y + 2, (int)width -2, (int)height -2 }, ColliderType::COLLIDER_ALLY, this);
+	attackCollider = app->collisions->AddCollider({ position.x + 4, position.y + 10, (int)width -6, 8 }, ColliderType::COLLIDER_ATTACK, this);
 	coins = 0;
 	lives = fullLives;
 	checkPoint1 = Map::MapToWorld(checkpoint1x, checkpoint1y);
@@ -429,6 +430,7 @@ bool Player::SnapToLadder(bool onPlatform, bool down)
 				position.x = (index % Map::GetMapWidth()) * Map::GetTileWidth();
 				position.y += Map::GetTileHeight();
 				SetPlayerCollider();
+				SetAttackCollider();
 				return true;
 			}
 		}
@@ -442,6 +444,7 @@ bool Player::SnapToLadder(bool onPlatform, bool down)
 				position.x = (index % Map::GetMapWidth()) * Map::GetTileWidth();
 				position.y -= Map::GetTileHeight();
 				SetPlayerCollider();
+				SetAttackCollider();
 				return true;
 			}
 		}
@@ -489,6 +492,7 @@ void Player::MoveLadder()
 			}
 		}
 		SetPlayerCollider();
+		SetAttackCollider();
 	}
 
 	if (moving)
@@ -502,6 +506,7 @@ bool Player::Load(pugi::xml_node& playerNode)
 	position.x = playerNode.child("position").attribute("x").as_int();
 	position.y = playerNode.child("position").attribute("y").as_int();
 	SetPlayerCollider();
+	SetAttackCollider();
 	return true;
 }
 
@@ -614,6 +619,7 @@ void Player::Move()
 				flip = true;
 			}
 			SetPlayerCollider();
+			SetAttackCollider();
 			if (distance == 0)
 				speed.x = 0;
 		}
@@ -680,6 +686,7 @@ void Player::Move()
 				flip = true;
 			}
 			SetPlayerCollider();
+			SetAttackCollider();
 			if (distance == 0)
 				speed.x = 0;
 		}
@@ -778,6 +785,7 @@ void Player::Move()
 				position.y += MIN(speed.y, distance);
 			}
 			SetPlayerCollider();
+			SetAttackCollider();
 			if (distance == 0)
 				speed.y = 0;
 		}
@@ -839,6 +847,7 @@ void Player::Move()
 				position.y += MIN(speed.y, distance);
 			}
 			SetPlayerCollider();
+			SetAttackCollider();
 			if (distance == 0)
 				speed.y = 0;
 		}
@@ -850,11 +859,17 @@ void Player::Die()
 {
 	position = initialPos;
 	SetPlayerCollider();
+	SetAttackCollider();
 }
 
 void Player::SetPlayerCollider()
 {
 	playerCollider->SetPos(position.x + 2, position.y + 2);
+}
+
+void Player::SetAttackCollider()
+{
+	attackCollider->SetPos(position.x + 4, position.y + 10);
 }
 
 void Player::OnCollision(Collider* c1, Collider* c2)
@@ -872,6 +887,11 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			c2->entity->Die();
 			gotCoin = true;
 		}
+	}
+
+	if (c1->type == ColliderType::COLLIDER_ATTACK && c2->type == ColliderType::COLLIDER_ENEMY)
+	{
+		
 	}
 }
 

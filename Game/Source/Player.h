@@ -48,6 +48,7 @@ private:
 	bool Save(pugi::xml_node& playerNode) const;
 	void SetPlayerCollider();
 	void OnCollision(Collider* c1, Collider* c2) override;
+	void SetAttackCollider();
 
 	SDL_Rect textureRect;
 	SDL_Texture* texture;
@@ -99,4 +100,5 @@ private:
 	bool onEnd = false;
 	bool gotCoin = false;
 	Collider* playerCollider;
+	Collider* attackCollider;
 };
