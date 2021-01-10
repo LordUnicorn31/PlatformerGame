@@ -59,6 +59,7 @@ void Scene::Init()
 bool Scene::Start()
 {   
 	exitGame = false;
+	score = 0;
 	buttonFx = app->audio->LoadFx(buttonPath.GetString());
 	pauseButton = app->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, this, nullptr, false, true, false);
 	app->audio->PlayMusic(audioPath.GetString());
@@ -69,8 +70,10 @@ bool Scene::Start()
 
 	livesHeart = app->gui->AddImage(10, 10, { 1153,0,16,12 }, this);
 	playerCoins = app->gui->AddImage(10, 30, { 1107,0,19,18 }, this);
+	scoreT = app->gui->AddText(950, 10, "SCORE:");
 	ChangeCoinCounter();
 	ChangeLivesCounter();
+	ChangeScoreCounter();
 
 	clockImage = app->gui->AddImage(620, 10, { 1073,0,22,25 });
 	currentTime = totalLevelTime;
@@ -112,6 +115,7 @@ bool Scene::Update(float dt)
 		//PROBLEM: Don't forget save and load
 
 		//Chacking Player state
+	ChangeScoreCounter();
 	if (app->player->ImDead())
 	{
 		ChangeLivesCounter();
@@ -211,6 +215,8 @@ bool Scene::CleanUp()
 	clockImage = nullptr;
 	livesHeart = nullptr;
 	playerCoins = nullptr;
+	scoreText = nullptr;
+	scoreT = nullptr;
 
 	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
@@ -416,5 +422,14 @@ void Scene::ChangeLivesCounter()
 		app->gui->RemoveUiElement(livesText);
 
 	livesText = app->gui->AddText(30, 10, std::to_string(app->player->GetLives()).c_str());
+}
+
+void Scene::ChangeScoreCounter()
+{
+	score = currentTime + 10 * (app->player->GetCoins());
+	if (scoreText != nullptr)
+		app->gui->RemoveUiElement(scoreText);
+
+	scoreText = app->gui->AddText(1050, 10, std::to_string(score).c_str());
 }
 

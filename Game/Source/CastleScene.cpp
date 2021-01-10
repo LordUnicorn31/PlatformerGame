@@ -52,6 +52,7 @@ void CastleScene::Init()
 bool CastleScene::Start()
 {
 	exitGame = false;
+	score = 0;
 	app->audio->PlayMusic(audioPath.GetString());
 	buttonFx = app->audio->LoadFx(buttonPath.GetString());
 	app->entity->Enable();
@@ -64,9 +65,11 @@ bool CastleScene::Start()
 	playerCoins = app->gui->AddImage(10, 30, { 1107,0,19,18 }, this);
 	ChangeCoinCounter();
 	ChangeLivesCounter();
+	ChangeScoreCounter();
 
 	currentTime = totalLevelTime;
 	clockImage = app->gui->AddImage(620, 10, { 1073,0,22,25 });
+	scoreT = app->gui->AddText(950, 10, "SCORE:");
 
 	return true;
 }
@@ -115,6 +118,8 @@ bool CastleScene::Update(float dt)
 
 	if (app->player->GotCoin())
 		ChangeCoinCounter();
+
+	ChangeScoreCounter();
 
 
 	// DEBUG KEYS
@@ -208,6 +213,8 @@ bool CastleScene::CleanUp()
 	coinsText = nullptr;
 	timeText = nullptr;
 	clockImage = nullptr;
+	scoreText = nullptr;
+	scoreT = nullptr;
 
 	return true;
 }
@@ -402,5 +409,14 @@ void CastleScene::ChangeLivesCounter()
 		app->gui->RemoveUiElement(livesText);
 
 	livesText = app->gui->AddText(30, 10, std::to_string(app->player->GetLives()).c_str());
+}
+
+void CastleScene::ChangeScoreCounter()
+{
+	score = currentTime + 10 * (app->player->GetCoins());
+	if (scoreText != nullptr)
+		app->gui->RemoveUiElement(scoreText);
+
+	scoreText = app->gui->AddText(1050, 10, std::to_string(score).c_str());
 }
 

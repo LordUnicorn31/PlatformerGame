@@ -43,6 +43,7 @@ public:
 private:
 	void ChangeCoinCounter();
 	void ChangeLivesCounter();
+	void ChangeScoreCounter();
 
 private:
 	SString mapName;
@@ -77,6 +78,8 @@ private:
 	UiElement* playerCoins;
 	UiElement* livesText;
 	UiElement* coinsText;
+	UiElement* scoreText;
+	UiElement* scoreT;
 
 	UiElement* timeText;
 	UiElement* clockImage;
@@ -85,6 +88,8 @@ private:
 	int totalLevelTime;
 
 	bool exitGame;
+
+	int score;
 };
 
 #endif // __CASTLESCENE_H__
