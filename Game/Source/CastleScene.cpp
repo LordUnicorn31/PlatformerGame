@@ -228,7 +228,7 @@ void CastleScene::UiCallback(UiElement* element)
 				saveButton = app->gui->AddButton(120, 165, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
 				app->gui->AddText(80, 25, "SAVE", NULL, saveButton, { 255, 255, 255, 255 }, 32, false, false, false);
 				optionsButton = app->gui->AddButton(120, 240, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
-				app->gui->AddText(60, 25, "OPTIONS", NULL, optionsButton, { 255, 255, 255, 255 }, 32, false, false, false);
+				app->gui->AddText(50, 25, "SETTINGS", NULL, optionsButton, { 255, 255, 255, 255 }, 32, false, false, false);
 				titleButton = app->gui->AddButton(120, 315, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);
 				app->gui->AddText(50, 25, "MAIN MENU", NULL, titleButton);
 				exitButton = app->gui->AddButton(120, 390, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this, pauseWindow, false, true, false);

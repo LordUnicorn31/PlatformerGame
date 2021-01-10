@@ -44,11 +44,11 @@ bool SceneTitle::Start()
 	buttonFx = app->audio->LoadFx(buttonPath.GetString());
 
 	newGameButton = app->gui->AddButton((int)525.5f, 310, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 },this);
-	app->gui->AddText(52, 22, "NEW GAME", nullptr, newGameButton, { 255,255,255 }, 32, false, false, false);
+	app->gui->AddText(82, 22, "PLAY", nullptr, newGameButton, { 255,255,255 }, 32, false, false, false);
 	continueButton = app->gui->AddButton((int)525.5f, 390, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
 	app->gui->AddText(50, 22, "CONTINUE", nullptr, continueButton, { 255,255,255 }, 32, false, false, false);
 	optionsButton = app->gui->AddButton((int)525.5f, 470, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
-	app->gui->AddText(60, 22, "OPTIONS", nullptr, optionsButton, { 255,255,255 }, 32, false, false, false);
+	app->gui->AddText(50, 22, "SETTINGS", nullptr, optionsButton, { 255,255,255 }, 32, false, false, false);
 	exitButton = app->gui->AddButton((int)525.5f, 550, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
 	app->gui->AddText(80, 22, "EXIT", nullptr, exitButton, { 255,255,255 }, 32, false, false, false);
 	creditButton = app->gui->AddButton((int)525.5f, 630, { 642,169,229,69 }, { 0,113,229,69 }, { 411,169,229,69 }, this);
