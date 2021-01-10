@@ -80,6 +80,9 @@ private:
 	int checkpoint2y;
 	int checkpoint3x;
 	int checkpoint3y;
+	iPoint checkPoint1;
+	iPoint checkPoint2;
+	iPoint checkPoint3;
 
 	bool checkPoint = true;
 	

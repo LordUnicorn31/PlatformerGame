@@ -96,7 +96,7 @@ bool Collisions::Update(float dt)
 
 void Collisions::DebugDraw()
 {
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		debug = !debug;
 
 	if (debug == false) 

@@ -44,6 +44,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	buttonPath.create(config.child("button").attribute("path").as_string());
 	totalLevelTime = config.child("leveltime").attribute("time").as_int();
 
+
 	SDL_ShowCursor(SDL_DISABLE);
 	return ret;
 }
@@ -88,18 +89,18 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 	currentTime -= dt;
-	if(currentTime <= 0)
+	if (currentTime <= 0)
 	{
 		currentTime = 0;
 		app->transitions->FadeToBlack(this, app->loseScene);
 	}
-	if (timeText != nullptr) 
+	if (timeText != nullptr)
 	{
 		app->gui->RemoveUiElement(timeText);
 		timeText = nullptr;
 	}
-	if(currentTime >= 200)
-		timeText = app->gui->AddText(645, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, {0,255,0,255});
+	if (currentTime >= 200)
+		timeText = app->gui->AddText(645, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, { 0,255,0,255 });
 	else if (currentTime <= 200 && currentTime >= 60)
 		timeText = app->gui->AddText(645, 15, std::to_string((int)currentTime).c_str(), nullptr, nullptr, { 255,255,0,255 });
 	else
@@ -108,17 +109,13 @@ bool Scene::Update(float dt)
 	/*if (app->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 		app->win->FullScreen();*/
 
-	//PROBLEM: Don't forget save and load
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		app->LoadGame();
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		app->SaveGame();
+		//PROBLEM: Don't forget save and load
 
-	//Chacking Player state
-	if (app->player->ImDead()) 
+		//Chacking Player state
+	if (app->player->ImDead())
 	{
 		ChangeLivesCounter();
-		if(app->player->GetLives() <= 0)
+		if (app->player->GetLives() <= 0)
 			app->transitions->FadeToBlack(this, app->loseScene);
 	}
 	if (app->player->Finished())
@@ -133,15 +130,31 @@ bool Scene::Update(float dt)
 		app->player->Die();
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		app->transitions->FadeToBlack(this, app->castleScene);
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	{
+		app->player->Die();
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	{
+		app->SaveGame();
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	{ 
+		app->LoadGame();
+	}
+	
+
+	/*if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 	{
 		app->transitions->FadeToBlack(this, app->sceneWin);
-	}
+	}*/
 
 	Map::Draw();
 	return true;

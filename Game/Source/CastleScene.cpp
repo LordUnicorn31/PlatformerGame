@@ -102,10 +102,6 @@ bool CastleScene::Update(float dt)
 		app->win->FullScreen();*/
 
 	//PROBLEM: Don't forget save and load
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		app->LoadGame();
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		app->SaveGame();
 
 	Map::Draw();
 	if (app->player->ImDead())
@@ -131,9 +127,23 @@ bool CastleScene::Update(float dt)
 		app->transitions->FadeToBlack(this, app->scene);
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		app->player->Die();
+	}
+
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 	{
 		app->player->Die();
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+	{ 
+		app->SaveGame();
+	}
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	{ 
+		app->LoadGame();
 	}
 	return true;
 }

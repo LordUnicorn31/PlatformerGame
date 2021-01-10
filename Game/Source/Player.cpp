@@ -87,6 +87,9 @@ bool Player::Start()
 	playerCollider = app->collisions->AddCollider({ position.x + 2, position.y + 2, (int)width -2, (int)height }, ColliderType::COLLIDER_ALLY, this);
 	coins = 0;
 	lives = fullLives;
+	checkPoint1 = Map::MapToWorld(checkpoint1x, checkpoint1y);
+	checkPoint2 = Map::MapToWorld(checkpoint2x, checkpoint2y);
+	checkPoint3 = Map::MapToWorld(checkpoint3x, checkpoint3y);
 	
 	return true;
 }
@@ -242,27 +245,23 @@ bool Player::Update(float dt)
 	//DEBUG Checkpoints map 1.
 	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
 	{
-		iPoint checkpoint1 = Map::MapToWorld(checkpoint1x, checkpoint1y);
 
-		position = checkpoint1;
-		SetPlayerCollider();
+		if (position.x < checkPoint1.x || position.x > checkPoint3.x)
+		{
+			position = checkPoint1;
+		}
+
+		if (position.x > checkPoint1.x && position.x < checkPoint2.x)
+		{
+			position = checkPoint2;
+		}
+
+		if (position.x > checkPoint2.x && position.x < checkPoint3.x)
+		{
+			position = checkPoint3;
+		}
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
-	{
-		iPoint checkpoint2 = Map::MapToWorld(checkpoint2x, checkpoint2y);
-
-		position = checkpoint2;
-		SetPlayerCollider();
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-	{
-		iPoint checkpoint3 = Map::MapToWorld(checkpoint3x, checkpoint3y);
-
-		position = checkpoint3;
-		SetPlayerCollider();
-	}
 
 	
 	Draw(dt);

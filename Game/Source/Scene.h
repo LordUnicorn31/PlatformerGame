@@ -90,6 +90,7 @@ private:
 
 	float currentTime;
 	int totalLevelTime;
+
 };
 
 #endif // __SCENE_H__
