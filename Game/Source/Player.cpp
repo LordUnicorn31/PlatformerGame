@@ -67,6 +67,9 @@ bool Player::Awake(pugi::xml_node& playerNode)
 	checkpoint2y = int(playerNode.child("checkpointpos2y").attribute("y").as_int());
 	checkpoint3x = int(playerNode.child("checkpointpos3x").attribute("x").as_int());
 	checkpoint3y = int(playerNode.child("checkpointpos3y").attribute("y").as_int());
+	coinPath.create(playerNode.child_value("coin"));
+	jumpPath.create(playerNode.child_value("jump"));
+	checkpointPath.create(playerNode.child_value("checkpoint"));
 	return true;
 }
 
@@ -81,8 +84,9 @@ bool Player::Start()
 {
 
 	texture = app->tex->Load(texturePath.GetString());
-	jumpSound = app->audio->LoadFx("Assets/audio/fx/jump.wav");
-	checkpointSound = app->audio->LoadFx("Assets/audio/fx/checkpoint.wav");
+	jumpSound = app->audio->LoadFx(jumpPath.GetString());
+	checkpointSound = app->audio->LoadFx(checkpointPath.GetString());
+	coinSound = app->audio->LoadFx(coinPath.GetString());
 	position = initialPos;
 	playerCollider = app->collisions->AddCollider({ position.x + 2, position.y + 2, (int)width -2, (int)height -2 }, ColliderType::COLLIDER_ALLY, this);
 	attackCollider = app->collisions->AddCollider({ position.x + 3, position.y + 10, (int)width -4, 10 }, ColliderType::COLLIDER_ATTACK, this);
@@ -893,6 +897,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 	{
 		if (c2->entity != nullptr) 
 		{
+			app->audio->PlayFx(coinSound);
 			c2->entity->Die();
 			gotCoin = true;
 			++coins;

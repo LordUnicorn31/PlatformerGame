@@ -19,6 +19,9 @@
   </window>
   <player>
     <texture>Assets/Textures/entities.png</texture>
+    <jump>Assets/Audio/Fx/jump.wav</jump>
+    <coin>Assets/Audio/Fx/coin.wav</coin>
+    <checkpoint>Assets/Audio/Fx/checkpoint.wav</checkpoint>
     <position x="20" y="2720"/>
     <checkpointpos1x x="32"/>
     <checkpointpos1y y="194"/>

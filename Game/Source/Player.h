@@ -66,8 +66,15 @@ private:
 	float jumpSpeed;
 	bool onLadder;
 	float ladderSpeed;
+
 	SString texturePath;
 	SString coinTextPath;
+	SString coinPath;
+	SString jumpPath;
+	SString checkpointPath;
+
+	int coinSound;
+
 	float acumulatedMs;
 	float updateMsCycle;
 	bool doLogic;
