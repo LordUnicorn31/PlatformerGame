@@ -2,8 +2,6 @@
 #include "Entity.h"
 #include "Animation.h"
 
-enum class WanderEnemyStates : unsigned char;
-
 class WanderEnemy : public Dynamic
 {
 public:
@@ -25,7 +23,6 @@ private:
 	Animations moveAnimation;
 	Animations deathAnimation;
 	Animations* currentAnimation = nullptr;
-	WanderEnemyStates currentState;
 	int radius;
 
 };

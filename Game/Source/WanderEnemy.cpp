@@ -6,21 +6,12 @@
 #include "EntityManager.h"
 #include "Collisions.h"
 
-enum class WanderEnemyStates : unsigned char
-{
-	NONE,
-	MOVE,
-	WANDER,
-	DIE,
-};
-
 WanderEnemy::WanderEnemy(iPoint pos) : Dynamic(EntityType::WANDER_ENEMY, pos)
 {
-	maxSpeed = 1.9f;
+	maxSpeed = 1.0f;
 	a = 0.8f;
 	terminalSpeed = 0.0f;
 	initialPosition = pos;
-	currentState = WanderEnemyStates::NONE;
 	radius = 160;
 	idleAnimation.PushBack({ 0, 96, 16, 16 });
 	moveAnimation.PushBack({ 16, 96, 16, 16 });
@@ -35,27 +26,7 @@ WanderEnemy::~WanderEnemy(){}
 
 void WanderEnemy::Update(float dt)
 {
-
-	switch (currentState)
-	{
-	case WanderEnemyStates::NONE:
-		currentAnimation = &idleAnimation;
-
-		if (CheckRadius(app->player->GetPosition()))
-		{
-			currentState = WanderEnemyStates::MOVE;
-		}
-
-	case WanderEnemyStates::MOVE:
-		currentAnimation = &moveAnimation;
-		
-		if (!CheckRadius(app->player->GetPosition()))
-		{
-			currentState = WanderEnemyStates::NONE;
-		}
-	}
-
-	//Draw(dt);
+	currentAnimation = &moveAnimation;
 }
 
 void WanderEnemy::Draw(float dt)
@@ -70,18 +41,10 @@ void WanderEnemy::Draw(float dt)
 
 void WanderEnemy::UpdateLogic()
 {
-	if (currentState == WanderEnemyStates::MOVE)
-	{
-		iPoint mapPos = Map::WorldToMap(pos.x, pos.y);
-		if (Map::GetTileProperty((mapPos.y * Map::GetMapWidth() + mapPos.x), "Swap"))
-		{ 
-			maxSpeed = 0;
-			
-		}
-
-		Move();
-
-	}
+	iPoint mapPos = Map::WorldToMap(pos.x, pos.y);
+	if (Map::GetTileProperty((mapPos.y * Map::GetMapWidth() + mapPos.x), "Swap"))
+		maxSpeed = -maxSpeed;
+	Move();
 }
 
 void WanderEnemy::Move()
