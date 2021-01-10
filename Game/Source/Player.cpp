@@ -85,7 +85,7 @@ bool Player::Start()
 	checkpointSound = app->audio->LoadFx("Assets/audio/fx/checkpoint.wav");
 	position = initialPos;
 	playerCollider = app->collisions->AddCollider({ position.x + 2, position.y + 2, (int)width -2, (int)height -2 }, ColliderType::COLLIDER_ALLY, this);
-	attackCollider = app->collisions->AddCollider({ position.x + 4, position.y + 10, (int)width -6, 8 }, ColliderType::COLLIDER_ATTACK, this);
+	attackCollider = app->collisions->AddCollider({ position.x + 3, position.y + 10, (int)width -4, 10 }, ColliderType::COLLIDER_ATTACK, this);
 	coins = 0;
 	lives = fullLives;
 	checkPoint1 = Map::MapToWorld(checkpoint1x, checkpoint1y);
@@ -869,7 +869,7 @@ void Player::SetPlayerCollider()
 
 void Player::SetAttackCollider()
 {
-	attackCollider->SetPos(position.x + 4, position.y + 10);
+	attackCollider->SetPos(position.x + 3, position.y + 10);
 }
 
 void Player::OnCollision(Collider* c1, Collider* c2)
