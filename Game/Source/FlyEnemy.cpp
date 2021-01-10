@@ -210,13 +210,13 @@ bool FlyEnemy::ReachedTile()
 void FlyEnemy::Draw(float dt)
 {
 	app->render->DrawTexture(this->sprite, pos.x, pos.y, &currentAnimation->GetCurrentFrame(dt), 1.0f);
-	if (inRadius(app->player->GetPosition())) 
+	/*if (inRadius(app->player->GetPosition())) 
 	{
 		for (int i = 0; i != path.Count(); ++i) 
 		{
 			app->render->DrawRectangle({ path[i].x * 16,path[i].y * 16,16,16 }, 255, 0, 0, 127, true);
 		}
-	}
+	}*/
 }
 
 void FlyEnemy::UpdateLogic()
