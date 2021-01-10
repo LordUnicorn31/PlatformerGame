@@ -33,7 +33,7 @@
   <scene>
     <mapname name="forest.tmx"/>
     <audio path ="Assets/Audio/Music/forest_music.ogg"/>
-    <button path ="Assets/Audio/fx/button.wav"/>
+    <button path ="Assets/Audio/Fx/button.wav"/>
     <mapfolder name = "Assets/Maps/" />
     <leveltime time ="303" />
   </scene>
@@ -43,7 +43,7 @@
   <castleScene>
     <mapname name="castle.tmx"/>
     <audio path ="Assets/Audio/Music/castle_music.ogg"/>
-    <button path ="Assets/Audio/fx/button.wav"/>
+    <button path ="Assets/Audio/Fx/button.wav"/>
     <mapfolder name ="Assets/Maps/" />
     <leveltime time ="303" />
   </castleScene>
@@ -53,17 +53,17 @@
   <sceneTitle>
     <texture path="Assets/Textures/title_image.png"/>
     <audio path ="Assets/Audio/Music/menu_music.ogg"/>
-    <button path ="Assets/Audio/fx/button.wav"/>
+    <button path ="Assets/Audio/Fx/button.wav"/>
   </sceneTitle>
   <sceneLose>
     <texture path="Assets/Textures/lose_image.png"/>
     <audio path="Assets/Audio/Music/lose_music.ogg"/>
-    <button path="Assets/Audio/fx/button.wav"/>
+    <button path="Assets/Audio/Fx/button.wav"/>
   </sceneLose>
   <sceneWin>
     <texture path="Assets/Textures/win_image.png"/>
     <audio path="Assets/Audio/Music/victory_music.ogg"/>
-    <button path="Assets/Audio/fx/button.wav"/>
+    <button path="Assets/Audio/Fx/button.wav"/>
   </sceneWin>
 
 </config>
