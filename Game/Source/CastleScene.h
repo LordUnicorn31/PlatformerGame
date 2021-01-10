@@ -53,36 +53,36 @@ private:
 	
 	uint buttonFx;
 
-	UiElement* pauseButton;
-	UiElement* pauseWindow;
-	UiElement* continueButton;
-	UiElement* saveButton;
-	UiElement* titleButton;
-	UiElement* optionsButton;
-	UiElement* exitButton;
+	UiElement* pauseButton = nullptr;
+	UiElement* pauseWindow = nullptr;
+	UiElement* continueButton = nullptr;
+	UiElement* saveButton = nullptr;
+	UiElement* titleButton = nullptr;
+	UiElement* optionsButton = nullptr;
+	UiElement* exitButton = nullptr;
 
-	UiElement* optionsMenu;
-	UiElement* backButton;
-	UiElement* musSlider;
-	UiElement* fxSlider;
+	UiElement* optionsMenu = nullptr;
+	UiElement* backButton = nullptr;
+	UiElement* musSlider = nullptr;
+	UiElement* fxSlider = nullptr;
 
-	UiElement* optionsText;
-	UiElement* fxText;
-	UiElement* musicText;
-	UiElement* fullScreenCheck;
-	UiElement* vsyncCheck;
-	UiElement* fullScreenText;
-	UiElement* vsyncText;
+	UiElement* optionsText = nullptr;
+	UiElement* fxText = nullptr;
+	UiElement* musicText = nullptr;
+	UiElement* fullScreenCheck = nullptr;
+	UiElement* vsyncCheck = nullptr;
+	UiElement* fullScreenText = nullptr;
+	UiElement* vsyncText = nullptr;
 
-	UiElement* livesHeart;
-	UiElement* playerCoins;
-	UiElement* livesText;
-	UiElement* coinsText;
-	UiElement* scoreText;
-	UiElement* scoreT;
+	UiElement* livesHeart = nullptr;
+	UiElement* playerCoins = nullptr;
+	UiElement* livesText = nullptr;
+	UiElement* coinsText = nullptr;
+	UiElement* scoreText = nullptr;
+	UiElement* scoreT = nullptr;
 
-	UiElement* timeText;
-	UiElement* clockImage;
+	UiElement* timeText = nullptr;
+	UiElement* clockImage = nullptr;
 
 	float currentTime;
 	int totalLevelTime;

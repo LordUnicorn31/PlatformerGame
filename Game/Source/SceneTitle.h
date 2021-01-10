@@ -44,27 +44,27 @@ private:
 	SString buttonPath;
 	uint buttonFx;
 
-	UiElement* newGameButton;
-	UiElement* continueButton;
-	UiElement* optionsButton;
-	UiElement* exitButton;
-	UiElement* creditButton;
+	UiElement* newGameButton = nullptr;
+	UiElement* continueButton = nullptr;
+	UiElement* optionsButton = nullptr;
+	UiElement* exitButton = nullptr;
+	UiElement* creditButton = nullptr;
 
-	UiElement* optionsMenu;
-	UiElement* backButton;
-	UiElement* sliderBarFx;
-	UiElement* sliderBarMus;
-	UiElement* musicText;
-	UiElement* fxText;
-	UiElement* optionsText;
-	UiElement* fullScreenCheck;
-	UiElement* vsyncCheck;
-	UiElement* fullScreenText;
-	UiElement* vsyncText;
+	UiElement* optionsMenu = nullptr;
+	UiElement* backButton = nullptr;
+	UiElement* sliderBarFx = nullptr;
+	UiElement* sliderBarMus = nullptr;
+	UiElement* musicText = nullptr;
+	UiElement* fxText = nullptr;
+	UiElement* optionsText = nullptr;
+	UiElement* fullScreenCheck = nullptr;
+	UiElement* vsyncCheck = nullptr;
+	UiElement* fullScreenText = nullptr;
+	UiElement* vsyncText = nullptr;
 
-	UiElement* creditPanel;
-	UiElement* backCredit;
-	UiElement* creditTitle;
-	UiElement* creditsText;
+	UiElement* creditPanel = nullptr;
+	UiElement* backCredit = nullptr;
+	UiElement* creditTitle = nullptr;
+	UiElement* creditsText = nullptr;
 
 };

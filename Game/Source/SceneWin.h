@@ -43,7 +43,7 @@ private:
 
 	uint buttonFx;
 
-	UiElement* buttonTitle;
-	UiElement* textTitle;
+	UiElement* buttonTitle = nullptr;
+	UiElement* textTitle = nullptr;
 
 };
