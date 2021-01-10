@@ -4,6 +4,7 @@
 
 Castle night is a 2D platformer with a very classic style.
 You are Elyes, a skin-changer and your goal is to defeat the evil force ruling in the Alain Castle.
+To do so, you must pass the 2 maps the game has (The Forest and the Castle).
 
 ## Key Features
 
@@ -13,7 +14,7 @@ You are Elyes, a skin-changer and your goal is to defeat the evil force ruling i
  
 ## Controls
  
- - ESC: Quit game.
+ - ESC: Open options menu In-Game.
  - F: Fullscreen.
  - A: Move left.
  - D: Move Right.
@@ -24,12 +25,12 @@ You are Elyes, a skin-changer and your goal is to defeat the evil force ruling i
   ### Debug Keys
   
  - F1: Restart first level / Get back to the first level.
- - F3: Restart second level / Get back to the second level.
+ - F2: Restart second level / Get back to the second level.
+ - F3: Restart current level.
  - F5: Save the game.
  - F6: Load the game.
- - F7: Teleport to checkpoint 1.
- - F8: Teleport to checkpoint 2.
- - F9: Teleport to checkpoint 3.
+ - F7: Teleport through checkpoints (Move a bit to the right before moving to the next checkpoint)
+ - F9: Show colliders.
 
 ## Developers
 
