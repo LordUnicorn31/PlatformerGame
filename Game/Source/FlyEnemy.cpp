@@ -249,5 +249,10 @@ void FlyEnemy::Move()
 
 void FlyEnemy::Die()
 {
-
+	if (entityCollider != nullptr)
+	{
+		entityCollider->toDelete = true;
+		entityCollider = nullptr;
+		toDie = true;
+	}
 }

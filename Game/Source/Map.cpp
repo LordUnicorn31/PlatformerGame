@@ -174,9 +174,6 @@ bool Map::SLoad(const char* mapPath, const char* fileName)
 					Property current;
 					SString name = nodeProperties.attribute("name").as_string();
 
-					if (name == SString("Type"))
-						LOG("A");
-
 					temp.property.name = name;
 
 					temp.property.value = nodeProperties.attribute("value").as_int();

@@ -874,7 +874,16 @@ void Player::SetAttackCollider()
 
 void Player::OnCollision(Collider* c1, Collider* c2)
 {
-	if (c2->type == ColliderType::COLLIDER_ENEMY) 
+	static bool kill = false;
+	if (c1->type == ColliderType::COLLIDER_ATTACK && c2->type == ColliderType::COLLIDER_ENEMY)
+	{
+		if (c2->entity != nullptr)
+		{
+			c2->entity->Die();
+			kill = true;
+		}
+	}
+	if (c2->type == ColliderType::COLLIDER_ENEMY && !kill) 
 	{
 		app->LoadGame();
 		--lives;
@@ -886,13 +895,10 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		{
 			c2->entity->Die();
 			gotCoin = true;
+			++coins;
 		}
 	}
-
-	if (c1->type == ColliderType::COLLIDER_ATTACK && c2->type == ColliderType::COLLIDER_ENEMY)
-	{
-		
-	}
+	kill = false;
 }
 
 int Player::GetLives()

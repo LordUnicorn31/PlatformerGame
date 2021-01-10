@@ -26,6 +26,7 @@ public:
 	int height;
 	SDL_Texture* sprite;
 	Collider* entityCollider;
+	bool toDie;
 	
 public:
 	virtual void Draw(float dt);

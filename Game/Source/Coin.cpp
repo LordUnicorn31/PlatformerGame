@@ -16,7 +16,7 @@ Coin::Coin(iPoint pos) : Static(EntityType::COIN, pos)
 Coin::~Coin() 
 {
 	if (entityCollider != nullptr)
-		delete entityCollider;
+		entityCollider->toDelete = true;
 }
 
 void Coin::Update(float dt)
@@ -32,9 +32,12 @@ void Coin::UpdateLogic()
 
 void Coin::Die()
 {
-	/*delete entityCollider;
-	entityCollider = nullptr;*/
-	//toDie = true;
+	if (entityCollider != nullptr) 
+	{
+		entityCollider->toDelete = true;
+		entityCollider = nullptr;
+		toDie = true;
+	}
 }
 
 void Coin::Draw(float dt)

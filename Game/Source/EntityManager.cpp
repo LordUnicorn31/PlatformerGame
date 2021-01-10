@@ -57,7 +57,12 @@ bool EntityManager::Update(float dt)
 
 	if (accumulatedTime >= updateMsCycle) 
 		doLogic = true;
-
+	ListItem<Entity*>* it = entities.start;
+	for (it; it != nullptr; it = it->next) 
+	{
+		if (it->data->toDie) 
+			entities.del(it);
+	}
 	UpdateAll(dt, doLogic);
 
 	if (doLogic == true)

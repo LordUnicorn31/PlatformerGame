@@ -96,7 +96,12 @@ void WanderEnemy::Move()
 
 void WanderEnemy::Die()
 {
-
+	if (entityCollider != nullptr)
+	{
+		entityCollider->toDelete = true;
+		entityCollider = nullptr;
+		toDie = true;
+	}
 }
 
 bool WanderEnemy::Limits()

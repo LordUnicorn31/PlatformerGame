@@ -67,5 +67,10 @@ void PatrolEnemy::Move()
 
 void PatrolEnemy::Die()
 {
-
+	if (entityCollider != nullptr)
+	{
+		entityCollider->toDelete = true;
+		entityCollider = nullptr;
+		toDie = true;
+	}
 }
