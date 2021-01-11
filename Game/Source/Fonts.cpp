@@ -47,6 +47,11 @@ bool Fonts::Awake(pugi::xml_node& conf)
 bool Fonts::CleanUp()
 {
 	LOG("Freeing True Type fonts and library");
+	for (int i = 0; i < fonts.count(); ++i) 
+	{
+		delete fonts[i];
+		fonts[i] = nullptr;
+	}
 	fonts.clear();
 
 	TTF_Quit();

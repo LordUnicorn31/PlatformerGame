@@ -43,7 +43,7 @@ Collisions::~Collisions()
 
 void Collisions::Init() 
 {
-	enabled = false;
+	enabled = true;
 	active = true;
 }
 

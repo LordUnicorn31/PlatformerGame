@@ -32,6 +32,7 @@ public:
 	bool ImDead() const;
 	bool Finished() const;
 	bool GotCoin() const;
+	void RemoveColliders();
 
 private:
 	void Draw(float dt);

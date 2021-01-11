@@ -59,7 +59,7 @@ bool CastleScene::Start()
 	Map::Load(mapPath.GetString(),mapName.GetString());
 	app->player->Enable();
 	pauseButton = app->gui->AddButton(1200, 10, { 755, 527, 39,39 }, { 871, 736, 39,39 }, { 755, 527, 39,39 }, this, nullptr, false, true, false);
-	app->collisions->Enable();
+	//app->collisions->Enable();
 
 	livesHeart = app->gui->AddImage(10, 10, { 1153,0,16,12 }, this);
 	playerCoins = app->gui->AddImage(10, 30, { 1107,0,19,18 }, this);
@@ -184,9 +184,10 @@ bool CastleScene::CleanUp()
 	Map::UnLoad();
 	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
+	app->player->RemoveColliders();
 	app->player->Disable();
 	app->entity->Disable();
-	app->collisions->Disable();
+	//app->collisions->Disable();
 	app->gui->DeleteAllUiElements();
 
 	pauseButton = nullptr;

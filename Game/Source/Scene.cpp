@@ -66,7 +66,7 @@ bool Scene::Start()
 	app->entity->Enable();
 	Map::Load(mapPath.GetString(),mapName.GetString());
 	app->player->Enable();
-	app->collisions->Enable();
+	//app->collisions->Enable();
 
 	livesHeart = app->gui->AddImage(10, 10, { 1153,0,16,12 }, this);
 	playerCoins = app->gui->AddImage(10, 30, { 1107,0,19,18 }, this);
@@ -220,9 +220,10 @@ bool Scene::CleanUp()
 
 	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
+	//app->collisions->Disable();
+	app->player->RemoveColliders();
 	app->player->Disable();
 	app->entity->Disable();
-	app->collisions->Disable();
 	Map::UnLoad();
 	return true;
 }

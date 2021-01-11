@@ -15,6 +15,7 @@
 #include "PatrolEnemy.h"
 #include "Coin.h"
 #include "Chest.h"
+#include "Collisions.h"
 
 EntityManager::EntityManager()  
 {
@@ -102,6 +103,15 @@ void EntityManager::UpdateAll(float dt, bool DoLogic)
 bool EntityManager::CleanUp() 
 {
 	//Dlete all entities
+	for (int i = 0; i < entities.count(); ++i) {
+		if (entities[i]->entityCollider != nullptr) 
+		{
+			entities[i]->entityCollider->toDelete = true;
+			entities[i]->entityCollider = nullptr;
+		}
+		delete entities[i];
+		entities[i] = nullptr;
+	}
 	entities.clear();
 
 	//Unload the entity texture

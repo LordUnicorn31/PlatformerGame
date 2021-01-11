@@ -278,8 +278,11 @@ bool Player::CleanUp()
 	app->tex->UnLoad(texture);
 	app->audio->UnloadMusic();
 	app->audio->UnloadFx();
-	/*delete playerCollider;
-	playerCollider = nullptr;*/
+	/*if (playerCollider != nullptr) 
+	{
+		playerCollider->toDelete = true;
+		playerCollider = nullptr;
+	}*/
 
 	return true;
 }
@@ -878,6 +881,20 @@ void Player::SetPlayerCollider()
 void Player::SetAttackCollider()
 {
 	attackCollider->SetPos(position.x + 3, position.y + 10);
+}
+
+void Player::RemoveColliders()
+{
+	if (playerCollider != nullptr)
+	{
+		playerCollider->toDelete = true;
+		playerCollider = nullptr;
+	}
+	if (attackCollider != nullptr)
+	{
+		attackCollider->toDelete = true;
+		attackCollider = nullptr;
+	}
 }
 
 void Player::OnCollision(Collider* c1, Collider* c2)
