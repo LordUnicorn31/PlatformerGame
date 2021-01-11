@@ -49,8 +49,11 @@ bool Fonts::CleanUp()
 	LOG("Freeing True Type fonts and library");
 	for (int i = 0; i < fonts.count(); ++i) 
 	{
-		delete fonts[i];
-		fonts[i] = nullptr;
+		if (fonts[i] != nullptr) 
+		{
+			TTF_CloseFont(fonts[i]);
+			fonts[i] = nullptr;
+		}
 	}
 	fonts.clear();
 
