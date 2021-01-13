@@ -931,6 +931,7 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 		if (c2->entity != nullptr)
 		{
 			c2->entity->Die();
+			CheckPowerUp();
 		}
 	}
 	kill = false;
@@ -959,4 +960,17 @@ bool Player::Finished() const
 bool Player::GotCoin() const
 {
 	return gotCoin;
+}
+
+void Player::CheckPowerUp()
+{
+	int randNumber = rand() % 2;
+
+	switch (randNumber)
+	{
+	case 1:
+		break;
+	case 2:
+		break;
+	}
 }

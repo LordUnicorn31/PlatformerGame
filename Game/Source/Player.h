@@ -51,6 +51,7 @@ private:
 	void SetPlayerCollider();
 	void OnCollision(Collider* c1, Collider* c2) override;
 	void SetAttackCollider();
+	void CheckPowerUp();
 
 	SDL_Rect textureRect;
 	SDL_Texture* texture;
