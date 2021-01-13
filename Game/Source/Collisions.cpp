@@ -20,21 +20,31 @@ Collisions::Collisions()
 	matrix[COLLIDER_ALLY][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_ALLY][COLLIDER_COLLECTIBLE] = true;
 	matrix[COLLIDER_ALLY][COLLIDER_ATTACK] = false;
+	matrix[COLLIDER_ALLY][COLLIDER_CHEST] = true;
 
 	matrix[COLLIDER_ENEMY][COLLIDER_ALLY] = true;
 	matrix[COLLIDER_ENEMY][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_COLLECTIBLE] = false;
 	matrix[COLLIDER_ENEMY][COLLIDER_ATTACK] = true;
+	matrix[COLLIDER_ENEMY][COLLIDER_CHEST] = false;
 
 	matrix[COLLIDER_COLLECTIBLE][COLLIDER_ALLY] = true;
 	matrix[COLLIDER_COLLECTIBLE][COLLIDER_ENEMY] = false;
 	matrix[COLLIDER_COLLECTIBLE][COLLIDER_COLLECTIBLE] = false;
 	matrix[COLLIDER_COLLECTIBLE][COLLIDER_ATTACK] = true;
+	matrix[COLLIDER_COLLECTIBLE][COLLIDER_CHEST] = false;
 
 	matrix[COLLIDER_ATTACK][COLLIDER_ALLY] = false;
 	matrix[COLLIDER_ATTACK][COLLIDER_ENEMY] = true;
 	matrix[COLLIDER_ATTACK][COLLIDER_COLLECTIBLE] = true;
 	matrix[COLLIDER_ATTACK][COLLIDER_ATTACK] = false;
+	matrix[COLLIDER_ATTACK][COLLIDER_CHEST] = false;
+
+	matrix[COLLIDER_CHEST][COLLIDER_ALLY] = true;
+	matrix[COLLIDER_CHEST][COLLIDER_ENEMY] = false;
+	matrix[COLLIDER_CHEST][COLLIDER_COLLECTIBLE] = false;
+	matrix[COLLIDER_CHEST][COLLIDER_ATTACK] = false;
+	matrix[COLLIDER_CHEST][COLLIDER_CHEST] = false;
 }
 
 // Destructor
@@ -131,6 +141,9 @@ void Collisions::DebugDraw()
 				break;
 			case COLLIDER_ATTACK: //purple
 				app->render->DrawRectangle(colliders[i]->rect, 255, 0, 255, alpha);
+				break;
+			case COLLIDER_CHEST:
+				app->render->DrawRectangle(colliders[i]->rect, 0, 255, 255, alpha);
 				break;
 			}
 		}

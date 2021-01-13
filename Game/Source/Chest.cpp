@@ -3,7 +3,11 @@
 #include "Render.h"
 #include "Map.h"
 #include "Player.h"
+#include "Collisions.h"
 #include "Input.h"
+#include "EntityManager.h"
+#include "Entity.h"
+
 
 Chest::Chest(iPoint pos) : Static(EntityType::CHEST, pos)
 {
@@ -11,14 +15,14 @@ Chest::Chest(iPoint pos) : Static(EntityType::CHEST, pos)
 
 	idleChest.PushBack({ 0, 691, 16, 12 });
 	openChest.PushBack({ 0, 704, 16, 12 });
+	entityCollider = app->collisions->AddCollider({ pos.x, pos.y, 16, 16 }, ColliderType::COLLIDER_CHEST, app->entity, this);
+	currentAnimation = &idleChest;
 }
 
 Chest::~Chest() {};
 
 void Chest::Update(float dt)
 {
-	ChestState();
-
 	Draw(dt);
 }
 
@@ -29,18 +33,19 @@ void Chest::UpdateLogic()
 
 void Chest::Draw(float dt)
 {
+
 	app->render->DrawTexture(this->sprite, pos.x, pos.y, &currentAnimation->GetCurrentFrame(dt), 1.0f);
+	
 }
 
-void Chest::ChestState()
+void Chest::Die()
 {
-	if (pos == app->player->GetPosition() && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+	currentAnimation = &openChest;
+	if (entityCollider != nullptr)
 	{
-		// The chest is open
-		currentAnimation = &openChest;
+		entityCollider->toDelete = true;
+		entityCollider = nullptr;
 	}
 
-	//The chest is closed
-
-	else currentAnimation = &idleChest;
 }
+

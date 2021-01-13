@@ -10,11 +10,13 @@ public:
 	void Update(float dt) override;
 	void Draw(float dt)override;
 	void UpdateLogic()override;
+	void Die() override;
 private:
 
-	void ChestState();
+	bool IsOpen();
 	Animations idleChest;
 	Animations openChest;
 	Animations* currentAnimation = nullptr;
 	iPoint initialPosition;
+	bool open = false;
 };

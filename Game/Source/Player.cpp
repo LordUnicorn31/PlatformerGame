@@ -10,6 +10,7 @@
 #include "Animation.h"
 #include "Window.h"
 #include "Collisions.h"
+#include "Chest.h"
 
 #ifdef OPTICKPROFILE
 #include "optick.h"
@@ -922,6 +923,14 @@ void Player::OnCollision(Collider* c1, Collider* c2)
 			c2->entity->Die();
 			gotCoin = true;
 			++coins;
+		}
+	}
+
+	if (c2->type == ColliderType::COLLIDER_CHEST && app->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN)
+	{
+		if (c2->entity != nullptr)
+		{
+			c2->entity->Die();
 		}
 	}
 	kill = false;
