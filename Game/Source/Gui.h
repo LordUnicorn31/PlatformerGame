@@ -85,7 +85,7 @@ public:
 	void UpdateUi();
 	void DrawUi();
 	//If the ui has a parent the x,y will be the local coordenates respect the parent
-	UiElement* AddImage(int x, int y, SDL_Rect source_rect, Module* elementModule = nullptr, UiElement* parent = nullptr, bool useCamera = false, bool interactuable = true, bool draggeable = false);
+	UiElement* AddImage(int x, int y, SDL_Rect sourceRect, Module* elementModule = nullptr, UiElement* parent = nullptr, bool useCamera = false, bool interactuable = true, bool draggeable = false);
 	//If the ui has a parent the x,y will be the local coordenates respect the parent
 	UiElement* AddText(int x, int y, const char* text, _TTF_Font* font = nullptr, UiElement* parent = nullptr, SDL_Color color = { 255, 255, 255, 255 }, int size = 12, bool useCamera = false, bool interactuable = false, bool draggeable = false, Module* elementModule = nullptr);
 	//If the ui has a parent the x,y will be the local coordenates respect the parent
@@ -119,9 +119,9 @@ public:
 
 enum class Button_state 
 {
-	unhovered,
-	hovered,
-	clicked
+	UNHOVERED,
+	HOVERED,
+	CLICKED
 };
 
 enum class CheckBoxState
