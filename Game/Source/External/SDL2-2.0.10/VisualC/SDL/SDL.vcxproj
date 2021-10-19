@@ -120,16 +120,16 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\SDL2_image.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Png\libpng16.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Zlib\zlib1.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\SDL2_mixer.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libogg\libogg.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbis\libvorbis.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbisfile\libvorbisfile-3.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\SDL2_ttf.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\freetype.dll $(SolutionDir)Output /s /y</Command>
+      <Command>Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\SDL2_image.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Png\libpng16.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Zlib\zlib1.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\SDL2_mixer.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libogg\libogg.dll $(SolutionDir)Output /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbis\libvorbis.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbisfile\libvorbisfile-3.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\SDL2_ttf.dll" "$(SolutionDir)Output /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\freetype.dll" "$(SolutionDir)Output" /s /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -203,16 +203,16 @@ Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\fre
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
     </Link>
     <PostBuildEvent>
-      <Command>Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\SDL2_image.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Png\libpng16.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Zlib\zlib1.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\SDL2_mixer.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libogg\libogg.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbis\libvorbis.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbisfile\libvorbisfile-3.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\SDL2_ttf.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\freetype.dll $(SolutionDir)Output /s /y</Command>
+      <Command>Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\SDL2_image.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Png\libpng16.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Zlib\zlib1.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\SDL2_mixer.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libogg\libogg.dll $(SolutionDir)Output /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbis\libvorbis.dll $(SolutionDir)Output /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbisfile\libvorbisfile-3.dll $(SolutionDir)Output /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\SDL2_ttf.dll $(SolutionDir)Output /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\freetype.dll $(SolutionDir)Output /s /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

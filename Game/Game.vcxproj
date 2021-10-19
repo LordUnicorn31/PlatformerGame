@@ -68,17 +68,17 @@
       <AdditionalLibraryDirectories>$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL_Main;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf;$(SolutionDir)Game\Source\External\OptickProfiler</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\SDL2_image.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\SDL2_mixer.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\SDL2_ttf.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\PNG\libpng16d.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Zlib\zlib1d.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libogg\llibogg.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbis\llibvorbis.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbisfile\libvorbisfile.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\freetype.dll $(SolutionDir)Output /s /y</Command>
+      <Command>Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\SDL2_image.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\SDL2_mixer.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\SDL2_ttf.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\PNG\libpng16d.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Zlib\zlib1d.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libogg\llibogg.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbis\llibvorbis.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbisfile\libvorbisfile.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\freetype.dll" "$(SolutionDir)Output" /s /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -101,18 +101,18 @@ Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\fre
       <AdditionalLibraryDirectories>$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL_Main;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image;$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf;$(SolutionDir)Game\Source\External\OptickProfiler</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\SDL2_image.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\SDL2_mixer.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\SDL2_ttf.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\PNG\libpng16.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Zlib\zlib1.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libogg\llibogg.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbis\llibvorbis.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbisfile\libvorbisfile.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\freetype.dll $(SolutionDir)Output /s /y
-Xcopy $(SolutionDir)Build\$(Configuration)\Bin\Game.exe $(SolutionDir)Output /s /y</Command>
+      <Command>Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\SDL2_image.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\SDL2_mixer.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\SDL2_ttf.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL\SDL2.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\PNG\libpng16.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Image\External\Zlib\zlib1.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libogg\llibogg.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbis\llibvorbis.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_Mixer\External\Libvorbisfile\libvorbisfile.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\lib\SDL_ttf\External\Freetype\freetype.dll" "$(SolutionDir)Output" /s /y
+Xcopy "$(SolutionDir)Build\$(Configuration)\Bin\Game.exe" "$(SolutionDir)Output" /s /y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
